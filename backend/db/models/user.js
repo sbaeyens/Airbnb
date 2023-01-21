@@ -2,7 +2,6 @@
 const bcrypt = require("bcryptjs");
 const { Model, Validator } = require("sequelize");
 
-
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     //define instance methods
@@ -43,6 +42,21 @@ module.exports = (sequelize, DataTypes) => {
     }
     static associate(models) {
       // define association here
+      User.hasMany(models.Spot, {
+        foreignKey: "ownerId",
+        // onDelete: "CASCADE",
+        // hooks: true,
+      });
+      User.belongsToMany(models.Spot, {
+        through: models.Booking,
+        foreignKey: "userId",
+        otherKey: "spotId",
+      });
+      User.belongsToMany(models.Spot, {
+        through: models.Review,
+        foreignKey: "userId",
+        otherKey: "spotId",
+      });
     }
   }
   User.init(
