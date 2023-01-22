@@ -20,12 +20,12 @@ module.exports = {
         {
           reviewId: 1,
           url: "www.picture2review1.com",
-          preview: true,
+          preview: false,
         },
         {
           reviewId: 1,
           url: "www.picture3review1.com",
-          preview: true,
+          preview: false,
         },
         {
           reviewId: 2,
@@ -35,12 +35,12 @@ module.exports = {
         {
           reviewId: 2,
           url: "www.picture2review2.com",
-          preview: true,
+          preview: false,
         },
         {
           reviewId: 2,
           url: "www.picture3review2.com",
-          preview: true,
+          preview: false,
         },
         {
           reviewId: 3,
@@ -53,11 +53,16 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    options.tableName = "ReviewImages";
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete(
+      options,
+      {
+        preview: {
+          [Op.in]: [true, false],
+        },
+      },
+      {}
+    );
   },
 };

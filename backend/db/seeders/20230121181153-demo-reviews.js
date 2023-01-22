@@ -34,8 +34,7 @@ module.exports = {
         {
           spotId: 2,
           userId: 1,
-          review:
-            "Not as close as advertised in the listing",
+          review: "Not as close as advertised in the listing",
           stars: 3,
         },
       ],
@@ -44,11 +43,16 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    options.tableName = "Reviews";
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete(
+      options,
+      {
+        stars: {
+          [Op.in]: [1,2,3,4,5],
+        },
+      },
+      {}
+    );
   },
 };

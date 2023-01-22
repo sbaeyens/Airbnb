@@ -20,12 +20,12 @@ module.exports = {
         {
           spotId: 1,
           url: "www.picture2spot1.com",
-          preview: true,
+          preview: false,
         },
         {
           spotId: 1,
           url: "www.picture3spot1.com",
-          preview: true,
+          preview: false,
         },
         {
           spotId: 2,
@@ -35,12 +35,12 @@ module.exports = {
         {
           spotId: 2,
           url: "www.picture2spot2.com",
-          preview: true,
+          preview: false,
         },
         {
           spotId: 2,
           url: "www.picture3spot2.com",
-          preview: true,
+          preview: false,
         },
       ],
       {}
@@ -48,11 +48,16 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    options.tableName = "SpotImages";
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete(
+      options,
+      {
+        preview: {
+          [Op.in]: [true, false],
+        },
+      },
+      {}
+    );
   },
 };

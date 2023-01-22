@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === "production") {
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     options.tableName = "Spots";
     return queryInterface.bulkInsert(
       options,
@@ -23,7 +23,7 @@ module.exports = {
           name: "Apartment Near Disneyland",
           description:
             "This is a sample description of what this building will be like",
-          price: 100.00,
+          price: 100.0,
         },
         {
           ownerId: 2,
@@ -36,19 +36,24 @@ module.exports = {
           name: "House Near The Strip",
           description:
             "Come party at this Vegas house. Here are some details about the house.",
-          price: 250.00,
+          price: 250.0,
         },
       ],
       {}
     );
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+  async down(queryInterface, Sequelize) {
+    options.tableName = "Spots";
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete(
+      options,
+      {
+        country: {
+          [Op.in]: ["United States of America"],
+        },
+      },
+      {}
+    );
+  },
 };
