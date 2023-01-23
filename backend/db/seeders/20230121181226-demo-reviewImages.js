@@ -15,37 +15,34 @@ module.exports = {
         {
           reviewId: 1,
           url: "www.picture1review1.com",
-          preview: true,
         },
         {
           reviewId: 1,
           url: "www.picture2review1.com",
-          preview: false,
+
         },
         {
           reviewId: 1,
           url: "www.picture3review1.com",
-          preview: false,
+
         },
         {
           reviewId: 2,
           url: "www.picture1review2.com",
-          preview: true,
         },
         {
           reviewId: 2,
           url: "www.picture2review2.com",
-          preview: false,
+
         },
         {
           reviewId: 2,
           url: "www.picture3review2.com",
-          preview: false,
+
         },
         {
           reviewId: 3,
           url: "www.picture3review3.com",
-          preview: true,
         },
       ],
       {}
