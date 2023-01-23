@@ -10,6 +10,16 @@ router.use("/session", sessionRouter);
 
 router.use("/users", usersRouter);
 
+router.use("/spots", spotsRouter);
+
+router.use("/bookings", bookingsRouter);
+
+router.use("/reviews", reviewsRouter);
+
+router.use("/spotImages", spotImagesRouter)
+
+router.use("/reviewImages", reviewImagesRouter);
+
 
 // router.post('/test', function(req, res) {
 //   res.json({ requestBody: req.body });
