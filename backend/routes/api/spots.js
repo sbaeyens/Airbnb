@@ -24,9 +24,16 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
       return res.json({ message: "Must be owner of Spot to post image" });
   }
 
-  console.log(newSpotImg)
+  let spotImg = newSpotImg.toJSON()
+  console.log(spotImg)
 
-  res.json(newSpotImg)
+
+  delete spotImg.updatedAt
+  delete spotImg.createdAt;
+  delete spotImg.spotId;
+
+
+  res.json(spotImg)
 
 })
 
