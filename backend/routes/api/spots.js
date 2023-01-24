@@ -5,12 +5,7 @@ const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { Spot, User, SpotImage, Review, sequelize} = require("../../db/models");
 const { Op } = require("sequelize");
 
-router.post('/:spotId/images', requireAuth, async (req, res) => {
-  let newSpotImg = await SpotImage.create({
-    spotId: req.params.spotId,
-    ...req.body,
-  });
-
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
   //throws error if spotId doesnt exist
   let spot = await Spot.findByPk(req.params.spotId)
   if (!spot) {
@@ -18,6 +13,12 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     err.status = 404;
     return next(err);
   }
+
+  let newSpotImg = await SpotImage.create({
+    spotId: req.params.spotId,
+    ...req.body,
+  });
+
 
   //spot must belong to current user
   let ownerIdObj = await Spot.findByPk(req.params.spotId, {
@@ -45,7 +46,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 
 })
 
-router.get('/:spotId', async (req, res) => {
+router.get('/:spotId', async (req, res, next) => {
   let spot = await Spot.findByPk(req.params.spotId, {
     include: [
       {
@@ -60,7 +61,7 @@ router.get('/:spotId', async (req, res) => {
   });
 
   if (!spot) {
-    err.message = new Error("Spot couldn't be found")
+    const err = new Error("Spot couldn't be found")
     err.statusCode = 404
     next(err)
   }
@@ -124,6 +125,7 @@ router.get('/', async (req, res) => {
 
 //error handler - maybe delete and include in each endpoint
 router.use((err, req, res, next) => {
+  console.log(err);
   res.status = err.statusCode || 500;
   res.send({
     error: err.message,
