@@ -5,6 +5,9 @@ const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { Spot, User, Review, sequelize} = require("../../db/models");
 const { Op } = require("sequelize");
 
+
+router.post('/')
+
 router.get('/', async (req, res) => {
 
   let allSpots = await Spot.findAll()

@@ -53,11 +53,7 @@ module.exports = {
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(
       options,
-      {
-        startDate: {
-          [Op.startsWith]: ['20%'],
-        },
-      },
+      null,
       {}
     );
   },
