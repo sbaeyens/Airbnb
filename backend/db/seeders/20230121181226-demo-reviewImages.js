@@ -54,11 +54,7 @@ module.exports = {
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(
       options,
-      {
-        preview: {
-          [Op.in]: [true, false],
-        },
-      },
+      null,
       {}
     );
   },
