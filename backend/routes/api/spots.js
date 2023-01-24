@@ -60,9 +60,9 @@ router.get('/:spotId', async (req, res) => {
   });
 
   if (!spot) {
-    const err = new Error("Spot couldn't be found")
-    err.status = 404
-    return next(err)
+    err.message = new Error("Spot couldn't be found")
+    err.statusCode = 404
+    next(err)
   }
 
   const numReviews = await Review.count({
@@ -124,8 +124,10 @@ router.get('/', async (req, res) => {
 
 //error handler - maybe delete and include in each endpoint
 router.use((err, req, res, next) => {
-  res.status = err.status || 500;
-  return res.json({ message: err.message });
+  res.status = err.statusCode || 500;
+  res.send({
+    error: err.message,
+  });
 });
 
 module.exports = router;
