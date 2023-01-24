@@ -5,6 +5,31 @@ const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { Spot, User, SpotImage, Review, sequelize} = require("../../db/models");
 const { Op } = require("sequelize");
 
+router.post('/:spotId/images', requireAuth, async (req, res) => {
+  let newSpotImg = await SpotImage.create({
+    spotId: req.params.spotId,
+    ...req.body,
+  });
+
+  //spot must belong to current user
+  let ownerIdObj = await Spot.findByPk(req.params.spotId, {
+    attributes: ["ownerId"]
+  })
+
+  let ownerIdNum = ownerIdObj.toJSON().ownerId;
+
+  console.log(ownerIdNum)
+  if (ownerIdNum !== req.user.id) {
+      res.status(404);
+      return res.json({ message: "Must be owner of Spot to post image" });
+  }
+
+  // console.log(newSpotImg)
+
+  res.json(newSpotImg)
+
+})
+
 router.get('/:spotId', async (req, res) => {
   let spot = await Spot.findByPk(req.params.spotId, {
     include: [
