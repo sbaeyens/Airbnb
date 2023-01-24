@@ -6,34 +6,18 @@ const { Spot, User, Review, sequelize} = require("../../db/models");
 const { Op } = require("sequelize");
 
 router.get('/', async (req, res) => {
-    let spots = await Spot.findAll({
-        //// NOT WORKING: get avg reviews
 
-    include: { model: Review},
-      attributes: [
-        'ownerId',
-      'address',
-      'city',
-      'state',
-      'country',
-      'lat',
-      'lng',
-      'name',
-      'description',
-      'price',
-      'createdAt',
-      'updatedAt',
-          [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating",]
-    ],
-    //   attributes: {exclude: ['Reviews']}
-    });
+  let allSpots = await Spot.findAll()
 
-    // spots.forEach(spot => {
-    //     delete spots.Reviews
-    // })
-    console.log("test")
+  //WIP add avgReview to each spot in allSpots data
+  let avgReview = await Spot.findAll({
 
-    res.json(spots)
+  include: { model: Review},
+    attributes: [[sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating",]
+  ],
+  });
+
+    res.json(allSpots)
 })
 
 module.exports = router;
