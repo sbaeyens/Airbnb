@@ -11,6 +11,14 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     ...req.body,
   });
 
+  //throws error if spotId doesnt exist
+  let spot = await Spot.findByPk(req.params.spotId)
+  if (!spot) {
+    const err = new Error("Spot couldn't be found");
+    err.status = 404;
+    return next(err);
+  }
+
   //spot must belong to current user
   let ownerIdObj = await Spot.findByPk(req.params.spotId, {
     attributes: ["ownerId"]
