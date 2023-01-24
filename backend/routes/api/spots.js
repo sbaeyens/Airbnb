@@ -20,11 +20,11 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 
   console.log(ownerIdNum)
   if (ownerIdNum !== req.user.id) {
-      res.status(404);
+      res.status(400);
       return res.json({ message: "Must be owner of Spot to post image" });
   }
 
-  // console.log(newSpotImg)
+  console.log(newSpotImg)
 
   res.json(newSpotImg)
 
@@ -61,7 +61,7 @@ router.get('/:spotId', async (req, res) => {
     attributes: [[sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating",]]
   })
 
-  // console.log(avgStarRating)
+  // console.log(starRating)
 
   let reviewJson = starRating.toJSON()
   console.log(reviewJson)
@@ -109,8 +109,8 @@ router.get('/', async (req, res) => {
 
 //error handler - maybe delete and include in each endpoint
 router.use((err, req, res, next) => {
-  res.status(404);
-  return res.json({ message: "generic message" });
+  res.status = err.status || 500;
+  return res.json({ message: err.message });
 });
 
 module.exports = router;
