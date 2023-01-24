@@ -25,9 +25,32 @@ router.get('/:spotId', async (req, res) => {
     return next(err)
   }
 
-  console.log(spot)
+  const numReviews = await Review.count({
+   where: { spotId: spot.id }
+  })
 
-  res.json(spot)
+  console.log(numReviews)
+
+  const starRating = await Review.findOne({
+    where: { spotId: spot.id },
+    attributes: [[sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating",]]
+  })
+
+  // console.log(avgStarRating)
+
+  let reviewJson = starRating.toJSON()
+  console.log(reviewJson)
+
+  let newSpot = spot.toJSON()
+
+  newSpot.numReviews = numReviews
+  newSpot.avgStarRating = reviewJson.avgStarRating
+
+
+  console.log(newSpot.numReviews, newSpot.avgStarRating)
+
+  console.log(newSpot)
+  res.json(newSpot)
 
 })
 
