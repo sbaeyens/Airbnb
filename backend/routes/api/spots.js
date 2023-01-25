@@ -121,6 +121,53 @@ router.get('/:spotId/reviews', async (req, res) => {
     res.json(finalReviews)
 })
 
+router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
+  let spot = await Spot.findByPk(req.params.spotId);
+  if (!spot) {
+    const err = new Error("Spot couldn't be found");
+    err.status = 404;
+    return next(err);
+  }
+
+  const { review, stars } = req.body
+
+  if (!review) {
+    const err = new Error("Review text is required");
+    err.status = 400;
+    return next(err);
+  }
+
+  if (stars < 1 || stars > 5) {
+    const err = new Error("Stars must be an integer from 1 to 5");
+    err.status = 400;
+    return next(err);
+  }
+
+  //check if user already has a review for this spot
+  let reviewsOnSpot = await Review.findOne({
+    where: {
+      spotId: req.params.spotId,
+      userId: req.user.id
+    }
+  })
+
+  if (reviewsOnSpot) {
+    const err = new Error("User already has a review for this spot");
+    err.status = 403;
+    return next(err);
+  }
+
+  let spotIdNum = Number(req.params.spotId)
+  let newReview = await Review.create({
+    spotId: spotIdNum,
+    userId: req.user.id,
+    ...req.body,
+  });
+
+  res.json(newReview)
+
+})
+
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
   //throws error if spotId doesnt exist
   let spot = await Spot.findByPk(req.params.spotId)
