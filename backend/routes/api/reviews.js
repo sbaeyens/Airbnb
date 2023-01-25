@@ -27,30 +27,26 @@ router.get('/current', requireAuth, async (req, res) => {
         {
           model: Spot,
           attributes: {
-            exclude: [
-              "username",
-              "hashedPassword",
-              "email",
-              "createdAt",
-              "updatedAt",
-            ],
+            exclude: ["description", "createdAt", "updatedAt"],
           },
         },
-        { model: ReviewImage },
+        {
+          model: ReviewImage,
+          attributes: {
+            exclude: ["reviewId", "createdAt", "updatedAt"],
+          },
+        },
       ],
       where: { userId: req.user.id },
       attributes: { exclude: ["userId"] },
     });
 
 
-    //remove properties from response object that we don't want returned
-
 
     res.json(reviews)
 
 })
 
-//// Create a Review for a Spot based on the Spot's id
 
 
 
