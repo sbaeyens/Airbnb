@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { Spot, User, SpotImage, Review, sequelize} = require("../../db/models");
+const { Spot, User, SpotImage, Review, ReviewImage, sequelize} = require("../../db/models");
 const { Op } = require("sequelize");
 
 router.get('/current', requireAuth, async (req, res, next) => {
@@ -71,6 +71,56 @@ router.get('/current', requireAuth, async (req, res, next) => {
   res.json(spots)
 })
 
+
+//// Get all Reviews by Spot's id
+router.get('/:spotId/reviews', async (req, res) => {
+    let spot = await Spot.findByPk(req.params.spotId)
+  if (!spot) {
+    const err = new Error("Spot couldn't be found");
+    err.status = 404;
+    return next(err);
+  }
+
+
+  let reviewsArr = await Review.findAll({
+    where: { spotId: req.params.spotId },
+    include: [
+      {
+        model: User,
+        attributes: {
+          exclude: [
+            "username",
+            "hashedPassword",
+            "email",
+            "createdAt",
+            "updatedAt",
+          ],
+        },
+      },
+      {
+        model: ReviewImage,
+        attributes: {
+          exclude: ["reviewId", "createdAt", "updatedAt"],
+          },
+        },
+      ],
+    });
+
+    let finalArr = []
+
+  reviewsArr.forEach(rev => {
+    let review = rev.toJSON()
+    finalArr.push(review)
+  })
+  // let reviews = reviewsPromise.toJSON()
+  // console.log(reviews)
+
+  finalReviews = {}
+  finalReviews.Reviews = finalArr
+
+    res.json(finalReviews)
+})
+
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
   //throws error if spotId doesnt exist
   let spot = await Spot.findByPk(req.params.spotId)
@@ -118,7 +168,8 @@ router.put('/:spotId', async (req, res, next) => {
   //if spot id doesn't exist throw error
   if (!spot) {
         const err = new Error("Spot couldn't be found");
-        err.statusCode = 404;
+    err.statusCode = 404;
+
         next(err);
   }
 
@@ -263,7 +314,7 @@ router.get('/', async (req, res) => {
 //error handler - maybe delete and include in each endpoint
 router.use((err, req, res, next) => {
   console.log(err);
-  res.status = err.statusCode || 500;
+  res.status(err.statusCode || 500)
   res.send({
     error: err.message,
   });

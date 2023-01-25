@@ -42,14 +42,11 @@ router.get('/current', requireAuth, async (req, res) => {
     });
 
 
-    //remove properties from response object that we don't want returned
-
 
     res.json(reviews)
 
 })
 
-//// Create a Review for a Spot based on the Spot's id
 
 
 
