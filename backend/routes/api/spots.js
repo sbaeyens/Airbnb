@@ -10,18 +10,20 @@ router.get('/current', requireAuth, async (req, res, next) => {
     where: {ownerId: req.user.id}
   })
   let spotsList = []
+  let previewImgArr = []
 
   yourSpots.forEach(spot => {
     let spotObj = spot.toJSON()
-    console.log(spotObj)
+    // console.log(spotObj)
 
     spotsList.push(spotObj)
 
   });
 
+  //for loop to add avg rating to each spot
   for (let i = 0; i < spotsList.length; i++) {
     let spotId = spotsList[i]['id']
-    console.log(spotId)
+    // console.log(spotId)
     const starRating = await Review.findOne({
       where: { spotId: spotId },
       attributes: [
@@ -30,31 +32,41 @@ router.get('/current', requireAuth, async (req, res, next) => {
     });
 
      let reviewJson = starRating.toJSON();
-     console.log(reviewJson);
+    //  console.log(reviewJson);
 
      spotsList[i].avgRating = reviewJson.avgStarRating;
   }
 
+  //for loop to add preview Image to each spot
+  for (let i = 0; i < spotsList.length; i++) {
+    let spotId = spotsList[i]["id"];
+    // console.log(spotId);
+    const spotImg = await SpotImage.findOne({
+      where: {
+        spotId: spotId,
+        preview: true
+      },
+      attributes: [
+        'url', 'preview'
+      ],
+    });
+
+    if (!spotImg) spotsList[i].previewImage = "no preview image set"
+
+    if (spotImg) {
+      let previewImg = spotImg.toJSON();
+      spotsList[i].previewImage = previewImg.url;
+    }
+
+
+  }
+
+
+
+
   let spots = {}
   spots.Spots = spotsList
-  console.log(spotsList)
-  ///CODE FROM OTHER ROUTE - ADAPT TO USE IN FOR LOOP
-  // const starRating = await Review.findOne({
-  //   where: { spotId: spot.id },
-  //   attributes: [
-  //     [sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"],
-  //   ],
-  // });
-
-  // // console.log(starRating)
-
-  // let reviewJson = starRating.toJSON();
-  // console.log(reviewJson);
-
-  // let newSpot = spot.toJSON();
-
-  // newSpot.numReviews = numReviews;
-  // newSpot.avgStarRating = reviewJson.avgStarRating;
+  // console.log(spotsList)
 
   res.json(spots)
 })
