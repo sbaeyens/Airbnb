@@ -5,11 +5,86 @@ const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { Spot, User, SpotImage, Review, sequelize} = require("../../db/models");
 const { Op } = require("sequelize");
 
-router.post('/:spotId/images', requireAuth, async (req, res) => {
+router.get('/current', requireAuth, async (req, res, next) => {
+  let yourSpots = await Spot.findAll({
+    where: {ownerId: req.user.id}
+  })
+  let spotsList = []
+  let previewImgArr = []
+
+  yourSpots.forEach(spot => {
+    let spotObj = spot.toJSON()
+    // console.log(spotObj)
+
+    spotsList.push(spotObj)
+
+  });
+
+  //for loop to add avg rating to each spot
+  for (let i = 0; i < spotsList.length; i++) {
+    let spotId = spotsList[i]['id']
+    // console.log(spotId)
+    const starRating = await Review.findOne({
+      where: { spotId: spotId },
+      attributes: [
+        [sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"],
+      ],
+    });
+
+     let reviewJson = starRating.toJSON();
+    //  console.log(reviewJson);
+
+     spotsList[i].avgRating = reviewJson.avgStarRating;
+  }
+
+  //for loop to add preview Image to each spot
+  for (let i = 0; i < spotsList.length; i++) {
+    let spotId = spotsList[i]["id"];
+    // console.log(spotId);
+    const spotImg = await SpotImage.findOne({
+      where: {
+        spotId: spotId,
+        preview: true
+      },
+      attributes: [
+        'url', 'preview'
+      ],
+    });
+
+    if (!spotImg) spotsList[i].previewImage = "no preview image set"
+
+    if (spotImg) {
+      let previewImg = spotImg.toJSON();
+      spotsList[i].previewImage = previewImg.url;
+    }
+
+
+  }
+
+
+
+
+  let spots = {}
+  spots.Spots = spotsList
+  // console.log(spotsList)
+
+  res.json(spots)
+})
+
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
+  //throws error if spotId doesnt exist
+  let spot = await Spot.findByPk(req.params.spotId)
+  if (!spot) {
+    const err = new Error("Spot couldn't be found");
+    err.status = 404;
+    return next(err);
+  }
+
   let newSpotImg = await SpotImage.create({
     spotId: req.params.spotId,
     ...req.body,
   });
+
 
   //spot must belong to current user
   let ownerIdObj = await Spot.findByPk(req.params.spotId, {
@@ -37,7 +112,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 
 })
 
-router.get('/:spotId', async (req, res) => {
+router.get('/:spotId', async (req, res, next) => {
   let spot = await Spot.findByPk(req.params.spotId, {
     include: [
       {
@@ -53,8 +128,8 @@ router.get('/:spotId', async (req, res) => {
 
   if (!spot) {
     const err = new Error("Spot couldn't be found")
-    err.status = 404
-    return next(err)
+    err.statusCode = 404
+    next(err)
   }
 
   const numReviews = await Review.count({
@@ -116,8 +191,11 @@ router.get('/', async (req, res) => {
 
 //error handler - maybe delete and include in each endpoint
 router.use((err, req, res, next) => {
-  res.status = err.status || 500;
-  return res.json({ message: err.message });
+  console.log(err);
+  res.status = err.statusCode || 500;
+  res.send({
+    error: err.message,
+  });
 });
 
 module.exports = router;
