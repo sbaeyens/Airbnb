@@ -5,6 +5,60 @@ const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { Spot, User, SpotImage, Review, sequelize} = require("../../db/models");
 const { Op } = require("sequelize");
 
+router.get('/current', requireAuth, async (req, res, next) => {
+  let yourSpots = await Spot.findAll({
+    where: {ownerId: req.user.id}
+  })
+  let spotsList = []
+
+  yourSpots.forEach(spot => {
+    let spotObj = spot.toJSON()
+    console.log(spotObj)
+
+    spotsList.push(spotObj)
+
+  });
+
+  for (let i = 0; i < spotsList.length; i++) {
+    let spotId = spotsList[i]['id']
+    console.log(spotId)
+    const starRating = await Review.findOne({
+      where: { spotId: spotId },
+      attributes: [
+        [sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"],
+      ],
+    });
+
+     let reviewJson = starRating.toJSON();
+     console.log(reviewJson);
+
+     spotsList[i].avgRating = reviewJson.avgStarRating;
+  }
+
+  let spots = {}
+  spots.Spots = spotsList
+  console.log(spotsList)
+  ///CODE FROM OTHER ROUTE - ADAPT TO USE IN FOR LOOP
+  // const starRating = await Review.findOne({
+  //   where: { spotId: spot.id },
+  //   attributes: [
+  //     [sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"],
+  //   ],
+  // });
+
+  // // console.log(starRating)
+
+  // let reviewJson = starRating.toJSON();
+  // console.log(reviewJson);
+
+  // let newSpot = spot.toJSON();
+
+  // newSpot.numReviews = numReviews;
+  // newSpot.avgStarRating = reviewJson.avgStarRating;
+
+  res.json(spots)
+})
+
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
   //throws error if spotId doesnt exist
   let spot = await Spot.findByPk(req.params.spotId)
