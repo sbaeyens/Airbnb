@@ -112,6 +112,46 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
 })
 
+router.put('/:spotId', async (req, res, next) => {
+  let spot = await Spot.findByPk(req.params.spotId)
+
+  //if spot id doesn't exist throw error
+  if (!spot) {
+        const err = new Error("Spot couldn't be found");
+        err.statusCode = 404;
+        next(err);
+  }
+
+  //Must be owner of spot in order to update spot
+  let ownerIdObj = await Spot.findByPk(req.params.spotId, {
+    attributes: ["ownerId"],
+  });
+
+  let ownerIdNum = ownerIdObj.toJSON().ownerId;
+
+  console.log(ownerIdNum);
+  if (ownerIdNum !== req.user.id) {
+    res.status(400);
+    return res.json({ message: "Must be owner of Spot to post image" });
+  }
+
+
+  await spot.update({ ...req.body })
+
+  let finalSpot = spot.toJSON()
+
+  delete finalSpot.updatedAt
+  delete finalSpot.createdAt;
+  delete finalSpot.id;
+  delete finalSpot.ownerId;
+
+  console.log(finalSpot)
+
+
+  return res.json(finalSpot)
+
+})
+
 router.get('/:spotId', async (req, res, next) => {
   let spot = await Spot.findByPk(req.params.spotId, {
     include: [
