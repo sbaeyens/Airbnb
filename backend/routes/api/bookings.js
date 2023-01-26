@@ -46,6 +46,47 @@ router.get('/current', requireAuth, async (req, res) => {
     res.json(finalBookingsObj)
 })
 
+//////EDIT A BOOKING
+
+router.put('/:bookingId', requireAuth, async (req, res, next) => {
+  let booking = await Booking.findByPk(req.params.bookingId);
+
+  //if booking id doesn't exist throw error
+  if (!booking) {
+    const err = new Error("Booking couldn't be found");
+    err.statusCode = 404;
+    next(err);
+  }
+
+  //Must be owner of booking in order to update booking
+    let userIdNum = booking.toJSON().userId
+    if (userIdNum !== req.user.id) {
+        res.status(400);
+        return res.json({ message: "Must be owner of Spot to update spot" });
+    }
+
+    // Error for editing end date before start date
+    /// STILL NEED TO SOLVE THIS
+    const { startDate, endDate } = req.body
+    if (/* insert date logic here*/ false ) {
+        const err = new Error("Booking couldn't be found");
+        err.statusCode = 403;
+        next(err);
+    }
+
+    //Error for attempting to edit a past booking
+    //STILL NEED TO SOLVE THIS
+
+    //Error for if new dates have a booking conflict
+    ////STILL NEED TO SOLVE THIS
+
+    // If pass all checks above, update booking:
+    await booking.update({ ...req.body });
+
+    res.json(booking)
+
+
+})
 
 
 
