@@ -94,13 +94,13 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
 
 })
 
-router.delete('/:bookingId', requireAuth, async (req, res) => {
+router.delete('/:bookingId', requireAuth, async (req, res, next) => {
   let booking = await Booking.findByPk(req.params.bookingId);
 
   //if booking id doesn't exist throw error
   if (!booking) {
     const err = new Error("Booking couldn't be found");
-    err.statusCode = 404;
+    err.status = 404;
     next(err);
   }
 
