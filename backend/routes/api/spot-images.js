@@ -14,7 +14,7 @@ const {
 const { Op } = require("sequelize");
 
 
-router.delete('/:imageId', requireAuth, async (req, res) => {
+router.delete('/:imageId', requireAuth, async (req, res, next) => {
     let image = await SpotImage.findByPk(req.params.imageId, {
       include: {model: Spot}
   });
