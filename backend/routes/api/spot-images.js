@@ -18,7 +18,7 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
     let image = await SpotImage.findByPk(req.params.imageId, {
       include: {model: Spot}
   });
-
+//   console.log(image)
   //if spot id doesn't exist throw error
   if (!image) {
     const err = new Error("Spot Image couldn't be found");
@@ -26,15 +26,22 @@ router.delete('/:imageId', requireAuth, async (req, res) => {
     next(err);
   }
 
-    let imageIdNum = image.toJSON().User.userId;
-    console.log(imageIdNum)
+    //check current user is owner of spot associated with image
+    let userIdNum = image.toJSON().Spot.ownerId;
+    console.log(userIdNum)
 
-    if (imageIdNum !== req.user.id) {
+    if (userIdNum !== req.user.id) {
       res.status(400);
-      return res.json({ message: "Must be owner of Booking to delete" });
+      return res.json({ message: "Must be owner of Spot to delete Image" });
     }
 
-    res.send("response")
+    //delete image
+    await image.destroy();
+    return res.json({
+      message: "Successfully deleted",
+    });
+
+
 
 })
 
