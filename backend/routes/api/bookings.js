@@ -18,6 +18,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
     // console.log(bookings)
     let bookingsArr = []
+    let finalBookingsObj = {}
 
     bookings.forEach(async booking => {
         let bookingObj = booking.toJSON()
@@ -36,11 +37,13 @@ router.get('/current', requireAuth, async (req, res) => {
         // console.log(bookingObj);
         bookingsArr.push(bookingObj)
         console.log(bookingsArr)
+
     });
 
     console.log(bookingsArr)
 
-    res.json(bookings)
+    finalBookingsObj.Bookings = bookingsArr
+    res.json(finalBookingsObj)
 })
 
 

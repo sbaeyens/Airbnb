@@ -98,6 +98,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
 
     return res.json({ Bookings});
   } else {
+    // if owner of spot, they can see additional data on booker and booking
     let Bookings = await Booking.findAll({
       where: { spotId: req.params.spotId },
       include: {
@@ -117,9 +118,49 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     return res.send({ Bookings });
   }
 
-  // if owner of spot, they can see additional data on booker and booking
 
 })
+
+///// CREATE A BOOKING FROM A SPOT BASED ON THE SPOT'S ID
+
+router.post('/:spotId/bookings', requireAuth, async (req, res) => {
+  // check if spot exists
+  let spot = await Spot.findByPk(req.params.spotId);
+  if (!spot) {
+    const err = new Error("Spot couldn't be found");
+    err.status = 404;
+    return next(err);
+  }
+
+  //spot CANNOT belong to current user
+  let ownerIdObj = await Spot.findByPk(req.params.spotId, {
+    attributes: ["ownerId"],
+  });
+
+  let ownerIdNum = ownerIdObj.toJSON().ownerId;
+
+  if (ownerIdNum === req.user.id) {
+    res.status(403);
+    return res.json({ message: "Owners cannot make booking to their own spot" });
+  }
+
+  //Time range must be open (aka no overlapping booking date)
+    ///STILL NEED TO SOLVE THIS
+
+
+  //If pass all checks above, then create new booking:
+  let spotIdNum = Number(req.params.spotId);
+  let newBooking = await Booking.create({
+    spotId: spotIdNum,
+    userId: req.user.id,
+    ...req.body,
+  });
+
+  res.json(newBooking)
+
+})
+
+
 
 
 //// Get all Reviews by Spot's id
