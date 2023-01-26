@@ -231,7 +231,7 @@ router.put('/:spotId', async (req, res, next) => {
   console.log(ownerIdNum);
   if (ownerIdNum !== req.user.id) {
     res.status(400);
-    return res.json({ message: "Must be owner of Spot to post image" });
+    return res.json({ message: "Must be owner of Spot to update spot" });
   }
 
 
@@ -271,7 +271,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
   console.log(ownerIdNum);
   if (ownerIdNum !== req.user.id) {
     res.status(400);
-    return res.json({ message: "Must be owner of Spot to post image" });
+    return res.json({ message: "Must be owner of Spot to delete spot" });
   }
 
   // delete the spot

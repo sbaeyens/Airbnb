@@ -145,7 +145,7 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
 })
 
 //DELETE A REVIEW
-router.delete('/:reviewId', requireAuth, async (req, res) => {
+router.delete('/:reviewId', requireAuth, async (req, res, next) => {
   //review must exist
   let review = await Review.findByPk(req.params.reviewId);
 
