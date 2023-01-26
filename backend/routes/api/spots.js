@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { Spot, User, SpotImage, Review, ReviewImage, sequelize} = require("../../db/models");
+const { Spot, User, SpotImage, Review, ReviewImage, Booking, sequelize} = require("../../db/models");
 const { Op } = require("sequelize");
 
 router.get('/current', requireAuth, async (req, res, next) => {
@@ -69,6 +69,56 @@ router.get('/current', requireAuth, async (req, res, next) => {
   // console.log(spotsList)
 
   res.json(spots)
+})
+
+////GET ALL BOOKINGS FROM SPOT BASED ON SPOTS ID
+router.get('/:spotId/bookings', requireAuth, async (req, res) => {
+  // check if spot exists
+   let spot = await Spot.findByPk(req.params.spotId);
+   if (!spot) {
+     const err = new Error("Spot couldn't be found");
+     err.status = 404;
+     return next(err);
+   }
+
+  //if not owner of the spot, they can see only booking start and end time and spotid
+  let ownerIdObj = await Spot.findByPk(req.params.spotId, {
+    attributes: ["ownerId"],
+  });
+
+  let ownerIdNum = ownerIdObj.toJSON().ownerId;
+
+  if (ownerIdNum !== req.user.id) {
+
+    let Bookings = await Booking.findAll({
+      where: { spotId: req.params.spotId },
+      attributes: { exclude: ['id', 'userId', 'createdAt', 'updatedAt']}
+    })
+
+
+    return res.json({ Bookings});
+  } else {
+    let Bookings = await Booking.findAll({
+      where: { spotId: req.params.spotId },
+      include: {
+        model: User,
+        attributes: {
+          exclude: [
+            "username",
+            "hashedPassword",
+            "email",
+            "createdAt",
+            "updatedAt",
+          ],
+        },
+      },
+    });
+
+    return res.send({ Bookings });
+  }
+
+  // if owner of spot, they can see additional data on booker and booking
+
 })
 
 
