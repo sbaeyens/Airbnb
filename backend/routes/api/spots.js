@@ -129,6 +129,7 @@ router.post('/:spotId/reviews', requireAuth, async (req, res, next) => {
     return next(err);
   }
 
+  //validation checks: make sure data is appropriate
   const { review, stars } = req.body
 
   if (!review) {
