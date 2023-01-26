@@ -68,11 +68,6 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     // Error for editing end date before start date
     /// STILL NEED TO SOLVE THIS
     const { startDate, endDate } = req.body
-    if (/* insert date logic here*/ false ) {
-        const err = new Error("Booking couldn't be found");
-        err.statusCode = 403;
-        next(err);
-    }
 
     //Error for attempting to edit a past booking
     //STILL NEED TO SOLVE THIS
@@ -88,6 +83,33 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
 
 })
 
+router.delete('/:bookingId', requireAuth, async (req, res) => {
+  let booking = await Booking.findByPk(req.params.bookingId);
+
+  //if booking id doesn't exist throw error
+  if (!booking) {
+    const err = new Error("Booking couldn't be found");
+    err.statusCode = 404;
+    next(err);
+  }
+
+  //Must be owner of booking in order to update booking
+  let userIdNum = booking.toJSON().userId;
+  if (userIdNum !== req.user.id) {
+    res.status(400);
+    return res.json({ message: "Must be owner of Booking to delete" });
+  }
+
+    //can't delete booking that is in the past
+        //STILL NEED TO SOLVE
+
+  //delete booking
+    await booking.destroy()
+
+  res.json({
+    message: "Successfully deleted"
+  });
+})
 
 
 module.exports = router;
