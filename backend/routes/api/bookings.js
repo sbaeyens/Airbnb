@@ -65,7 +65,7 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
   //if booking id doesn't exist throw error
   if (!booking) {
     const err = new Error("Booking couldn't be found");
-    err.statusCode = 404;
+    err.status = 404;
     next(err);
   }
 
@@ -117,9 +117,9 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     let startTime = bookingObj.startDate
     let startTimeMS = startTime.getTime()
 
-    console.log('currentTimeMS', currentTimeMS)
-    console.log('startTime', startTime)
-    console.log("startTimeMS", startTimeMS);
+    // console.log('currentTimeMS', currentTimeMS)
+    // console.log('startTime', startTime)
+    // console.log("startTimeMS", startTimeMS);
     let dateCalc = startTimeMS - currentTimeMS
 
     if (dateCalc < 0) {
@@ -128,6 +128,7 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
         );
         err.status = 403;
         next(err);
+        return
     }
 
 

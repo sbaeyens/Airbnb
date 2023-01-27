@@ -72,7 +72,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 })
 
 ////GET ALL BOOKINGS FROM SPOT BASED ON SPOTS ID
-router.get('/:spotId/bookings', requireAuth, async (req, res) => {
+router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
   // check if spot exists
    let spot = await Spot.findByPk(req.params.spotId);
    if (!spot) {
@@ -121,9 +121,9 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
 
 })
 
-///// CREATE A BOOKING FROM A SPOT BASED ON THE SPOT'S ID
+///// CREATE A BOOKING FOR A SPOT BASED ON THE SPOT'S ID
 
-router.post('/:spotId/bookings', requireAuth, async (req, res) => {
+router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
   // check if spot exists
   let spot = await Spot.findByPk(req.params.spotId);
   if (!spot) {
@@ -144,8 +144,50 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     return res.json({ message: "Owners cannot make booking to their own spot" });
   }
 
+
+  //EndDate cannot be on or before start date
+  const { startDate, endDate } = req.body
+  // console.log('startDate', startDate)
+  let startDateData = new Date(startDate)
+  let endDateData = new Date(endDate)
+  // let endDateMS = endDate.toDateString();
+  // console.log('startDateData', startDateData)
+
+  // console.log(startDateMS)
+
+  if (endDateData.getTime() - startDateData.getTime() < 0) {
+     const err = new Error("endDate cannot be on or before startDate");
+     err.status = 403;
+    next(err);
+    return
+  }
+
   //Time range must be open (aka no overlapping booking date)
     ///STILL NEED TO SOLVE THIS
+    let spotBookings = await Spot.findByPk(req.params.spotId, {
+      include: {model: Booking}
+    })
+
+    let spotBookingsObj = spotBookings.toJSON()
+  // console.log(spotBookingsObj)
+  let bookingsArr = spotBookingsObj.Bookings
+  // console.log(bookingsArr)
+
+      //loop through all bookings
+  for (i = 0; i < bookingsArr.length; i++) {
+    let bookingStartDate = bookingsArr[i].startDate
+    let bookingEndDate = bookingsArr[i].endDate
+    console.log('bookingStarDate', bookingStartDate)
+    console.log('startDateData', startDateData)
+
+    //check if NEW start date falls between start and end date. Throw error if so.
+    // if (startDateData > )
+    // check if NEW end date falls between start and end date. Throw error if so.
+  }
+
+
+
+
 
 
   //If pass all checks above, then create new booking:
@@ -164,7 +206,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
 
 
 //// Get all Reviews by Spot's id
-router.get('/:spotId/reviews', async (req, res) => {
+router.get('/:spotId/reviews', async (req, res, next) => {
     let spot = await Spot.findByPk(req.params.spotId)
   if (!spot) {
     const err = new Error("Spot couldn't be found");
@@ -307,7 +349,7 @@ router.put('/:spotId', async (req, res, next) => {
   //if spot id doesn't exist throw error
   if (!spot) {
         const err = new Error("Spot couldn't be found");
-    err.statusCode = 404;
+    err.status = 404;
 
         next(err);
   }
@@ -348,7 +390,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
   //if spot id doesn't exist throw error
   if (!spot) {
         const err = new Error("Spot couldn't be found");
-        err.statusCode = 404;
+        err.status = 404;
         next(err);
   }
 
@@ -389,7 +431,7 @@ router.get('/:spotId', async (req, res, next) => {
 
   if (!spot) {
     const err = new Error("Spot couldn't be found")
-    err.statusCode = 404
+    err.status = 404
     next(err)
   }
 
