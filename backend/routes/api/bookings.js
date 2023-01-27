@@ -112,7 +112,24 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
   }
 
     //can't delete booking that is in the past
-        //STILL NEED TO SOLVE
+    let bookingObj = booking.toJSON()
+    let currentTimeMS = Date.now()
+    let startTime = bookingObj.startDate
+    let startTimeMS = startTime.getTime()
+
+    console.log('currentTimeMS', currentTimeMS)
+    console.log('startTime', startTime)
+    console.log("startTimeMS", startTimeMS);
+    let dateCalc = startTimeMS - currentTimeMS
+
+    if (dateCalc < 0) {
+        const err = new Error(
+          "Bookings that have been started can't be deleted"
+        );
+        err.status = 403;
+        next(err);
+    }
+
 
   //delete booking
     await booking.destroy()
