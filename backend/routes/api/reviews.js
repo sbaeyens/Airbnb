@@ -8,7 +8,7 @@ const { Op } = require("sequelize");
 
 //// Get all Reviews of the current user
 
-router.get('/current', requireAuth, async (req, res) => {
+router.get('/current', requireAuth, async (req, res, next) => {
 
     let reviews = await Review.findAll({
       include: [
@@ -48,7 +48,7 @@ router.get('/current', requireAuth, async (req, res) => {
 })
 
 
-router.post('/:reviewId/images', requireAuth, async (req, res) => {
+router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
   //review must exist
   let reviewExist = await Review.findByPk(req.params.reviewId);
 
