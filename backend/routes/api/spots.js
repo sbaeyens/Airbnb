@@ -165,7 +165,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
   }
 
   //Time range must be open (aka no overlapping booking date)
-    ///STILL NEED TO SOLVE THIS
     let spotBookings = await Spot.findByPk(req.params.spotId, {
       include: {model: Booking}
     })
@@ -179,8 +178,8 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
   for (i = 0; i < bookingsArr.length; i++) {
     let existingBookingStartDate = bookingsArr[i].startDate
     let existingBookingEndDate = bookingsArr[i].endDate
-    console.log('existingBookingStarDate', existingBookingStartDate)
-    console.log("existingBookingEndDate", existingBookingEndDate);
+    // console.log('existingBookingStarDate', existingBookingStartDate)
+    // console.log("existingBookingEndDate", existingBookingEndDate);
 
     //check if NEW start date falls between start and end date. Throw error if so.
     // if (startDateData > )
