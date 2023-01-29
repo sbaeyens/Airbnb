@@ -70,28 +70,42 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
   }
 
   //Must be owner of booking in order to update booking
-    let userIdNum = booking.toJSON().userId
-    if (userIdNum !== req.user.id) {
-        res.status(400);
-        return res.json({ message: "Must be owner of Spot to update spot" });
-    }
+  let userIdNum = booking.toJSON().userId;
+  if (userIdNum !== req.user.id) {
+    res.status(400);
+    return res.json({ message: "Must be owner of Spot to update spot" });
+  }
 
-    // Error for editing end date before start date
-    /// STILL NEED TO SOLVE THIS
-    const { startDate, endDate } = req.body
+  // Error for editing end date before start date
+  /// STILL NEED TO SOLVE THIS
+  const { startDate, endDate } = req.body;
 
-    //Error for attempting to edit a past booking
-    //STILL NEED TO SOLVE THIS
+  //Error for attempting to edit a past booking
+  //can't delete booking that is in the past
+  let bookingObj = booking.toJSON();
+  let currentTimeMS = Date.now();
+  let endTime = bookingObj.endDate;
+  let endTimeMS = endTime.getTime();
 
-    //Error for if new dates have a booking conflict
-    ////STILL NEED TO SOLVE THIS
+  // console.log('currentTimeMS', currentTimeMS)
+  // console.log('startTime', startTime)
+  // console.log("startTimeMS", startTimeMS);
+  let dateCalc = endTimeMS - currentTimeMS;
 
-    // If pass all checks above, update booking:
-    await booking.update({ ...req.body });
+  if (dateCalc < 0) {
+    const err = new Error("Past bookings can't be modified");
+    err.status = 403;
+    next(err);
+    return;
+  }
 
-    res.json(booking)
+  //Error for if new dates have a booking conflict
+  ////STILL NEED TO SOLVE THIS
 
+  // If pass all checks above, update booking:
+  await booking.update({ ...req.body });
 
+  res.json(booking);
 })
 
 router.delete('/:bookingId', requireAuth, async (req, res, next) => {
