@@ -5,6 +5,8 @@ const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { Spot, User, SpotImage, Review, ReviewImage, Booking, sequelize} = require("../../db/models");
 const { Op } = require("sequelize");
 
+//GET ALL SPOTS FOR CURRENT USER
+
 router.get('/current', requireAuth, async (req, res, next) => {
   let yourSpots = await Spot.findAll({
     where: {ownerId: req.user.id}
@@ -175,14 +177,46 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
       //loop through all bookings
   for (i = 0; i < bookingsArr.length; i++) {
-    let bookingStartDate = bookingsArr[i].startDate
-    let bookingEndDate = bookingsArr[i].endDate
-    console.log('bookingStarDate', bookingStartDate)
-    console.log('startDateData', startDateData)
+    let existingBookingStartDate = bookingsArr[i].startDate
+    let existingBookingEndDate = bookingsArr[i].endDate
+    console.log('existingBookingStarDate', existingBookingStartDate)
+    console.log("existingBookingEndDate", existingBookingEndDate);
 
     //check if NEW start date falls between start and end date. Throw error if so.
     // if (startDateData > )
+    if (startDateData >= existingBookingStartDate && startDateData <= existingBookingEndDate) {
+      const err = new Error("Sorry, this spot is already booked for the specified dates");
+      err.status = 403;
+      next(err);
+      return;
+    }
+
     // check if NEW end date falls between start and end date. Throw error if so.
+    if (
+      endDateData >= existingBookingStartDate &&
+      endDateData <= existingBookingEndDate
+    ) {
+      const err = new Error(
+        "Sorry, this spot is already booked for the specified dates"
+      );
+      err.status = 403;
+      next(err);
+      return;
+    }
+
+    // if start date is before start date, check if end date is after end date
+    if (
+      startDateData <= existingBookingStartDate &&
+      endDateData >= existingBookingEndDate
+    ) {
+      const err = new Error(
+        "Sorry, this spot is already booked for the specified dates"
+      );
+      err.status = 403;
+      next(err);
+      return;
+    }
+
   }
 
 
@@ -464,6 +498,7 @@ router.get('/:spotId', async (req, res, next) => {
 
 })
 
+
 router.post('/', requireAuth, async (req, res) => {
 
   const newSpot = await Spot.create({
@@ -477,25 +512,73 @@ router.post('/', requireAuth, async (req, res) => {
 
 })
 
+//GET ALL SPOTS
 router.get('/', async (req, res) => {
 
-  let allSpots = await Spot.findAll()
+  // let allSpots = await Spot.findAll()
+  //   res.json(allSpots)
+let yourSpots = await Spot.findAll();
+let spotsList = [];
+let previewImgArr = [];
 
-  //WIP add avgReview to each spot in allSpots data
-  // let avgReview = await Spot.findAll({
+yourSpots.forEach((spot) => {
+  let spotObj = spot.toJSON();
+  // console.log(spotObj)
 
-  // include: { model: Review},
-  //   attributes: [[sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating",]
-  // ],
-  // });
+  spotsList.push(spotObj);
+});
 
-    res.json(allSpots)
+//for loop to add avg rating to each spot
+for (let i = 0; i < spotsList.length; i++) {
+  let spotId = spotsList[i]["id"];
+  // console.log(spotId)
+  const starRating = await Review.findOne({
+    where: { spotId: spotId },
+    attributes: [
+      [sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating"],
+    ],
+  });
+
+  let reviewJson = starRating.toJSON();
+  //  console.log(reviewJson);
+
+  spotsList[i].avgRating = reviewJson.avgStarRating;
+}
+
+//for loop to add preview Image to each spot
+for (let i = 0; i < spotsList.length; i++) {
+  let spotId = spotsList[i]["id"];
+  // console.log(spotId);
+  const spotImg = await SpotImage.findOne({
+    where: {
+      spotId: spotId,
+      preview: true,
+    },
+    attributes: ["url", "preview"],
+  });
+
+  if (!spotImg) spotsList[i].previewImage = "no preview image set";
+
+  if (spotImg) {
+    let previewImg = spotImg.toJSON();
+    spotsList[i].previewImage = previewImg.url;
+  }
+}
+
+let spots = {};
+spots.Spots = spotsList;
+// console.log(spotsList)
+
+res.json(spots);
+
+
+
 })
 
 //error handler - maybe delete and include in each endpoint
 router.use((err, req, res, next) => {
   console.log(err);
-  res.status(err.statusCode || 500)
+  res.status(err.status || 500)
   res.send({
     error: err.message,
   });
