@@ -63,7 +63,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     where: { userId: req.user.id },
   });
 
-  if (!reviewUserMatch) {
+  if (reviewUserMatch.toJSON().userId !== req.user.id) {
     const err = new Error("Review must belong to current user");
     err.status = 400;
     return next(err);
@@ -85,7 +85,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
 
     delete finalImg.createdAt
     delete finalImg.updatedAt;
-    delete finalImg.id;
+    delete finalImg.reviewId;
 
 
   res.json(finalImg)

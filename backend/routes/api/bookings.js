@@ -70,28 +70,109 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
   }
 
   //Must be owner of booking in order to update booking
-    let userIdNum = booking.toJSON().userId
-    if (userIdNum !== req.user.id) {
-        res.status(400);
-        return res.json({ message: "Must be owner of Spot to update spot" });
+  let userIdNum = booking.toJSON().userId;
+  if (userIdNum !== req.user.id) {
+    res.status(400);
+    return res.json({ message: "Must be owner of Spot to update spot" });
+  }
+
+  //pull out existing start and end date
+  const { startDate, endDate } = req.body;
+  let startDateData = new Date(startDate);
+  let endDateData = new Date(endDate);
+
+  // Error for editing end date before start date
+  /// STILL NEED TO SOLVE THIS
+  if (endDateData < startDateData) {
+    const err = new Error("endDate cannot come before startDate");
+    err.status = 400;
+    next(err);
+    return;
+  }
+
+  //Error for attempting to edit a past booking
+  //can't delete booking that is in the past
+  let bookingObj = booking.toJSON();
+  let currentTimeMS = Date.now();
+  let endTime = bookingObj.endDate;
+  let endTimeMS = endTime.getTime();
+
+  // console.log('currentTimeMS', currentTimeMS)
+  // console.log('startTime', startTime)
+  // console.log("startTimeMS", startTimeMS);
+  let dateCalc = endTimeMS - currentTimeMS;
+
+  if (dateCalc < 0) {
+    const err = new Error("Past bookings can't be modified");
+    err.status = 403;
+    next(err);
+    return;
+  }
+  console.log(bookingObj)
+  //Error for if new dates have a booking conflict
+  //Time range must be open (aka no overlapping booking date)
+  let spotBookings = await Spot.findByPk(bookingObj.spotId, {
+    include: { model: Booking },
+  });
+
+  let spotBookingsObj = spotBookings.toJSON();
+  // console.log(spotBookingsObj)
+  let bookingsArr = spotBookingsObj.Bookings;
+  // console.log(bookingsArr)
+
+  //loop through all bookings
+  for (i = 0; i < bookingsArr.length; i++) {
+    let existingBookingStartDate = bookingsArr[i].startDate;
+    let existingBookingEndDate = bookingsArr[i].endDate;
+    // console.log("existingBookingStarDate", existingBookingStartDate);
+    // console.log("existingBookingEndDate", existingBookingEndDate);
+
+    //check if NEW start date falls between start and end date. Throw error if so.
+    // if (startDateData > )
+    if (
+      startDateData >= existingBookingStartDate &&
+      startDateData <= existingBookingEndDate
+    ) {
+      const err = new Error(
+        "Sorry, this spot is already booked for the specified dates"
+      );
+      err.status = 403;
+      next(err);
+      return;
     }
 
-    // Error for editing end date before start date
-    /// STILL NEED TO SOLVE THIS
-    const { startDate, endDate } = req.body
+    // check if NEW end date falls between start and end date. Throw error if so.
+    if (
+      endDateData >= existingBookingStartDate &&
+      endDateData <= existingBookingEndDate
+    ) {
+      const err = new Error(
+        "Sorry, this spot is already booked for the specified dates"
+      );
+      err.status = 403;
+      next(err);
+      return;
+    }
 
-    //Error for attempting to edit a past booking
-    //STILL NEED TO SOLVE THIS
+    // if start date is before start date, check if end date is after end date
+    if (
+      startDateData <= existingBookingStartDate &&
+      endDateData >= existingBookingEndDate
+    ) {
+      const err = new Error(
+        "Sorry, this spot is already booked for the specified dates"
+      );
+      err.status = 403;
+      next(err);
+      return;
+    }
+  }
+  //end of check for conflicting bookings
 
-    //Error for if new dates have a booking conflict
-    ////STILL NEED TO SOLVE THIS
+  // If pass all checks above, update booking:
+  await booking.update({ ...req.body });
 
-    // If pass all checks above, update booking:
-    await booking.update({ ...req.body });
-
-    res.json(booking)
-
-
+  res.json(booking);
 })
 
 router.delete('/:bookingId', requireAuth, async (req, res, next) => {
