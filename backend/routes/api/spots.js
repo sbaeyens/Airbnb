@@ -512,7 +512,34 @@ router.post('/', requireAuth, async (req, res) => {
 })
 
 //GET ALL SPOTS
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
+
+  //add pagination
+  let { page, size } = req.query;
+  let pagination = {};
+  if (!page) page = 1;
+  if (!size) size = 20;
+
+  //page and size restrictions
+  if (page < 1) {
+const err = new Error("Page must be greater than or equal to 1");
+err.status = 403;
+return next(err);
+  }
+  if (page > 10) page = 10
+
+  if (size < 1) {
+const err = new Error("Size must be greater than or equal to 1");
+err.status = 403;
+return next(err);
+  }
+  if (size > 20) size = 20
+
+
+  if (page >= 1 && size >= 1) {
+    pagination.limit = size;
+    pagination.offset = size * (page - 1);
+  }
 
   // let allSpots = await Spot.findAll()
   //   res.json(allSpots)
@@ -565,7 +592,14 @@ for (let i = 0; i < spotsList.length; i++) {
 }
 
 let spots = {};
-spots.Spots = spotsList;
+  spots.Spots = spotsList;
+
+  //change page and size from string to number
+  let pageNum = Number(page)
+  let sizeNum = Number(size)
+
+  spots.page = pageNum
+  spots.size = sizeNum
 // console.log(spotsList)
 
 res.json(spots);
