@@ -9,42 +9,78 @@ const { Op } = require("sequelize");
 //// Get all Reviews of the current user
 
 router.get('/current', requireAuth, async (req, res, next) => {
+  let reviews = await Review.findAll({
+    include: [
+      {
+        model: User,
+        attributes: {
+          exclude: [
+            "username",
+            "hashedPassword",
+            "email",
+            "createdAt",
+            "updatedAt",
+          ],
+        },
+      },
+      {
+        model: Spot,
+        attributes: {
+          exclude: ["description", "createdAt", "updatedAt"],
+        },
+      },
+      {
+        model: ReviewImage,
+        attributes: {
+          exclude: ["reviewId", "createdAt", "updatedAt"],
+        },
+      },
+    ],
+    where: { userId: req.user.id },
+    attributes: { exclude: ["userId"] },
+  });
 
-    let reviews = await Review.findAll({
-      include: [
-        {
-          model: User,
-          attributes: {
-            exclude: [
-              "username",
-              "hashedPassword",
-              "email",
-              "createdAt",
-              "updatedAt",
-            ],
-          },
-        },
-        {
-          model: Spot,
-          attributes: {
-            exclude: ["description", "createdAt", "updatedAt"],
-          },
-        },
-        {
-          model: ReviewImage,
-          attributes: {
-            exclude: ["reviewId", "createdAt", "updatedAt"],
-          },
-        },
-      ],
-      where: { userId: req.user.id },
-      attributes: { exclude: ["userId"] },
+  //put reviews in arr
+  let reviewsArr = []
+
+  reviews.forEach((rev) => {
+    let revObj = rev.toJSON();
+    reviewsArr.push(revObj);
+  });
+
+  // console.log(reviewsArr)
+
+  //for loop to add preview Image to each spot
+  for (let i = 0; i < reviewsArr.length; i++) {
+    let spotId = reviewsArr[i]["Spot"]["id"];
+    // console.log("spotId", spotId);
+    const spotImg = await SpotImage.findOne({
+      where: {
+        spotId: spotId,
+        preview: true,
+      },
+      attributes: ["url", "preview"],
     });
+    // console.log("spotImg",spotImg)
 
+    if (!spotImg) reviewsArr[i]["Spot"].previewImage = "no preview image set";
 
+    if (spotImg) {
+      let previewImg = spotImg.toJSON();
+      console.log('previewImg', previewImg)
+      console.log(reviewsArr[i]["Spot"]);
+      let spot = reviewsArr[i]["Spot"];
+      spot.previewImage = previewImg.url;
+      console.log(spot)
+      reviewsArr[i].Spot = spot
+    }
+  }
 
-    res.json(reviews)
+  let result = {};
 
+  result.Reviews = reviewsArr;
+
+  res.json(result);
 })
 
 
