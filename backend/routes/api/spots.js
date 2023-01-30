@@ -515,10 +515,10 @@ router.post('/', requireAuth, async (req, res) => {
 router.get('/', async (req, res, next) => {
 
   //add pagination
-  let { page, size } = req.query;
+  let { page = 1, size = 20 } = req.query;
   let pagination = {};
-  if (!page) page = 1;
-  if (!size) size = 20;
+  // if (!page) page = 1;
+  // if (!size) size = 20;
 
   //page and size restrictions
   if (page < 1) {
