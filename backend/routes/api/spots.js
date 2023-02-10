@@ -5,6 +5,7 @@ const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { Spot, User, SpotImage, Review, ReviewImage, Booking, sequelize} = require("../../db/models");
 const { Op } = require("sequelize");
 
+
 //GET ALL SPOTS FOR CURRENT USER
 
 router.get('/current', requireAuth, async (req, res, next) => {
@@ -511,7 +512,7 @@ router.post('/', requireAuth, async (req, res) => {
 
 })
 
-//GET ALL SPOTS
+// GET ALL SPOTS //
 router.get('/', async (req, res, next) => {
 
   //add pagination
@@ -540,6 +541,7 @@ return next(err);
     pagination.limit = size;
     pagination.offset = size * (page - 1);
   }
+
 
   // let allSpots = await Spot.findAll()
   //   res.json(allSpots)
