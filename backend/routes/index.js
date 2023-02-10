@@ -4,6 +4,15 @@ const apiRouter = require("./api");
 
 router.use("/api", apiRouter);
 
+// Add a XSRF-TOKEN cookie
+router.get("/api/csrf/restore", (req, res) => {
+  const csrfToken = req.csrfToken();
+  res.cookie("XSRF-TOKEN", csrfToken);
+  res.status(200).json({
+    "XSRF-Token": csrfToken,
+  });
+}); //will later be made exclusive to dev environment
+
 if (process.env.NODE_ENV === "production") {
   const path = require("path");
   // Serve the frontend's index.html file at the root route
@@ -29,17 +38,12 @@ if (process.env.NODE_ENV === "production") {
 if (process.env.NODE_ENV !== "production") {
   router.get("/api/csrf/restore", (req, res) => {
     res.cookie("XSRF-TOKEN", req.csrfToken());
-    return res.json({});
+    return res.json({
+      "XSRF-Token": req.csrfToken(),
+    });
   });
 }
 
-// Add a XSRF-TOKEN cookie
-router.get("/api/csrf/restore", (req, res) => {
-  const csrfToken = req.csrfToken();
-  res.cookie("XSRF-TOKEN", csrfToken);
-  res.status(200).json({
-    "XSRF-Token": csrfToken,
-  });
-}); //will later be made exclusive to dev environment
+
 
 module.exports = router;
