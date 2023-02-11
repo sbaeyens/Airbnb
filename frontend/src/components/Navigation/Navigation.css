@@ -1,3 +1,13 @@
 .hidden {
   visibility: hidden;
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid;
+}
+
+/* .profileButton:hover {
+  box-shadow: 5px 5px 5px black;
+} */
