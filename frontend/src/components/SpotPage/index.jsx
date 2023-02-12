@@ -14,7 +14,6 @@ function SpotPage() {
     return state.spots.singleSpot;
   });
 
-
   useEffect(() => {
     dispatch(getSingleSpot(spotId));
   }, [dispatch]);
