@@ -11,3 +11,14 @@
 /* .profileButton:hover {
   box-shadow: 5px 5px 5px black;
 } */
+
+#nav-logo {
+  width: 40px;
+  height: 40px;
+}
+
+.float-menu {
+  position: absolute;
+  background-color: white;
+  border: solid black;
+}

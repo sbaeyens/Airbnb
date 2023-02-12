@@ -4,6 +4,7 @@ import * as sessionActions from "../../store/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import {Link} from 'react-router-dom'
 // import "./Navigation.css";
 
 
@@ -39,10 +40,13 @@ function ProfileButton({ user }) {
     closeMenu();
   };
 
-  const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+  const ulClassName = "profile-dropdown float-menu" + (showMenu ? "" : " hidden");
 
   return (
     <>
+      {user ? (
+        <Link to="url">create new Spot</Link>
+      ): (<></>)}
       <button onClick={openMenu}>
         <i className="fas fa-user-circle" />
       </button>

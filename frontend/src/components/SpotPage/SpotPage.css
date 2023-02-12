@@ -1,0 +1,19 @@
+.bottom-info {
+  display: flex;
+  justify-content: space-between;
+}
+.reserve-modal {
+  border-style: dotted;
+  width: 300px;
+  height: 100px;
+}
+
+.reserve-modal-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.reserve-modal-button {
+  display: flex;
+  justify-content: center;
+}

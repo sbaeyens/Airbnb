@@ -11,7 +11,7 @@ function Navigation({ isLoaded }) {
     <div className="navbar">
       <div>
         <NavLink exact to="/">
-          Home
+          <img id="nav-logo" src="https://i.imgur.com/u8XuxDh.png" alt="logo" />
         </NavLink>
       </div>
       <div className="profileButton">
