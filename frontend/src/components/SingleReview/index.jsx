@@ -1,11 +1,15 @@
+import './SingleReview.css'
 
+function SingleReview({review}) {
 
-function SingleReview({spotReviews}) {
-
-    console.log("spotReviews from Single Review component", spotReviews)
+    console.log("review from Single Review component", review)
     return (
-        <p>{"spotReviews"}</p>
-    )
+      <div className="single-review">
+        <h3>{review.User.firstName}</h3>
+            <h4>{review.createdAt}</h4>
+            <p>{review.review}</p>
+      </div>
+    );
 }
 
 export default SingleReview

@@ -11,7 +11,7 @@ function SpotPage() {
   let spotId = useParams().spotId;
   // console.log(spotId)
 
-    //---GRAB SPOT DATA---//
+  //---GRAB SPOT DATA---//
   const dispatch = useDispatch();
   const singleSpot = useSelector((state) => {
     return state.spots.singleSpot;
@@ -21,29 +21,32 @@ function SpotPage() {
     dispatch(getSingleSpot(spotId));
   }, [dispatch]);
 
-    //---GRAB REVIEWS DATA---//
-    const spotReviews = useSelector((state) => {
-      return state.reviews.spot;
-    });
+  //---GRAB REVIEWS DATA---//
+  const spotReviews = useSelector((state) => {
+    return state.reviews.spot;
+  });
 
-    useEffect(() => {
-      dispatch(getSpotReviews(spotId));
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(getSpotReviews(spotId));
+  }, [dispatch]);
 
-    let singleSpotArr = Object.values(singleSpot)
-    // console.log("singleSpotArr", singleSpotArr)
+  let singleSpotArr = Object.values(singleSpot);
+  // console.log("singleSpotArr", singleSpotArr)
 
-    //--- RENDER AS NULL IF OBJ EMPTY ON MOUNT ---//
+  //--- RENDER AS NULL IF OBJ EMPTY ON MOUNT ---//
   if (Object.values(singleSpot).length === 0) {
     return null;
   }
-    if (Object.values(spotReviews).length === 0) {
-      return null;
-    }
+  if (Object.values(spotReviews).length === 0) {
+    return null;
+  }
 
-//   console.log("single spot from spotPage", singleSpot);
-//   console.log("image from single spot array", singleSpot.SpotImages[0].url);
-    console.log("spotReviews from component", spotReviews)
+  // Put all reviews in array
+  let reviewsArr = Object.values(spotReviews);
+
+  //   console.log("single spot from spotPage", singleSpot);
+  //   console.log("image from single spot array", singleSpot.SpotImages[0].url);
+  console.log("spotReviews from component", spotReviews);
 
   return (
     <div className="spot-page-parent">
@@ -81,7 +84,7 @@ function SpotPage() {
         </div>
       </div>
       {/* div section for reviews */}
-      <div>
+      <div className="reviews-section-parent">
         <h2>
           <span>
             <i className="fa-regular fa-star"></i>
@@ -89,7 +92,12 @@ function SpotPage() {
           </span>
         </h2>
         {/* create single review component */}
-              <SingleReview spotReviews={spotReviews} />
+        <div>
+
+          {reviewsArr && reviewsArr.map((review) => <SingleReview review={review} />)}
+
+        </div>
+
       </div>
     </div>
   );
