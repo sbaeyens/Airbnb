@@ -1,7 +1,8 @@
 import './SingleReview.css'
 
 function SingleReview({review}) {
-
+    console.log("review from single review component", review)
+    if (!review) return null
     console.log("review from Single Review component", review)
     return (
       <div className="single-review">
