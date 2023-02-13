@@ -19,10 +19,12 @@ function NewSpotForm() {
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState("");
     const [previewPhoto, setPreviewPhoto] = useState("");
-    const [photo1, setPhoto1] = useState("");
+    const [photo1, setPhoto1] = useState([]);
   const [photo2, setPhoto2] = useState("");
   const [photo3, setPhoto3] = useState("");
   const [photo4, setPhoto4] = useState("");
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+
 
       const [errors, setErrors] = useState({});
 
@@ -71,6 +73,11 @@ function NewSpotForm() {
 
       const handleSubmit = async (e) => {
         e.preventDefault();
+
+        //return if errors
+          setHasSubmitted(true);
+          if (Object.keys(errors).length > 0) return alert(`Cannot Submit`);
+
 
         const newSpot = {
           country,
@@ -148,9 +155,7 @@ function NewSpotForm() {
           <h2>Create a new Spot</h2>
           <label>
             Country{" "}
-            <span className="error">
-              {errors.country ? errors.country : null}
-            </span>
+            <span className="error">{hasSubmitted && errors.country}</span>
             <input
               type="text"
               name="country"
@@ -162,7 +167,7 @@ function NewSpotForm() {
           <label>
             Street Address{" "}
             <span className="error">
-              {errors.streetAddress ? errors.streetAddress : null}
+              {hasSubmitted && errors.streetAddress}
             </span>
             <input
               type="text"
@@ -174,8 +179,7 @@ function NewSpotForm() {
           </label>
           <div className="form-stack">
             <label>
-              City{" "}
-              <span className="error">{errors.city ? errors.city : null}</span>
+              City <span className="error">{hasSubmitted && errors.city}</span>
               <input
                 type="text"
                 name="city"
@@ -186,9 +190,7 @@ function NewSpotForm() {
             </label>
             <label>
               State{" "}
-              <span className="error">
-                {errors.state ? errors.state : null}
-              </span>
+              <span className="error">{hasSubmitted && errors.state}</span>
               <input
                 type="text"
                 name="state"
@@ -201,9 +203,7 @@ function NewSpotForm() {
           <div className="form-stack stack-left">
             <label>
               Latitude{" "}
-              <span className="error">
-                {errors.latitude ? errors.latitude : null}
-              </span>
+              <span className="error">{hasSubmitted && errors.latitude}</span>
               <input
                 type="text"
                 name="latitude"
@@ -215,9 +215,7 @@ function NewSpotForm() {
             {/* <div><br /><br />{",     ,     "}</div> */}
             <label>
               Longitude{" "}
-              <span className="error">
-                {errors.longitude ? errors.longitude : null}
-              </span>
+              <span className="error">{hasSubmitted && errors.longitude}</span>
               <input
                 type="text"
                 name="longitude"
@@ -246,9 +244,7 @@ function NewSpotForm() {
             </textarea>
           </label>
           <p>
-            <span className="error">
-              {errors.description ? errors.description : <br></br>}{" "}
-            </span>
+            <span className="error">{hasSubmitted && errors.description}</span>
           </p>
           <label>
             <h3>Create a title for your spot</h3>
@@ -264,9 +260,7 @@ function NewSpotForm() {
               onChange={(e) => setTitle(e.target.value)}
             />
           </label>
-          <span className="error">
-            {errors.title ? errors.title : <br></br>}{" "}
-          </span>
+          <span className="error">{hasSubmitted && errors.title}</span>
           <label>
             <h3>Set a base price for your spot</h3>
             <p>
@@ -281,9 +275,7 @@ function NewSpotForm() {
               onChange={(e) => setPrice(e.target.value)}
             />
           </label>
-          <span className="error">
-            {errors.price ? errors.price : <br></br>}{" "}
-          </span>
+          <span className="error">{hasSubmitted && errors.price}</span>
           <label>
             <h3>Liven up your spot with photos</h3>
             <p>
@@ -298,9 +290,7 @@ function NewSpotForm() {
               onChange={(e) => setPreviewPhoto(e.target.value)}
             />
           </label>
-          <span className="error">
-            {errors.previewPhoto ? errors.previewPhoto : <br></br>}{" "}
-          </span>
+          <span className="error">{hasSubmitted && errors.previewPhoto}</span>
           <label>
             <input
               type="text"

@@ -51,7 +51,7 @@ export const getSingleSpot = (spotId) => async dispatch => {
 }
 
 export const addNewSpot = (newSpot) => async dispatch => {
-  console.log("reached addNewSpot Thunk")
+  // console.log("reached addNewSpot Thunk")
   const response = await csrfFetch(`/api/spots`, {
     method: "POST",
     headers: {
@@ -70,7 +70,7 @@ export const addNewSpot = (newSpot) => async dispatch => {
 
  // add Photos Thunk
 export const addPhotosToSpot = (photosArr, spotId) => async (dispatch) => {
-  console.log("reached addPhotosToSpot Thunk");
+  // console.log("reached addPhotosToSpot Thunk");
   for (let photo of photosArr) {
     const response = await csrfFetch(`/api/spots/${spotId}/images`, {
       method: "POST",
@@ -84,7 +84,7 @@ export const addPhotosToSpot = (photosArr, spotId) => async (dispatch) => {
     if (response.ok) {
       const details = await response.json();
       dispatch(addPhotos(details));
-      console.log("details of photo posted from thunk", details)
+      // console.log("details of photo posted from thunk", details)
       // return details;
     }
   }
