@@ -11,14 +11,14 @@ function SpotCard({spot}) {
             src={spot.previewImage}
             alt={spot.name}
           />
-          <div>
+          {/* <div> */}
             <p>{spot.city}</p>
-            <p>{spot.price}</p>
+            <p>{spot.price.toFixed(2)}</p>
             <span>
               <i className="fa-regular fa-star"></i>
-              {spot.avgRating}
+              {(+spot.avgRating).toFixed(1)}
             </span>
-          </div>
+          {/* </div> */}
         </div>
             </Link>
     );
