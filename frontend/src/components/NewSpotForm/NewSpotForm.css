@@ -1,59 +1,42 @@
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 500px;
-  height: 550px;
-  background-color: white;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+/* .new-spot-form-div {
 
-.modal h1 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.modal form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.modal form input[type="text"],
-.modal form input[type="email"],
-.modal form input[type="password"] {
-  width: 100%;
-  padding: 5px;
-  margin-bottom: 10px;
-  font-size: 18px;
-  border: none;
-  border-bottom: 1px solid lightgray;
-}
-
-/* .modal form input[type="submit"] {
-  width: 100%;
-  padding: 10px;
-  background-color: lightgray;
-  color: white;
-  font-size: 18px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.modal form input[type="submit"]:hover {
-  background-color: gray;
 } */
 
+.new-spot-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  border: 2px solid black;
+  padding: 2rem;
+}
+
+label {
+  display: block;
+  width: 100%;
+  padding: 3px;
+}
+
+input,
+textarea {
+  display: block;
+  width: 100%;
+  padding: 5px;
+}
+
+.error {
+  color: red;
+}
+
+/* .stack-left {
+  margin: 0px 10px 0px 5px;
+}
+.stack-right {
+  margin: 0px 20px 0px 5px;
+} */
+
+.form-stack {
+  display: flex;
+  justify-content: space-between;
+}
 /* CSS */
 .submit-button {
   background-color: #ffffff;
