@@ -13,10 +13,10 @@ function SpotCard({spot}) {
           />
           {/* <div> */}
             <p>{spot.city}</p>
-            <p>{spot.price.toFixed(2)}</p>
+            <p>{spot.price}</p>
             <span>
               <i className="fa-regular fa-star"></i>
-              {(+spot.avgRating).toFixed(1)}
+              {(+spot.avgRating)}
             </span>
           {/* </div> */}
         </div>
