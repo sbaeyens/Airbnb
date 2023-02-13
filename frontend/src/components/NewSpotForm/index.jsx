@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import './NewSpotForm.css'
-import { addNewSpot } from "../../store/spots";
+import { addNewSpot, addPhotosToSpot } from "../../store/spots";
 import { useDispatch, useSelector } from "react-redux";
 
 function NewSpotForm() {
@@ -19,7 +19,10 @@ function NewSpotForm() {
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState("");
     const [previewPhoto, setPreviewPhoto] = useState("");
-    const [photo, setPhoto] = useState("");
+    const [photo1, setPhoto1] = useState("");
+  const [photo2, setPhoto2] = useState("");
+  const [photo3, setPhoto3] = useState("");
+  const [photo4, setPhoto4] = useState("");
 
       const [errors, setErrors] = useState({});
 
@@ -69,8 +72,6 @@ function NewSpotForm() {
       const handleSubmit = async (e) => {
         e.preventDefault();
 
-
-
         const newSpot = {
           country,
           address: streetAddress,
@@ -83,9 +84,58 @@ function NewSpotForm() {
           price,
         };
 
+        let photosArr = []
+
+        let previewImgObj = {
+          url: previewPhoto,
+          preview: "true"
+        }
+
+        if (photo1) {
+          photosArr.push({
+            url: photo1,
+            preview: "false"
+          })
+        }
+        if (photo2) {
+          photosArr.push({
+            url: photo2,
+            preview: "false",
+          });
+        }
+        if (photo3) {
+          photosArr.push({
+            url: photo3,
+            preview: "false",
+          });
+        }
+        if (photo4) {
+          photosArr.push({
+            url: photo4,
+            preview: "false",
+          });
+        }
+
+        // for (let i = 0; i < 4; i++) {
+        //   if (photo + i) {
+
+        //   }
+        // }
+
+        photosArr.push(previewImgObj)
+        console.log("photosArr", photosArr)
+
+
         let createdSpot = await dispatch(addNewSpot(newSpot))
         console.log("newSpot from inside form clickhandler", newSpot)
 
+        let spotId = createdSpot.id
+        console.log("spotId from inside NewSpotForm clickhandler", spotId)
+
+        if (createdSpot) {
+          dispatch(addPhotosToSpot(photosArr, spotId));
+        }
+        // console.log("images from inside clickhandler", images)
 
     if (createdSpot) {
       history.push(`/spots/${createdSpot.id}`);
@@ -254,37 +304,37 @@ function NewSpotForm() {
           <label>
             <input
               type="text"
-              name="photo"
-              value={photo}
+              name="photo1"
+              value={photo1}
               placeholder="Image URL"
-              onChange={(e) => setPhoto(e.target.value)}
+              onChange={(e) => setPhoto1(e.target.value)}
             />
           </label>
           <label>
             <input
               type="text"
-              name="photo"
-              value={photo}
+              name="photo2"
+              value={photo2}
               placeholder="Image URL"
-              onChange={(e) => setPhoto(e.target.value)}
+              onChange={(e) => setPhoto2(e.target.value)}
             />
           </label>
           <label>
             <input
               type="text"
-              name="photo"
-              value={photo}
+              name="photo3"
+              value={photo3}
               placeholder="Image URL"
-              onChange={(e) => setPhoto(e.target.value)}
+              onChange={(e) => setPhoto3(e.target.value)}
             />
           </label>
           <label>
             <input
               type="text"
-              name="photo"
-              value={photo}
+              name="photo4"
+              value={photo4}
               placeholder="Image URL"
-              onChange={(e) => setPhoto(e.target.value)}
+              onChange={(e) => setPhoto4(e.target.value)}
             />
           </label>
           <br />

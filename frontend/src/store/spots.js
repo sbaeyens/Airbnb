@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const LOAD = "spots/LOAD";
 const LOAD_SPOT = "spots/LOAD_SPOT"
 const ADD_SPOT = "spots/ADD_SPOT"
+const ADD_PHOTOS = "spots/ADD_PHOTOS"
 
 //--------ACTIONS--------//
 // ALL SPOTS
@@ -20,6 +21,12 @@ const loadOneSpot = payload => ({
 // CREATE NEW SPOT
 const addSpot = payload => ({
   type: ADD_SPOT,
+  payload
+})
+
+// CREATE NEW SPOT
+const addPhotos = payload => ({
+  type: ADD_PHOTOS,
   payload
 })
 
@@ -60,6 +67,29 @@ export const addNewSpot = (newSpot) => async dispatch => {
     return details;
   }
 }
+
+ // add Photos Thunk
+export const addPhotosToSpot = (photosArr, spotId) => async (dispatch) => {
+  console.log("reached addPhotosToSpot Thunk");
+  for (let photo of photosArr) {
+    const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(photo),
+    });
+
+
+    if (response.ok) {
+      const details = await response.json();
+      dispatch(addPhotos(details));
+      console.log("details of photo posted from thunk", details)
+      // return details;
+    }
+  }
+};
+
 
 const initialState = {
     allSpots: {},
@@ -111,6 +141,10 @@ export default function spotsReducer(state = initialState, action) {
         //   newSpot,
         // }
         console.log("newSpot from ADD_SPOT REDUCER", newSpot)
+        return { ...state }
+      case ADD_PHOTOS:
+        const photosArray = { ...action.payload }
+        console.log("photosArray from ADD_PHOTOS REDUCER", photosArray)
         return {...state}
       default:
         return state;

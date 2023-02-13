@@ -59,7 +59,7 @@ function SpotPage() {
       <div className="img-gallery">
         <img
           className="single-spot-preview-img"
-          src={singleSpot.SpotImages[0].url}
+          src={(singleSpot.SpotImages[0]) ? singleSpot.SpotImages[0].url : null}
           alt={singleSpot.name}
         />
       </div>
