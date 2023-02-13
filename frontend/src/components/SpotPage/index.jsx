@@ -29,7 +29,7 @@ function SpotPage() {
   useEffect(() => {
     dispatch(getSpotReviews(spotId));
   }, [dispatch]);
-  console.log("reached first console.log")
+  // console.log("reached first console.log")
   // let singleSpotArr = Object.values(singleSpot);
   // console.log("singleSpotArr", singleSpotArr)
 
@@ -40,7 +40,7 @@ function SpotPage() {
   if (spotReviews.id === null) {
     return null;
   }
-  console.log("reached second console.log");
+  // console.log("reached second console.log");
   // Put all reviews in array
   reviewsArr = Object.values(spotReviews);
 

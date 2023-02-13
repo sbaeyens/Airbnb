@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
+import DemoLoginButton from "./DemoLoginButton";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -17,6 +18,9 @@ function Navigation({ isLoaded }) {
       <div className="profileButton">
         {isLoaded && <ProfileButton user={sessionUser} />}
       </div>
+      {/* <div className="demoButton">
+        {isLoaded && <DemoLoginButton />}
+      </div> */}
     </div>
   );
 }
