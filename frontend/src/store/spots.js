@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD = "spots/LOAD";
 const LOAD_SPOT = "spots/LOAD_SPOT"
+const ADD_SPOT = "spots/ADD_SPOT"
 
 //--------ACTIONS--------//
 // ALL SPOTS
@@ -13,6 +14,12 @@ const load = payload => ({
 // SINGLE SPOT
 const loadOneSpot = payload => ({
   type: LOAD_SPOT,
+  payload
+})
+
+// CREATE NEW SPOT
+const addSpot = payload => ({
+  type: ADD_SPOT,
   payload
 })
 
@@ -36,6 +43,23 @@ export const getSingleSpot = (spotId) => async dispatch => {
   }
 }
 
+export const addNewSpot = (newSpot) => async dispatch => {
+  console.log("reached addNewSpot Thunk")
+  const response = await csrfFetch(`/api/spots`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newSpot),
+  });
+
+  if (response.ok) {
+    const details = await response.json();
+    dispatch(addSpot(details));
+
+    return details;
+  }
+}
 
 const initialState = {
     allSpots: {},
@@ -50,6 +74,7 @@ const initialState = {
 //--------REDUCER--------//
 
 export default function spotsReducer(state = initialState, action) {
+  let result
     switch (action.type) {
       case LOAD:
         const allSpots = { ...action.payload.Spots };
@@ -73,12 +98,20 @@ export default function spotsReducer(state = initialState, action) {
         };
       case LOAD_SPOT:
         const singleSpot = { ...action.payload };
-        let result = {
+        result = {
           ...state,
           singleSpot,
         };
         console.log(result)
         return result
+      case ADD_SPOT:
+        const newSpot = { ...action.payload }
+        // result = {
+        //   ...state,
+        //   newSpot,
+        // }
+        console.log("newSpot from ADD_SPOT REDUCER", newSpot)
+        return {...state}
       default:
         return state;
     }

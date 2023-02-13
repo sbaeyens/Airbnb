@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import './NewSpotForm.css'
+import { addNewSpot } from "../../store/spots";
+import { useDispatch, useSelector } from "react-redux";
 
 function NewSpotForm() {
 
-      const history = useHistory();
+  const history = useHistory();
+  const dispatch = useDispatch()
 
     const [country, setCountry] = useState("");
     const [streetAddress, setStreetAddress] = useState("");
@@ -63,14 +66,30 @@ function NewSpotForm() {
 
       // console.log(errors)
 
-      const handleSubmit = (e) => {
+      const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log({
-          country,
-        });
 
-        history.push("/");
+
+        const newSpot = {
+          country,
+          address: streetAddress,
+          city,
+          state,
+          lat: latitude,
+          lng: longitude,
+          description,
+          name: title,
+          price,
+        };
+
+        let createdSpot = await dispatch(addNewSpot(newSpot))
+        console.log("newSpot from inside form clickhandler", newSpot)
+
+
+    if (createdSpot) {
+      history.push(`/spots/${createdSpot.id}`);
+    }
       };
 
     return (
