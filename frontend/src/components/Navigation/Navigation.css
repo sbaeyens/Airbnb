@@ -22,4 +22,10 @@
   background-color: white;
   border: solid black;
   margin: 5px 0px 0px -75px;
+  padding: 20px;
+}
+
+.manage-spots {
+  border-bottom: 1px solid;
+  border-top: 1px solid;
 }

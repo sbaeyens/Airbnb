@@ -10,7 +10,7 @@ import "./SpotPage.css";
 function SpotPage() {
   let spotId = useParams().spotId;
   // console.log(spotId)
-
+  let reviewsArr = []
   //---GRAB SPOT DATA---//
   const dispatch = useDispatch();
   const singleSpot = useSelector((state) => {
@@ -29,20 +29,20 @@ function SpotPage() {
   useEffect(() => {
     dispatch(getSpotReviews(spotId));
   }, [dispatch]);
-
-  let singleSpotArr = Object.values(singleSpot);
+  // console.log("reached first console.log")
+  // let singleSpotArr = Object.values(singleSpot);
   // console.log("singleSpotArr", singleSpotArr)
 
   //--- RENDER AS NULL IF OBJ EMPTY ON MOUNT ---//
   if (Object.values(singleSpot).length === 0) {
     return null;
   }
-  if (Object.values(spotReviews).length === 0) {
+  if (spotReviews.id === null) {
     return null;
   }
-
+  // console.log("reached second console.log");
   // Put all reviews in array
-  let reviewsArr = Object.values(spotReviews);
+  reviewsArr = Object.values(spotReviews);
 
   //   console.log("single spot from spotPage", singleSpot);
   //   console.log("image from single spot array", singleSpot.SpotImages[0].url);
@@ -59,7 +59,7 @@ function SpotPage() {
       <div className="img-gallery">
         <img
           className="single-spot-preview-img"
-          src={singleSpot.SpotImages[0].url}
+          src={(singleSpot.SpotImages[0]) ? singleSpot.SpotImages[0].url : null}
           alt={singleSpot.name}
         />
       </div>

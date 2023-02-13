@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import './NewSpotForm.css'
+import { addNewSpot, addPhotosToSpot } from "../../store/spots";
+import { useDispatch, useSelector } from "react-redux";
 
 function NewSpotForm() {
 
-      const history = useHistory();
+  const history = useHistory();
+  const dispatch = useDispatch()
 
     const [country, setCountry] = useState("");
     const [streetAddress, setStreetAddress] = useState("");
@@ -16,7 +19,12 @@ function NewSpotForm() {
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState("");
     const [previewPhoto, setPreviewPhoto] = useState("");
-    const [photo, setPhoto] = useState("");
+    const [photo1, setPhoto1] = useState([]);
+  const [photo2, setPhoto2] = useState("");
+  const [photo3, setPhoto3] = useState("");
+  const [photo4, setPhoto4] = useState("");
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+
 
       const [errors, setErrors] = useState({});
 
@@ -63,14 +71,82 @@ function NewSpotForm() {
 
       // console.log(errors)
 
-      const handleSubmit = (e) => {
+      const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log({
-          country,
-        });
+        //return if errors
+          setHasSubmitted(true);
+          if (Object.keys(errors).length > 0) return alert(`Cannot Submit`);
 
-        history.push("/");
+
+        const newSpot = {
+          country,
+          address: streetAddress,
+          city,
+          state,
+          lat: latitude,
+          lng: longitude,
+          description,
+          name: title,
+          price,
+        };
+
+        let photosArr = []
+
+        let previewImgObj = {
+          url: previewPhoto,
+          preview: "true"
+        }
+
+        if (photo1) {
+          photosArr.push({
+            url: photo1,
+            preview: "false"
+          })
+        }
+        if (photo2) {
+          photosArr.push({
+            url: photo2,
+            preview: "false",
+          });
+        }
+        if (photo3) {
+          photosArr.push({
+            url: photo3,
+            preview: "false",
+          });
+        }
+        if (photo4) {
+          photosArr.push({
+            url: photo4,
+            preview: "false",
+          });
+        }
+
+        // for (let i = 0; i < 4; i++) {
+        //   if (photo + i) {
+
+        //   }
+        // }
+
+        photosArr.push(previewImgObj)
+        console.log("photosArr", photosArr)
+
+
+        let createdSpot = await dispatch(addNewSpot(newSpot))
+        console.log("newSpot from inside form clickhandler", newSpot)
+
+        let spotId = createdSpot.id
+        console.log("spotId from inside NewSpotForm clickhandler", spotId)
+
+        if (createdSpot) {
+          dispatch(addPhotosToSpot(photosArr, spotId));
+        }
+        // console.log("images from inside clickhandler", images)
+
+    if (createdSpot) {
+      history.push(`/spots/${createdSpot.id}`);
+    }
       };
 
     return (
@@ -79,9 +155,7 @@ function NewSpotForm() {
           <h2>Create a new Spot</h2>
           <label>
             Country{" "}
-            <span className="error">
-              {errors.country ? errors.country : null}
-            </span>
+            <span className="error">{hasSubmitted && errors.country}</span>
             <input
               type="text"
               name="country"
@@ -93,7 +167,7 @@ function NewSpotForm() {
           <label>
             Street Address{" "}
             <span className="error">
-              {errors.streetAddress ? errors.streetAddress : null}
+              {hasSubmitted && errors.streetAddress}
             </span>
             <input
               type="text"
@@ -105,8 +179,7 @@ function NewSpotForm() {
           </label>
           <div className="form-stack">
             <label>
-              City{" "}
-              <span className="error">{errors.city ? errors.city : null}</span>
+              City <span className="error">{hasSubmitted && errors.city}</span>
               <input
                 type="text"
                 name="city"
@@ -117,9 +190,7 @@ function NewSpotForm() {
             </label>
             <label>
               State{" "}
-              <span className="error">
-                {errors.state ? errors.state : null}
-              </span>
+              <span className="error">{hasSubmitted && errors.state}</span>
               <input
                 type="text"
                 name="state"
@@ -132,9 +203,7 @@ function NewSpotForm() {
           <div className="form-stack stack-left">
             <label>
               Latitude{" "}
-              <span className="error">
-                {errors.latitude ? errors.latitude : null}
-              </span>
+              <span className="error">{hasSubmitted && errors.latitude}</span>
               <input
                 type="text"
                 name="latitude"
@@ -146,9 +215,7 @@ function NewSpotForm() {
             {/* <div><br /><br />{",     ,     "}</div> */}
             <label>
               Longitude{" "}
-              <span className="error">
-                {errors.longitude ? errors.longitude : null}
-              </span>
+              <span className="error">{hasSubmitted && errors.longitude}</span>
               <input
                 type="text"
                 name="longitude"
@@ -177,9 +244,7 @@ function NewSpotForm() {
             </textarea>
           </label>
           <p>
-            <span className="error">
-              {errors.description ? errors.description : <br></br>}{" "}
-            </span>
+            <span className="error">{hasSubmitted && errors.description}</span>
           </p>
           <label>
             <h3>Create a title for your spot</h3>
@@ -195,9 +260,7 @@ function NewSpotForm() {
               onChange={(e) => setTitle(e.target.value)}
             />
           </label>
-          <span className="error">
-            {errors.title ? errors.title : <br></br>}{" "}
-          </span>
+          <span className="error">{hasSubmitted && errors.title}</span>
           <label>
             <h3>Set a base price for your spot</h3>
             <p>
@@ -212,9 +275,7 @@ function NewSpotForm() {
               onChange={(e) => setPrice(e.target.value)}
             />
           </label>
-          <span className="error">
-            {errors.price ? errors.price : <br></br>}{" "}
-          </span>
+          <span className="error">{hasSubmitted && errors.price}</span>
           <label>
             <h3>Liven up your spot with photos</h3>
             <p>
@@ -229,43 +290,41 @@ function NewSpotForm() {
               onChange={(e) => setPreviewPhoto(e.target.value)}
             />
           </label>
-          <span className="error">
-            {errors.previewPhoto ? errors.previewPhoto : <br></br>}{" "}
-          </span>
+          <span className="error">{hasSubmitted && errors.previewPhoto}</span>
           <label>
             <input
               type="text"
-              name="photo"
-              value={photo}
+              name="photo1"
+              value={photo1}
               placeholder="Image URL"
-              onChange={(e) => setPhoto(e.target.value)}
+              onChange={(e) => setPhoto1(e.target.value)}
             />
           </label>
           <label>
             <input
               type="text"
-              name="photo"
-              value={photo}
+              name="photo2"
+              value={photo2}
               placeholder="Image URL"
-              onChange={(e) => setPhoto(e.target.value)}
+              onChange={(e) => setPhoto2(e.target.value)}
             />
           </label>
           <label>
             <input
               type="text"
-              name="photo"
-              value={photo}
+              name="photo3"
+              value={photo3}
               placeholder="Image URL"
-              onChange={(e) => setPhoto(e.target.value)}
+              onChange={(e) => setPhoto3(e.target.value)}
             />
           </label>
           <label>
             <input
               type="text"
-              name="photo"
-              value={photo}
+              name="photo4"
+              value={photo4}
               placeholder="Image URL"
-              onChange={(e) => setPhoto(e.target.value)}
+              onChange={(e) => setPhoto4(e.target.value)}
             />
           </label>
           <br />
