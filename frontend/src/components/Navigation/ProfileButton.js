@@ -44,23 +44,20 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      {user ? (
-        <Link to="/spots/new">create new Spot</Link>
-      ): (<></>)}
+      {user ? <Link to="/spots/new">create new Spot</Link> : <></>}
       <button onClick={openMenu}>
         <i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>
-              {user.firstName} {user.lastName}
-            </li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={logout}>Log Out</button>
-            </li>
+            <p>hello, {user.username}</p>
+            <p>{user.email}</p>
+            <p className="manage-spots">
+              <Link to="/spots/current">Manage Spots</Link>
+            </p>
+
+            <button onClick={logout}>Log Out</button>
           </>
         ) : (
           <>
