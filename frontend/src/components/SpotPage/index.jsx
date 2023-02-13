@@ -59,7 +59,7 @@ function SpotPage() {
       <div className="img-gallery">
         <img
           className="single-spot-preview-img"
-          src={(singleSpot.SpotImages[0]) ? singleSpot.SpotImages[0].url : null}
+          src={singleSpot.SpotImages[0] ? singleSpot.SpotImages[0].url : null}
           alt={singleSpot.name}
         />
       </div>
@@ -88,16 +88,15 @@ function SpotPage() {
         <h2>
           <span>
             <i className="fa-regular fa-star"></i>
-            {singleSpot.avgStarRating} rating - {singleSpot.numReviews} reviews
+            {!singleSpot.numReviews ? "New" : `${singleSpot.avgStarRating} rating - `}
+            {!singleSpot.numReviews ? " " : `${singleSpot.numReviews} reviews`}
           </span>
         </h2>
         {/* create single review component */}
         <div>
-
-          {reviewsArr && reviewsArr.map((review) => <SingleReview review={review} />)}
-
+          {reviewsArr &&
+            reviewsArr.map((review) => <SingleReview review={review} />)}
         </div>
-
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ function SpotCard({spot}) {
             <p>{spot.price}</p>
             <span>
               <i className="fa-regular fa-star"></i>
-              {(+spot.avgRating)}
+              {!spot.avgRating ? "New" : spot.avgRating }
             </span>
           {/* </div> */}
         </div>
