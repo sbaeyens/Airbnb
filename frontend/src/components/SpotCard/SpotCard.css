@@ -8,11 +8,15 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   margin: 10px;
   border-radius: 10px;
+  overflow: hidden;
 }
 
 .spot-card-img {
+  /* border-top-right-radius: 10px;
+  border-top-left-radius: 10px; */
   height: 300px;
   width: 300px;
+  object-fit: cover;
 }
 
 .hidden {
@@ -27,8 +31,4 @@
 .top-card-info {
   display: flex;
   justify-content: space-between;
-}
-
-.spot-card-img {
-  object-fit: cover;
 }

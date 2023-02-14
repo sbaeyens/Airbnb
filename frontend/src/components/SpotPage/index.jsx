@@ -44,9 +44,12 @@ function SpotPage() {
   // Put all reviews in array
   reviewsArr = Object.values(spotReviews);
 
+
   //   console.log("single spot from spotPage", singleSpot);
   //   console.log("image from single spot array", singleSpot.SpotImages[0].url);
   console.log("spotReviews from component", spotReviews);
+  console.log("reviewsArr from component", reviewsArr);
+
 
   return (
     <div className="spot-page-parent">
