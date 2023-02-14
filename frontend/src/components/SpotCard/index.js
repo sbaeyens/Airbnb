@@ -5,7 +5,7 @@ function SpotCard({spot}) {
 
     return (
       <Link key={spot.id} to={`spots/${spot.id}`}>
-        <div className="spot-card">
+        <div className="spot-card" key={spot.name}>
           <img
             className="spot-card-img"
             src={spot.previewImage}
