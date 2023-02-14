@@ -4,6 +4,7 @@ const LOAD = "spots/LOAD";
 const LOAD_SPOT = "spots/LOAD_SPOT"
 const ADD_SPOT = "spots/ADD_SPOT"
 const ADD_PHOTOS = "spots/ADD_PHOTOS"
+const ALL_SPOTS_BY_USER = "spots/ALL_SPOTS_BY_USER"
 
 //--------ACTIONS--------//
 // ALL SPOTS
@@ -30,16 +31,34 @@ const addPhotos = payload => ({
   payload
 })
 
+//ALL SPOTS BY USER
+const allSpotsByUser = payload => ({
+  type: ALL_SPOTS_BY_USER,
+  payload
+})
+
 
 //--------THUNKS--------//
 export const getAllSpots = () => async (dispatch) => {
   const response = await fetch(`/api/spots`);
 
   if (response.ok) {
+    console.log("response firing from all spot thunk")
     const payload = await response.json();
     dispatch(load(payload));
   }
 };
+
+export const getAllSpotsbyUser = () => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/current`);
+
+  if (response.ok) {
+    console.log("response in all spots by user*******", response)
+    const payload = await response.json();
+    dispatch(allSpotsByUser(payload));
+  }
+};
+
 
 export const getSingleSpot = (spotId) => async dispatch => {
   const response = await fetch(`/api/spots/${spotId}`)
@@ -124,6 +143,14 @@ export default function spotsReducer(state = initialState, action) {
         return {
           ...state,
           allSpots,
+          // list: sortList(action.list)
+        };
+      case ALL_SPOTS_BY_USER:
+        const allSpotsByUser = { ...action.payload.Spots };
+        console.log("allSpotsByUser from in spotsReducer", allSpotsByUser )
+        return {
+          ...state,
+          allSpots: allSpotsByUser,
           // list: sortList(action.list)
         };
       case LOAD_SPOT:
