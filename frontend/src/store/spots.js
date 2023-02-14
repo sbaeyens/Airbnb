@@ -173,10 +173,14 @@ export default function spotsReducer(state = initialState, action) {
         };
       case ALL_SPOTS_BY_USER:
         const allSpotsByUser = { ...action.payload.Spots };
-        console.log("allSpotsByUser from in spotsReducer", allSpotsByUser )
+        let allSpotsArr = Object.values(allSpotsByUser)
+        let normalizedResult = {}
+        allSpotsArr.forEach((spot) => (normalizedResult[spot.id] = spot))
+        console.log("allSpotsByUser from in spotsReducer", allSpotsByUser)
+        console.log("allSpotsArr", allSpotsArr)
         return {
           ...state,
-          allSpots: allSpotsByUser,
+          allSpots: normalizedResult,
           // list: sortList(action.list)
         };
       case LOAD_SPOT:
