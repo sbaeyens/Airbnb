@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom"
 import './SpotCard.css'
-import OpenModalButton from "../OpenModalButton";
-import DeleteSpotModal from "../DeleteSpotModal"
 
 function SpotCard({ spot, sessionUser }) {
 
@@ -14,15 +12,13 @@ function SpotCard({ spot, sessionUser }) {
   console.log("isOwner value", isOwner)
 
     return (
-      <div className="spot-card" key={spot.name}>
-        <Link key={spot.id} to={`spots/${spot.id}`}>
+      <Link key={spot.id} to={`spots/${spot.id}`}>
+        <div className="spot-card" key={spot.name}>
           <img
             className="spot-card-img"
             src={spot.previewImage}
             alt={spot.name}
           />
-        </Link>
-        <Link key={spot.id} to={`spots/${spot.id}`}>
           <div className="top-card-info">
             <div>
               {spot.city} , {spot.state}
@@ -34,27 +30,15 @@ function SpotCard({ spot, sessionUser }) {
               </span>
             </div>
           </div>
-        </Link>
-        <div className="bottom-card-info">
-          <Link key={spot.id} to={`spots/${spot.id}`}>
+          <div className="bottom-card-info">
             <div>{spot.price}</div>
-          </Link>
-          <div className="owner-buttons">
-            {isOwner ? (
-              <OpenModalButton
-                buttonText="Update"
-                modalComponent={<h2>Hello World!</h2>}
-              />
-            ) : null}
-            {isOwner ? (
-              <OpenModalButton
-                buttonText="Delete"
-                modalComponent={<DeleteSpotModal spot={spot} />}
-              />
-            ) : null}
+            <div className="owner-buttons">
+              {isOwner ? <button>Edit</button> : null}
+              <button className={isOwner ? "button" : "hidden"}>Delete</button>
+            </div>
           </div>
         </div>
-      </div>
+      </Link>
     );
 }
 

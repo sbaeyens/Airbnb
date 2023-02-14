@@ -125,6 +125,7 @@ export const removeSpot = (spotId) => async (dispatch) => {
 
 
   if (response.ok) {
+    console.log("reached response.ok")
       const details = await response.json();
       dispatch(deleteSpot(details));
 
