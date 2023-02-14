@@ -30,7 +30,7 @@ function AllSpots() {
     return (
       <div className="all-spots">
         {/* <section className='all-spots'> */}
-        {spots && spotsArr.map((spot) => <SpotCard spot={spot} />)}
+        {spots && spotsArr.map((spot) => <SpotCard spot={spot} key={spot.name} />)}
         {/* </section> */}
       </div>
 
