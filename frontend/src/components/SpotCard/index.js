@@ -1,24 +1,28 @@
 import { Link } from "react-router-dom"
 import './SpotCard.css'
+import OpenModalButton from "../OpenModalButton";
+import DeleteSpotModal from "../DeleteSpotModal"
 
 function SpotCard({ spot, sessionUser }) {
 
   if (sessionUser === undefined) sessionUser = 0
-  console.log("sessionUser should be 0 now", sessionUser)
+  // console.log("sessionUser should be 0 now", sessionUser)
 
   let isOwner = false
     if (spot.ownerId === sessionUser.id) isOwner = true
 
-  console.log("isOwner value", isOwner)
+  // console.log("isOwner value", isOwner)
 
     return (
-      <Link key={spot.id} to={`spots/${spot.id}`}>
-        <div className="spot-card" key={spot.name}>
+      <div className="spot-card" key={spot.name}>
+        <Link to={`spots/${spot.id}`}>
           <img
             className="spot-card-img"
             src={spot.previewImage}
             alt={spot.name}
           />
+        </Link>
+        <Link to={`spots/${spot.id}`}>
           <div className="top-card-info">
             <div>
               {spot.city} , {spot.state}
@@ -30,15 +34,27 @@ function SpotCard({ spot, sessionUser }) {
               </span>
             </div>
           </div>
-          <div className="bottom-card-info">
+        </Link>
+        <div className="bottom-card-info">
+          <Link  to={`spots/${spot.id}`}>
             <div>{spot.price}</div>
-            <div className="owner-buttons">
-              {isOwner ? <button>Edit</button> : null}
-              <button className={isOwner ? "button" : "hidden"}>Delete</button>
-            </div>
+          </Link>
+          <div className="owner-buttons">
+            {isOwner ? (
+              <OpenModalButton
+                buttonText="Update"
+                modalComponent={<h2>Hello World!</h2>}
+              />
+            ) : null}
+            {isOwner ? (
+              <OpenModalButton
+                buttonText="Delete"
+                modalComponent={<DeleteSpotModal spot={spot} />}
+              />
+            ) : null}
           </div>
         </div>
-      </Link>
+      </div>
     );
 }
 

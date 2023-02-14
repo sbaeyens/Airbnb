@@ -17,7 +17,7 @@ function AllSpotsByUser() {
       dispatch(getAllSpotsbyUser());
     }, [dispatch]);
 
-    console.log("sessionUser from allspotsbyuser", sessionUser);
+    // console.log("sessionUser from allspotsbyuser", sessionUser);
 
     if (!spots) {
       return null;

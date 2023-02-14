@@ -59,7 +59,7 @@ export const getAllSpotsbyUser = () => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/current`);
 
   if (response.ok) {
-    console.log("response in all spots by user*******", response)
+    // console.log("response in all spots by user*******", response)
     const payload = await response.json();
     dispatch(allSpotsByUser(payload));
   }
@@ -117,17 +117,18 @@ export const addPhotosToSpot = (photosArr, spotId) => async (dispatch) => {
 
 //Delete Spot Thunk
 export const removeSpot = (spotId) => async (dispatch) => {
-  console.log("reached removeSpot Thunk")
-  console.log("Spot ID from inside thunk", spotId);
+  // console.log("reached removeSpot Thunk")
+  // console.log("Spot ID from inside thunk", spotId);
   const response = await csrfFetch(`/api/spots/${spotId}`, {
       method: "DELETE"
   });
 
 
   if (response.ok) {
-    console.log("reached response.ok")
-      const details = await response.json();
-      dispatch(deleteSpot(details));
+    // console.log("reached response.ok")
+    const details = await response.json();
+    // console.log("details from inside thunk", details)
+      dispatch(deleteSpot(spotId));
 
     }
 
@@ -148,6 +149,7 @@ const initialState = {
 
 export default function spotsReducer(state = initialState, action) {
   let result
+  let newState
     switch (action.type) {
       case LOAD:
         const allSpots = { ...action.payload.Spots };
@@ -191,17 +193,35 @@ export default function spotsReducer(state = initialState, action) {
         //   ...state,
         //   newSpot,
         // }
-        console.log("newSpot from ADD_SPOT REDUCER", newSpot)
+        // console.log("newSpot from ADD_SPOT REDUCER", newSpot)
         return { ...state }
       case ADD_PHOTOS:
         const photosArray = { ...action.payload }
-        console.log("photosArray from ADD_PHOTOS REDUCER", photosArray)
+        // console.log("photosArray from ADD_PHOTOS REDUCER", photosArray)
         return { ...state }
       case DELETE_SPOT:
-        console.log("reached reducer + action.spotId", action.spotId)
-        const newState = { ...state }
-        delete newState[action.spotId]
+        newState = { ...state }
+        console.log("$$$$$$$$$$$$$ newState", newState)
+        delete newState.allSpots[action.payload]
+        console.log("$$$$$$$$$$$$$  newState after delete", newState);
+        newState = {
+          ...newState,
+          allSpots: {...newState.allSpots}
+        }
         return newState
+        // let newAllSpots = newState.allSpots
+        // console.log("reached reducer + action.spotId", action.spotId)
+        // console.log("newState from reducer", newState)
+        // console.log("action.payload from inside reducer", action.payload)
+        // let allSpotsArr = Object.values(newAllSpots)
+        // console.log("allSpotsArr ********", allSpotsArr)
+        // delete allSpotsArr[action.payload]
+        // console.log("allSpots from inside reducer", newAllSpots)
+        // result = {
+        //   ...newState,
+        //   newAllSpots
+        // }
+        // return result
       default:
         return state;
     }
