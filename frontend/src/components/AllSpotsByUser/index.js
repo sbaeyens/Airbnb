@@ -6,7 +6,7 @@ import { getAllSpotsbyUser } from "../../store/spots";
 import "./AllSpotsByUser.css";
 
 function AllSpotsByUser() {
-
+    const sessionUser = useSelector((state) => state.session.user);
 
     const dispatch = useDispatch();
     const spots = useSelector((state) => {
@@ -17,7 +17,7 @@ function AllSpotsByUser() {
       dispatch(getAllSpotsbyUser());
     }, [dispatch]);
 
-    console.log("state from Allspots component", spots);
+    console.log("sessionUser from allspotsbyuser", sessionUser);
 
     if (!spots) {
       return null;
@@ -31,7 +31,7 @@ function AllSpotsByUser() {
       <div className="all-spots">
         {/* <section className='all-spots'> */}
         {spots &&
-          spotsArr.map((spot) => <SpotCard spot={spot} key={spot.name} />)}
+                spotsArr.map((spot) => <SpotCard spot={spot} sessionUser={sessionUser} key={spot.name} />)}
         {/* </section> */}
       </div>
     );

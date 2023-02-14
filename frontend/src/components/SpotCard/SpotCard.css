@@ -14,3 +14,21 @@
   height: 300px;
   width: 300px;
 }
+
+.hidden {
+  visibility: hidden;
+}
+
+.bottom-card-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-card-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spot-card-img {
+  object-fit: cover;
+}
