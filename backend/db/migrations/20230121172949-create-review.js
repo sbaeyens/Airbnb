@@ -14,6 +14,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
+
       },
       spotId: {
         type: Sequelize.INTEGER,
@@ -21,6 +22,7 @@ module.exports = {
           model: "Spots",
           id: "id",
         },
+        onDelete: 'CASCADE'
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -28,6 +30,7 @@ module.exports = {
           model: "Users",
           id: "id",
         },
+        onDelete: "CASCADE"
       },
       review: {
         type: Sequelize.STRING,

@@ -6,6 +6,8 @@ import Navigation from "./components/Navigation";
 import AllSpots from "./components/AllSpots"
 import SpotPage from "./components/SpotPage";
 import NewSpotForm from "./components/NewSpotForm";
+import AllSpotsByUser from "./components/AllSpotsByUser";
+import EditSpotForm from "./components/EditSpotForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,17 +19,25 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      {isLoaded && <Switch>
-        <Route exact path ={'/'}>
-          <AllSpots />
-        </Route>
-        <Route path={`/spots/new`}>
-          <NewSpotForm />
-        </Route>
-        <Route path={`/spots/:spotId`}>
-          <SpotPage />
-        </Route>
-      </Switch>}
+      {isLoaded && (
+        <Switch>
+          <Route exact path={"/"}>
+            <AllSpots />
+          </Route>
+          <Route path={`/spots/new`}>
+            <NewSpotForm />
+          </Route>
+          <Route path={`/spots/current`}>
+            <AllSpotsByUser />
+          </Route>
+          <Route path={`/spots/:spotId/edit`}>
+            <EditSpotForm />
+          </Route>
+          <Route path={`/spots/:spotId`}>
+            <SpotPage />
+          </Route>
+        </Switch>
+      )}
     </>
   );
 }
