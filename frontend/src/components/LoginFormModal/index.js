@@ -27,7 +27,7 @@ function LoginFormModal() {
   const handleDemo = (e) => {
     e.preventDefault();
     setErrors([]);
-    return dispatch(sessionActions.login( "demo@user.io", "password" ))
+    return dispatch(sessionActions.login({ credential: "demo@user.io", password: "password"} ))
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
@@ -66,9 +66,9 @@ function LoginFormModal() {
           Log In
         </button>
       </form>
-      {/* <div className="demoButton">
+      <div className="demoButton">
         <button onClick={handleDemo}>Demo User</button>
-      </div> */}
+      </div>
     </div>
   );
 }
