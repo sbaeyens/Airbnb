@@ -13,16 +13,18 @@ function SpotCard({ spot, sessionUser }) {
 
   // console.log("isOwner value", isOwner)
 
+  console.log("spot.id from inside spotcard", spot.id)
+
     return (
       <div className="spot-card" key={spot.name}>
-        <Link to={`spots/${spot.id}`}>
+        <Link to={`/spots/${spot.id}`}>
           <img
             className="spot-card-img"
             src={spot.previewImage}
             alt={spot.name}
           />
         </Link>
-        <Link to={`spots/${spot.id}`}>
+        <Link to={`/spots/${spot.id}`}>
           <div className="top-card-info">
             <div>
               {spot.city} , {spot.state}
@@ -36,15 +38,14 @@ function SpotCard({ spot, sessionUser }) {
           </div>
         </Link>
         <div className="bottom-card-info">
-          <Link  to={`spots/${spot.id}`}>
+          <Link to={`/spots/${spot.id}`}>
             <div>{spot.price}</div>
           </Link>
           <div className="owner-buttons">
             {isOwner ? (
-              <OpenModalButton
-                buttonText="Update"
-                modalComponent={<h2>Hello World!</h2>}
-              />
+              <Link to={`/spots/${spot.id}/edit`}>
+                <button>Update</button>
+              </Link>
             ) : null}
             {isOwner ? (
               <OpenModalButton

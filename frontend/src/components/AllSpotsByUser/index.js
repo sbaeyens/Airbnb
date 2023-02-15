@@ -26,7 +26,7 @@ function AllSpotsByUser() {
     // Put all spots in array
     let spotsArr = Object.values(spots);
     // console.log("spotsArr", spotsArr)
-
+    console.log("spotsArr from allspotsbyuser", spotsArr)
     return (
       <div className="all-spots">
         {/* <section className='all-spots'> */}

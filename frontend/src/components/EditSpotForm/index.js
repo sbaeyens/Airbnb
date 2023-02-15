@@ -3,10 +3,51 @@ import { useHistory } from "react-router-dom";
 import "./EditSpotForm.css";
 import { addNewSpot, addPhotosToSpot } from "../../store/spots";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getSingleSpot } from "../../store/spots";
 
 function EditSpotForm() {
+  let spotId = useParams().spotId;
+  // console.log("spotID from editSpotform", spotId)
   const history = useHistory();
   const dispatch = useDispatch();
+
+  //---GRAB SPOT DATA---//
+  const singleSpotObj = useSelector((state) => {
+    return state.spots.singleSpot;
+  });
+
+  useEffect(() => {
+    dispatch(getSingleSpot(spotId));
+  }, [dispatch]);
+
+    console.log("singleSpotObj", singleSpotObj)
+    let singleSpotData = {
+      country: "",
+      streetAddress: "",
+      city: "",
+      state: "",
+      latitude: "",
+      longitude: "",
+      description: "",
+      title: "",
+      price: "",
+      SpotImages: [
+        { url: "" },
+        { url: "" },
+        { url: "" },
+        { url: "" },
+        { url: "" },
+      ],
+    };
+    if (Object.keys(singleSpotObj).length > 0) {
+      singleSpotData = { ...singleSpotObj };
+    }
+    console.log("singleSpotData", singleSpotData);
+
+    const [allSpotData, setAllSpotData] = useState(singleSpotObj)
+
+
 
   const [country, setCountry] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
@@ -163,9 +204,9 @@ function EditSpotForm() {
           <input
             type="text"
             name="country"
-            value={country}
+            value={singleSpotData.country}
             placeholder="Country"
-            onChange={(e) => setCountry(e.target.value)}
+            onChange={(e) => setAllSpotData(e.target.value)}
           />
         </label>
         <label>
@@ -174,9 +215,9 @@ function EditSpotForm() {
           <input
             type="text"
             name="streetAddress"
-            value={streetAddress}
+            value={singleSpotData.address}
             placeholder="Street Address"
-            onChange={(e) => setStreetAddress(e.target.value)}
+            onChange={(e) => setAllSpotData(e.target.value)}
           />
         </label>
         <div className="form-stack">
@@ -185,7 +226,7 @@ function EditSpotForm() {
             <input
               type="text"
               name="city"
-              value={city}
+              value={singleSpotData.city}
               placeholder="City"
               onChange={(e) => setCity(e.target.value)}
             />
@@ -195,7 +236,7 @@ function EditSpotForm() {
             <input
               type="text"
               name="state"
-              value={state}
+              value={singleSpotData.state}
               placeholder="State"
               onChange={(e) => setState(e.target.value)}
             />
@@ -208,7 +249,7 @@ function EditSpotForm() {
             <input
               type="text"
               name="latitude"
-              value={latitude}
+              value={singleSpotData.lat}
               placeholder="Latitude"
               onChange={(e) => setLatitude(e.target.value)}
             />
@@ -220,7 +261,7 @@ function EditSpotForm() {
             <input
               type="text"
               name="longitude"
-              value={longitude}
+              value={singleSpotData.lng}
               placeholder="Longitude"
               onChange={(e) => setLongitude(e.target.value)}
             />
@@ -240,7 +281,7 @@ function EditSpotForm() {
             placeholder="Description"
             onChange={(e) => setDescription(e.target.value)}
           >
-            {description}
+            {singleSpotData.description}
           </textarea>
         </label>
         <p>
@@ -255,7 +296,7 @@ function EditSpotForm() {
           <input
             type="text"
             name="title"
-            value={title}
+            value={singleSpotData.name}
             placeholder="Name of your spot"
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -270,7 +311,7 @@ function EditSpotForm() {
           <input
             type="text"
             name="price"
-            value={price}
+            value={singleSpotData.price}
             placeholder="Price per night (USD)"
             onChange={(e) => setPrice(e.target.value)}
           />
@@ -285,7 +326,7 @@ function EditSpotForm() {
           <input
             type="text"
             name="previewPhoto"
-            value={previewPhoto}
+            value={singleSpotData.SpotImages[0].url}
             placeholder="Preview Image URL"
             onChange={(e) => setPreviewPhoto(e.target.value)}
           />
@@ -295,7 +336,11 @@ function EditSpotForm() {
           <input
             type="text"
             name="photo1"
-            value={photo1}
+            value={
+              singleSpotData.SpotImages.length > 1
+                ? singleSpotData.SpotImages[1].url
+                : ""
+            }
             placeholder="Image URL"
             onChange={(e) => setPhoto1(e.target.value)}
           />
@@ -304,7 +349,11 @@ function EditSpotForm() {
           <input
             type="text"
             name="photo2"
-            value={photo2}
+            value={
+              singleSpotData.SpotImages.length > 2
+                ? singleSpotData.SpotImages[2].url
+                : ""
+            }
             placeholder="Image URL"
             onChange={(e) => setPhoto2(e.target.value)}
           />
@@ -313,7 +362,11 @@ function EditSpotForm() {
           <input
             type="text"
             name="photo3"
-            value={photo3}
+            value={
+              singleSpotData.SpotImages.length > 3
+                ? singleSpotData.SpotImages[3].url
+                : ""
+            }
             placeholder="Image URL"
             onChange={(e) => setPhoto3(e.target.value)}
           />
@@ -322,7 +375,11 @@ function EditSpotForm() {
           <input
             type="text"
             name="photo4"
-            value={photo4}
+            value={
+              singleSpotData.SpotImages.length > 4
+                ? singleSpotData.SpotImages[4].url
+                : ""
+            }
             placeholder="Image URL"
             onChange={(e) => setPhoto4(e.target.value)}
           />
