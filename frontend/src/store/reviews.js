@@ -31,11 +31,14 @@ const initialState = {
 export default function reviewsReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_SPOT_REVIEWS:
-      const spot = { ...action.payload.Reviews };
-        console.log("action.payload.Reviews from REDUCER", spot)
+      const reviews = { ...action.payload.Reviews };
+      console.log("action.payload.Reviews from REDUCER", reviews)
+      let reviewsArr = Object.values(reviews)
+      let normalizedReviews = {}
+      reviewsArr.forEach((review) => (normalizedReviews[review.id] = review));
       let result = {
         ...state,
-        spot,
+        spot: normalizedReviews,
       };
           return result
     default:

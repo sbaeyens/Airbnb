@@ -4,10 +4,13 @@ import { useParams } from "react-router-dom"
 import { getSingleSpot } from "../../store/spots";
 import { getSpotReviews } from "../../store/reviews";
 import SingleReview from "../SingleReview";
+import OpenModalButton from "../OpenModalButton";
+
 
 import "./SpotPage.css";
 
 function SpotPage() {
+  const sessionUser = useSelector((state) => state.session.user);
   let spotId = useParams().spotId;
   // console.log(spotId)
   let reviewsArr = []
@@ -43,13 +46,30 @@ function SpotPage() {
   // console.log("reached second console.log");
   // Put all reviews in array
   reviewsArr = Object.values(spotReviews);
-
+  // console.log("reviewsArr", reviewsArr)
 
   //   console.log("single spot from spotPage", singleSpot);
   //   console.log("image from single spot array", singleSpot.SpotImages[0].url);
   console.log("spotReviews from component", spotReviews);
   console.log("reviewsArr from component", reviewsArr);
 
+  /// check if user has reviews on page:
+  if (sessionUser === undefined) sessionUser = 0;
+  // console.log("sessionUser should be 0 now", sessionUser)
+
+  let sessionHasNoReview = true;
+
+  if (reviewsArr.length > 0) {
+    reviewsArr.forEach(review => {
+      if (review.User.id === sessionUser.id) sessionHasNoReview = false;
+    });
+  }
+
+  console.log("sessionHasReview", sessionHasNoReview)
+
+  // check if current session is owner
+  let isOwner = false;
+  if (singleSpot.ownerId === sessionUser.id) isOwner = true;
 
   return (
     <div className="spot-page-parent">
@@ -97,6 +117,18 @@ function SpotPage() {
             {!singleSpot.numReviews ? " " : `${singleSpot.numReviews} reviews`}
           </span>
         </h2>
+        {/* post a review button - Only visible for:
+            - logged in user
+            - if current user hasn't made review */}
+
+        <div>
+          {isOwner===false && sessionUser && sessionHasNoReview ? (
+            <OpenModalButton
+              buttonText="Post Review"
+              modalComponent={<h1>Post Review Coming Soon</h1>}
+            />
+          ) : null}
+        </div>
         {/* create single review component */}
         <div>
           {reviewsArr &&
@@ -107,4 +139,4 @@ function SpotPage() {
   );
 }
 
-export default SpotPage
+  export default SpotPage;
