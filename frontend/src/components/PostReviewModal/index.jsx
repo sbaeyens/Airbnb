@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./PostReviewModal.css";
-import { addNewReview } from "../../store/reviews";
+import { addNewReview, getSpotReviews } from "../../store/reviews";
+import { getSingleSpot } from "../../store/spots";
 
 function PostReviewModal({spotId}) {
     const dispatch = useDispatch();
@@ -35,6 +36,8 @@ function PostReviewModal({spotId}) {
         console.log("newReview from inside handle submit", newReview)
 
         let createdReview = await dispatch(addNewReview(newReview, spotId))
+        await dispatch(getSpotReviews(spotId));
+        // await dispatch(getSingleSpot(spotId))
          if(createdReview) closeModal();
       return
     };
