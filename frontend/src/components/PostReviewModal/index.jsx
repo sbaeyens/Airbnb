@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./PostReviewModal.css";
+import { addNewReview } from "../../store/reviews";
 
-function PostReviewModal() {
+function PostReviewModal({spotId}) {
     const dispatch = useDispatch();
     const [review, setReview] = useState("");
     const [errors, setErrors] = useState([]);
@@ -22,7 +23,7 @@ function PostReviewModal() {
       setErrors(newErrors);
     }, [review]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
 
@@ -31,7 +32,10 @@ function PostReviewModal() {
              stars
          };
 
-        console.log(newReview)
+        console.log("newReview from inside handle submit", newReview)
+
+        let createdReview = await dispatch(addNewReview(newReview, spotId))
+         if(createdReview) closeModal();
       return
     };
 

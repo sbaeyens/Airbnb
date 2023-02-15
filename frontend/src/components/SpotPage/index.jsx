@@ -124,7 +124,7 @@ function SpotPage() {
           {isOwner===false && sessionUser && sessionHasNoReview ? (
             <OpenModalButton
               buttonText="Post Review"
-              modalComponent={<PostReviewModal />}
+              modalComponent={<PostReviewModal spotId={spotId} />}
             />
           ) : null}
         </div>
