@@ -197,7 +197,7 @@ function EditSpotForm() {
   return (
     <div className="new-spot-form-div">
       <form className="new-spot-form" onSubmit={handleSubmit}>
-        <h2>Create a new Spot</h2>
+        <h2>Edit Your Spot</h2>
         <label>
           Country{" "}
           <span className="error">{hasSubmitted && errors.country}</span>
@@ -386,7 +386,7 @@ function EditSpotForm() {
         </label>
         <br />
         <button className="submit-button" type="submit">
-          Create Spot
+          Update Your Spot
         </button>
       </form>
     </div>

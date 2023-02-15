@@ -91,7 +91,9 @@ function SpotPage() {
         <h2>
           <span>
             <i className="fa-regular fa-star"></i>
-            {!singleSpot.numReviews ? "New" : `${singleSpot.avgStarRating} rating - `}
+            {!singleSpot.numReviews
+              ? "New"
+              : `${singleSpot.avgStarRating} rating • `}
             {!singleSpot.numReviews ? " " : `${singleSpot.numReviews} reviews`}
           </span>
         </h2>
