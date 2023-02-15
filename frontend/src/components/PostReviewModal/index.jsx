@@ -6,8 +6,8 @@ import "./PostReviewModal.css";
 function PostReviewModal() {
     const dispatch = useDispatch();
     const [review, setReview] = useState("");
-    const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
+    const [stars, setStars] = useState(0)
     const { closeModal } = useModal();
 
 
@@ -19,13 +19,19 @@ function PostReviewModal() {
         newErrors.push("Review must be 10 or more characters");
       }
 
-
       setErrors(newErrors);
     }, [review]);
 
     const handleSubmit = (e) => {
-      e.preventDefault();
-      setErrors([]);
+        e.preventDefault();
+        setErrors([]);
+
+         const newReview = {
+             review,
+             stars
+         };
+
+        console.log(newReview)
       return
     };
 
@@ -33,7 +39,6 @@ function PostReviewModal() {
     <div className="modal">
       <h1>How was your stay?</h1>
       <form onSubmit={handleSubmit}>
-
         <label for="review">
           <textarea
             name="review"
@@ -47,23 +52,58 @@ function PostReviewModal() {
           </textarea>
         </label>
         <div class="rate">
-          <input type="radio" id="star5" name="rate" value="5" />
+          <input
+            type="radio"
+            id="star5"
+            name="rate"
+            value="5"
+            checked={stars === 5}
+            onChange={() => setStars(5)}
+          />
           <label for="star5" title="text">
             5 stars
           </label>
-          <input type="radio" id="star4" name="rate" value="4" />
+          <input
+            type="radio"
+            id="star4"
+            name="rate"
+            value="4"
+            checked={stars === 4}
+            onChange={() => setStars(4)}
+          />
           <label for="star4" title="text">
             4 stars
           </label>
-          <input type="radio" id="star3" name="rate" value="3" />
+          <input
+            type="radio"
+            id="star3"
+            name="rate"
+            value="3"
+            checked={stars === 3}
+            onChange={() => setStars(3)}
+          />
           <label for="star3" title="text">
             3 stars
           </label>
-          <input type="radio" id="star2" name="rate" value="2" />
+          <input
+            type="radio"
+            id="star2"
+            name="rate"
+            value="2"
+            checked={stars === 2}
+            onChange={() => setStars(2)}
+          />
           <label for="star2" title="text">
             2 stars
           </label>
-          <input type="radio" id="star1" name="rate" value="1" />
+          <input
+            type="radio"
+            id="star1"
+            name="rate"
+            value="1"
+            checked={stars === 1}
+            onChange={() => setStars(1)}
+          />
           <label for="star1" title="text">
             1 star
           </label>
