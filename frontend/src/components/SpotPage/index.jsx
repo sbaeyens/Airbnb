@@ -5,9 +5,8 @@ import { getSingleSpot } from "../../store/spots";
 import { getSpotReviews } from "../../store/reviews";
 import SingleReview from "../SingleReview";
 import OpenModalButton from "../OpenModalButton";
-
-
 import "./SpotPage.css";
+import PostReviewModal from "../PostReviewModal";
 
 function SpotPage() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -125,7 +124,7 @@ function SpotPage() {
           {isOwner===false && sessionUser && sessionHasNoReview ? (
             <OpenModalButton
               buttonText="Post Review"
-              modalComponent={<h1>Post Review Coming Soon</h1>}
+              modalComponent={<PostReviewModal />}
             />
           ) : null}
         </div>
