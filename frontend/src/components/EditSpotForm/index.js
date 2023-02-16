@@ -28,7 +28,14 @@ function EditSpotForm() {
      let spotInfo = await dispatch(getSingleSpot(spotId));
 
       setCountry(spotInfo.country)
+      setStreetAddress(spotInfo.address)
+      setCity(spotInfo.city)
+      setState(spotInfo.state)
+      setLatitude(spotInfo.lat);
+      setLongitude(spotInfo.lng);
+      setDescription(spotInfo.description)
       setTitle(spotInfo.name)
+      setPrice(spotInfo.price)
     }
     fillFeilds()
   }, [dispatch]);
@@ -88,19 +95,19 @@ function EditSpotForm() {
     //   ],
     // });
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (singleSpotObj) {
-          const inputFiller = {
-            ...allSpotData,
-            country: singleSpotObj.country,
-            city: singleSpotObj.city,
-            state: singleSpotObj.state,
-          };
-          setAllSpotData(inputFiller);
-            console.log("allspotData UseEffect@@@@@@@@@@@", allSpotData);
-        }
-    },[singleSpotObj])
+    //     if (singleSpotObj) {
+    //       const inputFiller = {
+    //         ...allSpotData,
+    //         country: singleSpotObj.country,
+    //         city: singleSpotObj.city,
+    //         state: singleSpotObj.state,
+    //       };
+    //       setAllSpotData(inputFiller);
+    //         console.log("allspotData UseEffect@@@@@@@@@@@", allSpotData);
+    //     }
+    // },[singleSpotObj])
 
     // useEffect(() => {
     //     let newSpotData = {
@@ -257,17 +264,17 @@ function EditSpotForm() {
     }
   };
 
-    let handleChange = e => {
-        const changeSpot = { ...allSpotData, [e.target.name]: e.target.value }
-        setAllSpotData(changeSpot)
-    }
+    // let handleChange = e => {
+    //     const changeSpot = { ...allSpotData, [e.target.name]: e.target.value }
+    //     setAllSpotData(changeSpot)
+    // }
 
 
 
   return (
     <div className="new-spot-form-div">
       <form className="new-spot-form" onSubmit={handleSubmit}>
-        <h2>Edit Your Spot</h2>
+        <h2>Create a new Spot</h2>
         <label>
           Country{" "}
           <span className="error">{hasSubmitted && errors.country}</span>
@@ -277,9 +284,6 @@ function EditSpotForm() {
             value={country}
             placeholder="Country"
             onChange={(e) => setCountry(e.target.value)}
-
-            // onChange={(e) => setAllSpotData(e.target.value)}
-            // onChange={handleChange}
           />
         </label>
         <label>
@@ -288,9 +292,9 @@ function EditSpotForm() {
           <input
             type="text"
             name="streetAddress"
-            value={allSpotData.address}
+            value={streetAddress}
             placeholder="Street Address"
-            onChange={handleChange}
+            onChange={(e) => setStreetAddress(e.target.value)}
           />
         </label>
         <div className="form-stack">
@@ -299,9 +303,9 @@ function EditSpotForm() {
             <input
               type="text"
               name="city"
-              value={allSpotData.city}
+              value={city}
               placeholder="City"
-              onChange={handleChange}
+              onChange={(e) => setCity(e.target.value)}
             />
           </label>
           <label>
@@ -309,9 +313,9 @@ function EditSpotForm() {
             <input
               type="text"
               name="state"
-              value={allSpotData.state}
+              value={state}
               placeholder="State"
-              onChange={handleChange}
+              onChange={(e) => setState(e.target.value)}
             />
           </label>
         </div>
@@ -322,9 +326,9 @@ function EditSpotForm() {
             <input
               type="text"
               name="latitude"
-              value={allSpotData.lat}
+              value={latitude}
               placeholder="Latitude"
-              onChange={handleChange}
+              onChange={(e) => setLatitude(e.target.value)}
             />
           </label>
           {/* <div><br /><br />{",     ,     "}</div> */}
@@ -334,9 +338,9 @@ function EditSpotForm() {
             <input
               type="text"
               name="longitude"
-              value={allSpotData.lng}
+              value={longitude}
               placeholder="Longitude"
-              onChange={handleChange}
+              onChange={(e) => setLongitude(e.target.value)}
             />
           </label>
         </div>
@@ -352,10 +356,9 @@ function EditSpotForm() {
             cols="30"
             rows="10"
             placeholder="Description"
-            onChange={handleChange}
-          >
-            {allSpotData.description}
-          </textarea>
+            value={ description }
+            onChange={(e) => setDescription(e.target.value)}
+          ></textarea>
         </label>
         <p>
           <span className="error">{hasSubmitted && errors.description}</span>
@@ -369,9 +372,9 @@ function EditSpotForm() {
           <input
             type="text"
             name="title"
-            value={allSpotData.name}
+            value={title}
             placeholder="Name of your spot"
-            onChange={handleChange}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </label>
         <span className="error">{hasSubmitted && errors.title}</span>
@@ -384,82 +387,16 @@ function EditSpotForm() {
           <input
             type="text"
             name="price"
-            value={allSpotData.price}
+            value={price}
             placeholder="Price per night (USD)"
-            onChange={handleChange}
+            onChange={(e) => setPrice(e.target.value)}
           />
         </label>
         <span className="error">{hasSubmitted && errors.price}</span>
-        <label>
-          <h3>Liven up your spot with photos</h3>
-          <p>
-            Competitive pricing can help your listing stand out and rank higher
-            in search results.
-          </p>
-          <input
-            type="text"
-            name="previewPhoto"
-            value={allSpotData.SpotImages[0].url}
-            placeholder="Preview Image URL"
-            onChange={handleChange}
-          />
-        </label>
-        <span className="error">{hasSubmitted && errors.previewPhoto}</span>
-        <label>
-          <input
-            type="text"
-            name="photo1"
-            value={
-              allSpotData.SpotImages.length > 1
-                ? allSpotData.SpotImages[1].url
-                : ""
-            }
-            placeholder="Image URL"
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          <input
-            type="text"
-            name="photo2"
-            value={
-              allSpotData.SpotImages.length > 2
-                ? allSpotData.SpotImages[2].url
-                : ""
-            }
-            placeholder="Image URL"
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          <input
-            type="text"
-            name="photo3"
-            value={
-              allSpotData.SpotImages.length > 3
-                ? allSpotData.SpotImages[3].url
-                : ""
-            }
-            placeholder="Image URL"
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          <input
-            type="text"
-            name="photo4"
-            value={
-              allSpotData.SpotImages.length > 4
-                ? allSpotData.SpotImages[4].url
-                : ""
-            }
-            placeholder="Image URL"
-            onChange={handleChange}
-          />
-        </label>
+
         <br />
         <button className="submit-button" type="submit">
-          Update Your Spot
+          Create Spot
         </button>
       </form>
     </div>
