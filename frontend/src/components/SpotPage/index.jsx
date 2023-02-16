@@ -140,14 +140,14 @@ function SpotPage() {
                   ? "New"
                   : `${parseFloat(singleSpot.avgStarRating).toFixed(
                       1
-                    )} rating • `}{" "}
+                    )} rating `}{" "}
                 • {singleSpot.numReviews} review
                 {singleSpot.numReviews > 0 ? "s" : null}
               </span>
             </p>
           </div>
           <div className="reserve-modal-button">
-            <button>Reserve</button>
+            <button className="submit-button-reserve">Reserve</button>
           </div>
         </div>
       </div>

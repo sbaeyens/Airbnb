@@ -23,9 +23,13 @@
 .float-menu {
   position: absolute;
   background-color: white;
-  border: solid black;
-  margin: 5px 0px 0px -75px;
+  /* border: solid black; */
+  margin: 5px 0px 0px -80px;
   padding: 20px;
+  border-radius: 10px;
+  width: 150px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  justify-content: center;
 }
 
 .manage-spots {
@@ -55,4 +59,7 @@ i {
   align-items: center;
   margin-left: -20px;
   gap: 15px;
+}
+
+.profile-modal {
 }
