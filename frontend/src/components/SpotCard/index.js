@@ -30,7 +30,7 @@ function SpotCard({ spot, sessionUser }) {
               {spot.city} , {spot.state}
             </div>
             <div>
-              <span>
+              <span className="rating-section">
                 <i className="fa-regular fa-star"></i>
                 {!spot.avgRating
                   ? "New"
@@ -41,16 +41,19 @@ function SpotCard({ spot, sessionUser }) {
         </Link>
         <div className="bottom-card-info">
           <Link to={`/spots/${spot.id}`}>
-            <div>${spot.price} night</div>
+            <div>
+              <span className="price">${spot.price} night</span>
+            </div>
           </Link>
           <div className="owner-buttons">
             {isOwner ? (
               <Link to={`/spots/${spot.id}/edit`}>
-                <button>Update</button>
+                <button className="submit-button-card">Update</button>
               </Link>
             ) : null}
             {isOwner ? (
               <OpenModalButton
+                classAttribute={"submit-button-card"}
                 buttonText="Delete"
                 modalComponent={<DeleteSpotModal spot={spot} />}
               />

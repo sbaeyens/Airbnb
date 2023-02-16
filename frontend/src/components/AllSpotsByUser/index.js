@@ -29,7 +29,7 @@ function AllSpotsByUser() {
     console.log("spotsArr from allspotsbyuser", spotsArr)
     return (
       <div>
-        <div>
+        <div className="manage-spots-header-text">
           <h1>Manage Spots</h1>
         </div>
         <div className="all-spots">

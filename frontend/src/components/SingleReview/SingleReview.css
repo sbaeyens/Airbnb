@@ -1,3 +1,46 @@
 .single-review {
   border-style: dotted;
+  color: black;
+  font-family: Helvetica, sans-serif;
+  text-decoration: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 40px;
+}
+
+.review-text {
+  padding: 5px;
+}
+
+.date {
+  color: grey;
+}
+
+.submit-button-red {
+  background-color: red;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+    "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  margin: 20px 0px 0px 0px;
+  outline: none;
+  padding: 13px 23px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: box-shadow 0.2s, -ms-transform 0.1s, -webkit-transform 0.1s,
+    transform 0.1s;
+  user-select: none;
+  -webkit-user-select: none;
+  width: auto;
 }

@@ -4,6 +4,7 @@
 
 .navbar {
   display: flex;
+  font-family: Helvetica, sans-serif;
   justify-content: space-between;
   border-bottom: solid;
   border-color: lightgray;
