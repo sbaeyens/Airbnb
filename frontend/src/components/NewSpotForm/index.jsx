@@ -19,7 +19,7 @@ function NewSpotForm() {
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState("");
     const [previewPhoto, setPreviewPhoto] = useState("");
-    const [photo1, setPhoto1] = useState([]);
+    const [photo1, setPhoto1] = useState("");
   const [photo2, setPhoto2] = useState("");
   const [photo3, setPhoto3] = useState("");
   const [photo4, setPhoto4] = useState("");
@@ -78,6 +78,7 @@ function NewSpotForm() {
           setHasSubmitted(true);
           if (Object.keys(errors).length > 0) return alert(`Cannot Submit`);
 
+        let photosArr
 
         const newSpot = {
           country,
@@ -91,12 +92,16 @@ function NewSpotForm() {
           price,
         };
 
-        let photosArr = []
+        photosArr = []
+        console.log("photosArr 1 - should be empty", photosArr);
 
         let previewImgObj = {
           url: previewPhoto,
           preview: "true"
         }
+
+        photosArr.push(previewImgObj)
+        console.log("photosArr2 - should only have preview", photosArr)
 
         if (photo1) {
           photosArr.push({
@@ -122,6 +127,8 @@ function NewSpotForm() {
             preview: "false",
           });
         }
+            console.log("photosArr3 - after optional photos - should only have 1 value still", photosArr);
+
 
         // for (let i = 0; i < 4; i++) {
         //   if (photo + i) {
@@ -129,8 +136,6 @@ function NewSpotForm() {
         //   }
         // }
 
-        photosArr.push(previewImgObj)
-        console.log("photosArr", photosArr)
 
 
         let createdSpot = await dispatch(addNewSpot(newSpot))
