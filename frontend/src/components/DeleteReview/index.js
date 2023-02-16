@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./DeleteReview.css";
 import DemoLoginButton from "../Navigation/DemoLoginButton";
-import { removeSpot } from "../../store/spots";
+import { removeReview } from "../../store/reviews";
 
 function DeleteReview({ review }) {
   const dispatch = useDispatch();
@@ -13,12 +13,13 @@ function DeleteReview({ review }) {
   const [password, setPassword] = useState("");
   const { closeModal } = useModal();
 
-//   let spotId = spot.id;
+    let reviewId = review.id;
+    console.log("reviewId from inside component", reviewId)
 
   const handleDelete = (e) => {
     e.preventDefault();
 
-    // return dispatch(removeSpot(spotId)).then(closeModal);
+    return dispatch(removeReview(reviewId)).then(closeModal);
   };
 
   const handleCancel = (e) => {

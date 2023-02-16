@@ -3,7 +3,7 @@ import DeleteReview from "../DeleteReview"
 import OpenModalButton from "../OpenModalButton";
 
 
-function SingleReview({ review }) {
+function SingleReview({ review, sessionUser }) {
   let date = review.createdAt
   let dateParsed = Date.parse(date);
   console.log("date parsed",dateParsed );
@@ -19,6 +19,11 @@ function SingleReview({ review }) {
   let dateDay = dateArr [2]
   let dateYear = dateArr[3]
 
+  let isSessionReview = false
+  //check if current session is owner of review
+  if (sessionUser.id === review.userId) isSessionReview = true
+
+
     console.log("review from single review component", review)
     if (!review) return null
     console.log("review from Single Review component", review)
@@ -28,7 +33,7 @@ function SingleReview({ review }) {
         <h4 className="review-text date">{`${dateMonth}, ${dateYear}`}</h4>
         <p className="review-text">{review.review}</p>
         <div className="owner-buttons">
-          {review ? (
+          {isSessionReview ? (
             <OpenModalButton
               classAttribute={"submit-button-card"}
               buttonText="Delete"

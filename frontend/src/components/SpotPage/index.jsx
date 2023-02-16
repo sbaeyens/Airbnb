@@ -177,7 +177,7 @@ function SpotPage() {
         {/* create single review component */}
         <div className="reviews-list">
           {reviewsArr &&
-            reviewsArr.map((review) => <SingleReview review={review} />)}
+            reviewsArr.map((review) => <SingleReview review={review} sessionUser={sessionUser}/>)}
         </div>
         <div>
           {isOwner === false && sessionUser.id !== 0 && sessionHasNoReview ? (
