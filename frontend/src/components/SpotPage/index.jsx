@@ -83,12 +83,47 @@ function SpotPage() {
           {singleSpot.city}, {singleSpot.state}, {singleSpot.country}
         </h3>
       </div>
-      <div className="img-gallery">
-        <img
-          className="single-spot-preview-img"
-          src={singleSpot.SpotImages[0] ? singleSpot.SpotImages[0].url : null}
-          alt={singleSpot.name}
-        />
+
+      <div className="image-grid">
+        {singleSpot.SpotImages.length > 0 ? (
+          <img
+            className="image-grid-col-2 image-grid-row-2"
+            src={singleSpot.SpotImages[0].url}
+            alt={singleSpot.name}
+          />
+        ) : null}
+
+        {singleSpot.SpotImages.length > 1 ? (
+          <img
+            className="other-img"
+            src={singleSpot.SpotImages[1].url}
+            alt={singleSpot.name}
+          />
+        ) : null}
+
+        {singleSpot.SpotImages.length > 2 ? (
+          <img
+            className="other-img"
+            src={singleSpot.SpotImages[2].url}
+            alt={singleSpot.name}
+          />
+        ) : null}
+
+        {singleSpot.SpotImages.length > 3 ? (
+          <img
+            className="other-img"
+            src={singleSpot.SpotImages[3].url}
+            alt={singleSpot.name}
+          />
+        ) : null}
+
+        {singleSpot.SpotImages.length > 4 ? (
+          <img
+            className="other-img"
+            src={singleSpot.SpotImages[4].url}
+            alt={singleSpot.name}
+          />
+        ) : null}
       </div>
       <div className="bottom-info">
         <div className="spot-details">
