@@ -15,19 +15,22 @@ function EditSpotForm() {
   sessionUser = useSelector((state) => state.session.user);
   if (!sessionUser) history.push(`/`);
 
+  let singleSpotObj= {}
   //---GRAB SPOT DATA---//
-  const singleSpotObj = useSelector((state) => {
+  singleSpotObj = useSelector((state) => {
     return state.spots.singleSpot;
   });
   console.log("singleSpotObj", singleSpotObj)
+  console.log("sessionUser", sessionUser)
 
   useEffect(() => {
     dispatch(getSingleSpot(spotId));
   }, [dispatch]);
 
   //if not owner of spot, redirect to home
+  console.log(singleSpotObj)
   let isOwner = true;
-  if (!singleSpotObj && singleSpotObj.ownerId !== sessionUser.id) isOwner = false;
+  if (Object.keys(singleSpotObj).length > 0 && singleSpotObj.ownerId !== sessionUser.id) isOwner = false;
   if (isOwner === false) history.push(`/`);
 
   let spotId = useParams().spotId;
