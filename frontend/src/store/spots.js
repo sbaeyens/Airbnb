@@ -72,6 +72,7 @@ export const getSingleSpot = (spotId) => async dispatch => {
   if (response.ok) {
     const payload = await response.json()
     dispatch(loadOneSpot(payload))
+    return payload
   }
 }
 

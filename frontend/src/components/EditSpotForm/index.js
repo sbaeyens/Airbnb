@@ -24,8 +24,16 @@ function EditSpotForm() {
   console.log("sessionUser", sessionUser)
 
   useEffect(() => {
-    dispatch(getSingleSpot(spotId));
+    const fillFeilds = async () => {
+     let spotInfo = await dispatch(getSingleSpot(spotId));
+
+      setCountry(spotInfo.country)
+      setTitle(spotInfo.name)
+    }
+    fillFeilds()
   }, [dispatch]);
+
+
 
   //if not owner of spot, redirect to home
   console.log(singleSpotObj)
@@ -61,24 +69,24 @@ function EditSpotForm() {
     // }
     // console.log("singleSpotData", singleSpotData);
 
-    const [allSpotData, setAllSpotData] = useState({
-      country: "",
-      streetAddress: "",
-      city: "",
-      state: "",
-      latitude: "",
-      longitude: "",
-      description: "",
-      title: "",
-      price: "",
-      SpotImages: [
-        { url: "" },
-        { url: "" },
-        { url: "" },
-        { url: "" },
-        { url: "" },
-      ],
-    });
+    // const [allSpotData, setAllSpotData] = useState({
+    //   country: "",
+    //   streetAddress: "",
+    //   city: "",
+    //   state: "",
+    //   latitude: "",
+    //   longitude: "",
+    //   description: "",
+    //   title: "",
+    //   price: "",
+    //   SpotImages: [
+    //     { url: "" },
+    //     { url: "" },
+    //     { url: "" },
+    //     { url: "" },
+    //     { url: "" },
+    //   ],
+    // });
 
     useEffect(() => {
 
@@ -266,10 +274,12 @@ function EditSpotForm() {
           <input
             type="text"
             name="country"
-            value={allSpotData.country}
+            value={country}
             placeholder="Country"
+            onChange={(e) => setCountry(e.target.value)}
+
             // onChange={(e) => setAllSpotData(e.target.value)}
-            onChange={handleChange}
+            // onChange={handleChange}
           />
         </label>
         <label>
