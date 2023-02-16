@@ -136,8 +136,12 @@ function SpotPage() {
             <p>
               <span>
                 <i className="fa-regular fa-star"></i>
-                {parseFloat(singleSpot.avgStarRating).toFixed(1)} •{" "}
-                {singleSpot.numReviews} review
+                {!singleSpot.numReviews
+                  ? "New"
+                  : `${parseFloat(singleSpot.avgStarRating).toFixed(
+                      1
+                    )} rating • `}{" "}
+                • {singleSpot.numReviews} review
                 {singleSpot.numReviews > 0 ? "s" : null}
               </span>
             </p>
@@ -149,7 +153,7 @@ function SpotPage() {
       </div>
       {/* div section for reviews */}
       <div className="reviews-section-parent">
-        <h2>
+        <h2 className="reviews-header-text">
           <span>
             <i className="fa-regular fa-star"></i>
             {!singleSpot.numReviews
@@ -171,7 +175,7 @@ function SpotPage() {
           ) : null}
         </div>
         {/* create single review component */}
-        <div>
+        <div className="reviews-list">
           {reviewsArr &&
             reviewsArr.map((review) => <SingleReview review={review} />)}
         </div>

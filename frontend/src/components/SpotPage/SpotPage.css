@@ -1,6 +1,15 @@
+.spot-page-parent {
+  font-family: Helvetica, sans-serif;
+}
+
+.top-info {
+  padding: 20px;
+}
+
 .bottom-info {
   display: flex;
   justify-content: space-between;
+  padding: 20px;
 }
 .reserve-modal {
   border-style: dotted;
@@ -96,4 +105,13 @@
   flex-shrink: 0;
   min-width: 100%;
   min-height: 100%;
+}
+
+/* CSS for reviews */
+.reviews-section-parent {
+  padding: 20px;
+}
+
+.reviews-header-text {
+  margin-bottom: 15px;
 }

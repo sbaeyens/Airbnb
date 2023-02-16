@@ -1,7 +1,7 @@
 .spot-card {
   /* border-style: dotted; */
   width: 300px;
-  height: 450px;
+  height: 400px;
   color: black;
   font-family: Helvetica, sans-serif;
   text-decoration: none;
@@ -26,14 +26,50 @@
 .bottom-card-info {
   display: flex;
   justify-content: space-between;
+  padding: 10px;
 }
 
 .top-card-info {
   display: flex;
   justify-content: space-between;
+  padding: 10px;
 }
 
 .lower-card-gap {
   overflow: hidden;
   height: 300px;
+}
+
+/* unvisited link */
+a:link {
+  color: black;
+  text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+  color: black;
+  text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+/* selected link */
+a:active {
+  color: black;
+  text-decoration: none;
+}
+
+.price {
+  font-weight: bold;
+}
+
+.rating-section {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
