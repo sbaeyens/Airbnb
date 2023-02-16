@@ -1,4 +1,7 @@
 import './SingleReview.css'
+import DeleteReview from "../DeleteReview"
+import OpenModalButton from "../OpenModalButton";
+
 
 function SingleReview({ review }) {
   let date = review.createdAt
@@ -24,7 +27,15 @@ function SingleReview({ review }) {
         <h3 className="review-text">{review.User.firstName}</h3>
         <h4 className="review-text date">{`${dateMonth}, ${dateYear}`}</h4>
         <p className="review-text">{review.review}</p>
-
+        <div className="owner-buttons">
+          {review ? (
+            <OpenModalButton
+              classAttribute={"submit-button-card"}
+              buttonText="Delete"
+              modalComponent={<DeleteReview review={review} />}
+            />
+          ) : null}
+        </div>
       </div>
     );
 }
