@@ -35,10 +35,10 @@ function DeleteSpotModal({spot}) {
           <h1>Confirm Delete</h1>
           <p>Are you sure you want to remove this spot from the listing?</p>
 
-      <button onClick={handleDelete} className="submit-button" type="submit">
+      <button onClick={handleDelete} className="submit-button-red" type="submit">
         Yes {"(Delete Spot)"}
       </button>
-      <button onClick={handleCancel} className="submit-button" type="submit">
+      <button onClick={handleCancel} className="submit-button-grey" type="submit">
         No {"(Keep Spot)"}
       </button>
     </div>

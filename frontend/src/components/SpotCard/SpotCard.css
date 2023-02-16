@@ -32,3 +32,8 @@
   display: flex;
   justify-content: space-between;
 }
+
+.lower-card-gap {
+  overflow: hidden;
+  height: 300px;
+}

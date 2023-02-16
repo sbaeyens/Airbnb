@@ -99,3 +99,57 @@
   cursor: not-allowed;
   opacity: 1;
 }
+
+.submit-button-red {
+  background-color: red;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+    "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  margin: 20px 0px 0px 0px;
+  outline: none;
+  padding: 13px 23px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: box-shadow 0.2s, -ms-transform 0.1s, -webkit-transform 0.1s,
+    transform 0.1s;
+  user-select: none;
+  -webkit-user-select: none;
+  width: auto;
+}
+
+.submit-button-grey {
+  background-color: grey;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+    "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  margin: 20px 0px 0px 0px;
+  outline: none;
+  padding: 13px 23px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: box-shadow 0.2s, -ms-transform 0.1s, -webkit-transform 0.1s,
+    transform 0.1s;
+  user-select: none;
+  -webkit-user-select: none;
+  width: auto;
+}
