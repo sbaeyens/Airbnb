@@ -101,7 +101,9 @@ function SpotPage() {
             <p>
               <span>
                 <i className="fa-regular fa-star"></i>
-                {singleSpot.avgStarRating} - {singleSpot.numReviews} reviews
+                {parseFloat(singleSpot.avgStarRating).toFixed(1)} •{" "}
+                {singleSpot.numReviews} review
+                {singleSpot.numReviews > 0 ? "s" : null}
               </span>
             </p>
           </div>
@@ -117,7 +119,7 @@ function SpotPage() {
             <i className="fa-regular fa-star"></i>
             {!singleSpot.numReviews
               ? "New"
-              : `${singleSpot.avgStarRating} rating • `}
+              : `${parseFloat(singleSpot.avgStarRating).toFixed(1)} rating • `}
             {!singleSpot.numReviews ? " " : `${singleSpot.numReviews} reviews`}
           </span>
         </h2>
@@ -126,7 +128,7 @@ function SpotPage() {
             - if current user hasn't made review */}
 
         <div>
-          {isOwner===false && sessionUser.id !== 0 && sessionHasNoReview ? (
+          {isOwner === false && sessionUser.id !== 0 && sessionHasNoReview ? (
             <OpenModalButton
               buttonText="Post Review"
               modalComponent={<PostReviewModal spotId={spotId} />}
@@ -137,6 +139,11 @@ function SpotPage() {
         <div>
           {reviewsArr &&
             reviewsArr.map((review) => <SingleReview review={review} />)}
+        </div>
+        <div>
+          {isOwner === false && sessionUser.id !== 0 && sessionHasNoReview ? (
+            <h2>Be the first to post a review!</h2>
+          ) : null}
         </div>
       </div>
     </div>

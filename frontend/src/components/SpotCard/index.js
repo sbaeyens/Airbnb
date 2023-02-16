@@ -32,14 +32,16 @@ function SpotCard({ spot, sessionUser }) {
             <div>
               <span>
                 <i className="fa-regular fa-star"></i>
-                {!spot.avgRating ? "New" : spot.avgRating}
+                {!spot.avgRating
+                  ? "New"
+                  : parseFloat(spot.avgRating).toFixed(1)}
               </span>
             </div>
           </div>
         </Link>
         <div className="bottom-card-info">
           <Link to={`/spots/${spot.id}`}>
-            <div>{spot.price}</div>
+            <div>${spot.price} night</div>
           </Link>
           <div className="owner-buttons">
             {isOwner ? (
@@ -55,6 +57,9 @@ function SpotCard({ spot, sessionUser }) {
             ) : null}
           </div>
         </div>
+        <Link to={`/spots/${spot.id}`}>
+          <div className="lower-card-gap"></div>
+        </Link>
       </div>
     );
 }

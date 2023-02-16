@@ -7,19 +7,32 @@ import { useParams } from "react-router-dom";
 import { getSingleSpot } from "../../store/spots";
 
 function EditSpotForm() {
-  let spotId = useParams().spotId;
-  // console.log("spotID from editSpotform", spotId)
-  const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  //if not logged in, redirect to home
+  let sessionUser;
+  sessionUser = useSelector((state) => state.session.user);
+  if (!sessionUser) history.push(`/`);
 
   //---GRAB SPOT DATA---//
   const singleSpotObj = useSelector((state) => {
     return state.spots.singleSpot;
   });
+  console.log("singleSpotObj", singleSpotObj)
 
   useEffect(() => {
     dispatch(getSingleSpot(spotId));
   }, [dispatch]);
+
+  //if not owner of spot, redirect to home
+  let isOwner = true;
+  if (!singleSpotObj && singleSpotObj.ownerId !== sessionUser.id) isOwner = false;
+  if (isOwner === false) history.push(`/`);
+
+  let spotId = useParams().spotId;
+  // console.log("spotID from editSpotform", spotId)
+
 
     // console.log("singleSpotObj", singleSpotObj)
     // let singleSpotData = {
