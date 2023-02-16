@@ -180,7 +180,7 @@ function SpotPage() {
             reviewsArr.map((review) => <SingleReview review={review} sessionUser={sessionUser}/>)}
         </div>
         <div>
-          {isOwner === false && sessionUser.id !== 0 && sessionHasNoReview ? (
+          {isOwner === false && sessionUser.id !== 0 && sessionHasNoReview && reviewsArr.length ===0 ? (
             <h2>Be the first to post a review!</h2>
           ) : null}
         </div>
