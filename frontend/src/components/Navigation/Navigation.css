@@ -6,6 +6,8 @@
   display: flex;
   justify-content: space-between;
   border-bottom: solid;
+  border-color: lightgray;
+  padding: 10px;
 }
 
 /* .profileButton:hover {
@@ -28,4 +30,16 @@
 .manage-spots {
   border-bottom: 1px solid;
   border-top: 1px solid;
+}
+
+.profileButton {
+  background-color: white;
+  height: 40px;
+  width: 80px;
+  border-radius: 20px;
+  margin-right: 5px;
+}
+
+i {
+  font-size: 20px;
 }
