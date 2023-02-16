@@ -48,11 +48,12 @@ function SpotCard({ spot, sessionUser }) {
           <div className="owner-buttons">
             {isOwner ? (
               <Link to={`/spots/${spot.id}/edit`}>
-                <button>Update</button>
+                <button className="submit-button-card">Update</button>
               </Link>
             ) : null}
             {isOwner ? (
               <OpenModalButton
+                classAttribute={"submit-button-card"}
                 buttonText="Delete"
                 modalComponent={<DeleteSpotModal spot={spot} />}
               />

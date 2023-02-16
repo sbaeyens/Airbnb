@@ -21,9 +21,10 @@ function SingleReview({ review }) {
     console.log("review from Single Review component", review)
     return (
       <div className="single-review">
-        <h3>{review.User.firstName}</h3>
-        <h4>{`${dateMonth} ${dateYear}`}</h4>
-            <p>{review.review}</p>
+        <h3 className="review-text">{review.User.firstName}</h3>
+        <h4 className="review-text date">{`${dateMonth}, ${dateYear}`}</h4>
+        <p className="review-text">{review.review}</p>
+
       </div>
     );
 }
