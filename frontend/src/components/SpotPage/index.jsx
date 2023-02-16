@@ -9,7 +9,8 @@ import "./SpotPage.css";
 import PostReviewModal from "../PostReviewModal";
 
 function SpotPage() {
-  const sessionUser = useSelector((state) => state.session.user);
+  let sessionUser
+  sessionUser = useSelector((state) => state.session.user);
   let spotId = useParams().spotId;
   // console.log(spotId)
   let reviewsArr = []
@@ -53,8 +54,12 @@ function SpotPage() {
   console.log("reviewsArr from component", reviewsArr);
 
   /// check if user has reviews on page:
-  if (sessionUser === undefined) sessionUser = 0;
-  // console.log("sessionUser should be 0 now", sessionUser)
+  if (!sessionUser) {
+    sessionUser = { id : 0 }
+    console.log("reached console log for check on sessionUser")
+  }
+  // if (sessionUser === undefined) sessionUser = 0;
+  console.log("sessionUser should be 0 now", sessionUser)
 
   let sessionHasNoReview = true;
 
@@ -121,7 +126,7 @@ function SpotPage() {
             - if current user hasn't made review */}
 
         <div>
-          {isOwner===false && sessionUser && sessionHasNoReview ? (
+          {isOwner===false && sessionUser.id !== 0 && sessionHasNoReview ? (
             <OpenModalButton
               buttonText="Post Review"
               modalComponent={<PostReviewModal spotId={spotId} />}

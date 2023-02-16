@@ -73,12 +73,12 @@ export default function reviewsReducer(state = initialState, action) {
       spot[newReview.id] = newReview
       console.log("newReview from ADD_NEW_REVIEW", newReview);
       console.log("spot from inside reducer", spot)
-      result = {
+      let newResult = {
         ...state,
         spot
       }
       console.log("result from inside reducer", result)
-      return result;
+      return newResult;
     default:
       return state;
   }
