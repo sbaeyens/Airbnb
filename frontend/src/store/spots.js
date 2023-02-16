@@ -6,6 +6,7 @@ const ADD_SPOT = "spots/ADD_SPOT"
 const ADD_PHOTOS = "spots/ADD_PHOTOS"
 const ALL_SPOTS_BY_USER = "spots/ALL_SPOTS_BY_USER"
 const DELETE_SPOT = "spots/DELETE_SPOT"
+const EDIT_SPOT = "spots/EDIT_SPOT"
 
 //--------ACTIONS--------//
 // ALL SPOTS
@@ -41,6 +42,12 @@ const allSpotsByUser = payload => ({
 //DELETE SPOT
 const deleteSpot = payload => ({
   type: DELETE_SPOT,
+  payload
+})
+
+//EDIT SPOT
+const updateSpot = payload => ({
+  type: EDIT_SPOT,
   payload
 })
 
@@ -135,6 +142,24 @@ export const removeSpot = (spotId) => async (dispatch) => {
 
 }
 
+// EDIT Spot Thunk
+export const editSpot = (newSpot, spotId) => async (dispatch) => {
+  // console.log("reached addNewSpot Thunk")
+  const response = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newSpot),
+  });
+
+  if (response.ok) {
+    const details = await response.json();
+    dispatch(updateSpot(details));
+
+    return details;
+  }
+};
 
 const initialState = {
     allSpots: {},
@@ -227,6 +252,9 @@ export default function spotsReducer(state = initialState, action) {
         //   newAllSpots
         // }
         // return result
+      case EDIT_SPOT:
+        newState = { ...state }
+        return newState
       default:
         return state;
     }

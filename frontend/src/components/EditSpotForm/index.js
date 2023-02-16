@@ -4,7 +4,7 @@ import "./EditSpotForm.css";
 import { addNewSpot, addPhotosToSpot } from "../../store/spots";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getSingleSpot } from "../../store/spots";
+import { getSingleSpot, editSpot } from "../../store/spots";
 
 function EditSpotForm() {
   const dispatch = useDispatch();
@@ -128,11 +128,7 @@ function EditSpotForm() {
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
-  const [previewPhoto, setPreviewPhoto] = useState("");
-  const [photo1, setPhoto1] = useState([]);
-  const [photo2, setPhoto2] = useState("");
-  const [photo3, setPhoto3] = useState("");
-  const [photo4, setPhoto4] = useState("");
+
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
   const [errors, setErrors] = useState({});
@@ -168,9 +164,7 @@ function EditSpotForm() {
     if (price.length === 0) {
       newErrors.price = "Price is required";
     }
-    if (previewPhoto.length === 0) {
-      newErrors.previewPhoto = "Preview image is required";
-    }
+
 
     setErrors(newErrors);
   }, [
@@ -183,7 +177,6 @@ function EditSpotForm() {
     description,
     title,
     price,
-    previewPhoto,
   ]);
 
   // console.log(errors)
@@ -207,37 +200,7 @@ function EditSpotForm() {
       price,
     };
 
-    let photosArr = [];
 
-    let previewImgObj = {
-      url: previewPhoto,
-      preview: "true",
-    };
-
-    if (photo1) {
-      photosArr.push({
-        url: photo1,
-        preview: "false",
-      });
-    }
-    if (photo2) {
-      photosArr.push({
-        url: photo2,
-        preview: "false",
-      });
-    }
-    if (photo3) {
-      photosArr.push({
-        url: photo3,
-        preview: "false",
-      });
-    }
-    if (photo4) {
-      photosArr.push({
-        url: photo4,
-        preview: "false",
-      });
-    }
 
     // for (let i = 0; i < 4; i++) {
     //   if (photo + i) {
@@ -245,22 +208,16 @@ function EditSpotForm() {
     //   }
     // }
 
-    photosArr.push(previewImgObj);
-    console.log("photosArr", photosArr);
 
-    let createdSpot = await dispatch(addNewSpot(newSpot));
-    console.log("newSpot from inside form clickhandler", newSpot);
-
-    let spotId = createdSpot.id;
     console.log("spotId from inside NewSpotForm clickhandler", spotId);
 
-    if (createdSpot) {
-      dispatch(addPhotosToSpot(photosArr, spotId));
-    }
-    // console.log("images from inside clickhandler", images)
+    let editedSpot = await dispatch(editSpot(newSpot, spotId));
+    console.log("editedSpot from inside form clickhandler", newSpot);
 
-    if (createdSpot) {
-      history.push(`/spots/${createdSpot.id}`);
+
+
+    if (editedSpot) {
+      history.push(`/spots/${spotId}`);
     }
   };
 
@@ -274,7 +231,7 @@ function EditSpotForm() {
   return (
     <div className="new-spot-form-div">
       <form className="new-spot-form" onSubmit={handleSubmit}>
-        <h2>Create a new Spot</h2>
+        <h2>Update Your Spot</h2>
         <label>
           Country{" "}
           <span className="error">{hasSubmitted && errors.country}</span>
@@ -396,7 +353,7 @@ function EditSpotForm() {
 
         <br />
         <button className="submit-button" type="submit">
-          Create Spot
+          Update Your Spot
         </button>
       </form>
     </div>
