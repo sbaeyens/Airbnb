@@ -47,13 +47,13 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown float-menu" + (showMenu ? "" : " hidden");
 
   return (
-    <>
+    <div>
 
         <button className="profileButton" onClick={openMenu}>
           <i className="fa-solid fa-bars" />{" "}
           <i className="fas fa-user-circle" />
         </button>
-      <ul className={ulClassName} ref={ulRef}>
+      <div className={`${ulClassName} profile-modal`} ref={ulRef}>
         {user ? (
           <>
             <p>hello, {user.username}</p>
@@ -78,8 +78,8 @@ function ProfileButton({ user }) {
             />
           </>
         )}
-      </ul>
-    </>
+      </div>
+    </div>
   );
 }
 
