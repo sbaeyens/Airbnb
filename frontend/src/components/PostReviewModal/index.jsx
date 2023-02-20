@@ -43,7 +43,7 @@ function PostReviewModal({spotId}) {
     };
 
   return (
-    <div className="modal">
+    <div className="review-modal">
       <h1>How was your stay?</h1>
       <form onSubmit={handleSubmit}>
         <label for="review">

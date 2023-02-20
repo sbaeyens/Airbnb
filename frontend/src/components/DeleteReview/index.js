@@ -30,7 +30,7 @@ function DeleteReview({ review }) {
   };
 
   return (
-    <div className="modal">
+    <div className="delete-modal">
       <h1>Confirm Delete</h1>
       <p>Are you sure you want to remove this review?</p>
 

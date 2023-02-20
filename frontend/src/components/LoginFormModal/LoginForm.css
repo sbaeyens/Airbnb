@@ -1,11 +1,11 @@
-.modal {
+.login-modal {
   font-family: Arial, Helvetica, sans-serif;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 500px;
-  height: 500px;
+  width: 350px;
+  height: 300px;
   background-color: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
@@ -16,27 +16,27 @@
   align-items: center;
 }
 
-.modal h1 {
+.login-modal h1 {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.modal form {
+.login-modal form {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.modal form input[type="text"],
-.modal form input[type="email"],
-.modal form input[type="password"] {
+.login-modal form input[type="text"],
+.login-modal form input[type="email"],
+.login-modal form input[type="password"] {
   width: 100%;
   padding: 5px;
   margin-bottom: 10px;
   font-size: 18px;
-  border: none;
+  border: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
 }
 
@@ -56,7 +56,53 @@
 } */
 
 /* CSS */
-.submit-button {
+.login-submit-button {
+  background-color: #fe5a5f;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+    "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  margin: 20px 0px 0px 0px;
+  outline: none;
+  padding: 12px 150px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: box-shadow 0.2s, -ms-transform 0.1s, -webkit-transform 0.1s,
+    transform 0.1s;
+  user-select: none;
+  -webkit-user-select: none;
+  width: auto;
+}
+
+.login-submit-button:hover {
+  box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+  transition: box-shadow 0.2s;
+}
+
+.login-submit-button:active {
+  background-color: #f7f7f7;
+  border-color: #000000;
+  transform: scale(0.96);
+}
+
+.login-submit-button:disabled {
+  background-color: white;
+  border-color: #dddddd;
+  color: #dddddd;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.demo-submit-button {
   background-color: #ffffff;
   border: 1px solid #222222;
   border-radius: 8px;
@@ -71,7 +117,7 @@
   line-height: 20px;
   margin: 20px 0px 0px 0px;
   outline: none;
-  padding: 13px 23px;
+  padding: 13px 132px;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -83,18 +129,19 @@
   width: auto;
 }
 
-.submit-button:hover {
+.demo-submit-button:hover {
   box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
   transition: box-shadow 0.2s;
 }
 
-.submit-button:active {
+.demo-submit-button:active {
   background-color: #f7f7f7;
   border-color: #000000;
   transform: scale(0.96);
 }
 
-.submit-button:disabled {
+.demo-submit-button:disabled {
+  background-color: white;
   border-color: #dddddd;
   color: #dddddd;
   cursor: not-allowed;
