@@ -1,10 +1,10 @@
-.modal {
+.signup-modal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 500px;
-  height: 700px;
+  width: 400px;
+  height: 500px;
   background-color: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
@@ -13,30 +13,30 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.modal h1 {
+.signup-modal h1 {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-.modal form {
+.signup-modal form {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.modal form input[type="text"],
-.modal form input[type="email"],
-.modal form input[type="password"] {
+.signup-modal form input[type="text"],
+.signup-modal form input[type="email"],
+.signup-modal form input[type="password"] {
   width: 100%;
   padding: 5px;
   margin-bottom: 10px;
   font-size: 18px;
-  border: none;
+  border: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
 }
 
@@ -56,12 +56,12 @@
 } */
 
 /* CSS */
-.submit-button {
-  background-color: #ffffff;
+.signup-submit-button {
+  background-color: #fe5a5f;
   border: 1px solid #222222;
   border-radius: 8px;
   box-sizing: border-box;
-  color: #222222;
+  color: white;
   cursor: pointer;
   display: inline-block;
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
@@ -71,7 +71,7 @@
   line-height: 20px;
   margin: 20px 0px 0px 0px;
   outline: none;
-  padding: 13px 23px;
+  padding: 12px 150px;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -83,18 +83,20 @@
   width: auto;
 }
 
-.submit-button:hover {
+.signup-submit-button:hover {
   box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
   transition: box-shadow 0.2s;
 }
 
-.submit-button:active {
+.signup-submit-button:active {
   background-color: #f7f7f7;
   border-color: #000000;
   transform: scale(0.96);
 }
 
-.submit-button:disabled {
+.signup-submit-button:disabled {
+  background-color: #ffffff;
+
   border-color: #dddddd;
   color: #dddddd;
   cursor: not-allowed;

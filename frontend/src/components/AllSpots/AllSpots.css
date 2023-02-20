@@ -2,4 +2,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  max-width: 1440px;
+}
+
+.all-spots-container {
+  display: flex;
+  /* max-width: 1400px; */
+  justify-content: center;
 }

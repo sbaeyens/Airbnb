@@ -14,6 +14,8 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+
 
   useEffect(() => {
     let newErrors = [];
@@ -40,6 +42,11 @@ function SignupFormModal() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    //return if errors
+    setHasSubmitted(true);
+    if (Object.keys(errors).length > 0) return alert(`Cannot Submit`);
+
     if (password === confirmPassword) {
       setErrors([]);
       return dispatch(
@@ -63,17 +70,19 @@ function SignupFormModal() {
   };
 
   return (
-    <div className="modal">
+    <div className="signup-modal">
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
+          <span className="error">
+            {hasSubmitted &&
+              errors.map((error, idx) => <li key={idx}>{error}</li>)}
+          </span>
         </ul>
         <label>
-          Email
+          {/* Email */}
           <input
+            placeholder="Email"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -81,8 +90,9 @@ function SignupFormModal() {
           />
         </label>
         <label>
-          Username
+          {/* Username */}
           <input
+            placeholder="Username"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -90,8 +100,9 @@ function SignupFormModal() {
           />
         </label>
         <label>
-          First Name
+          {/* First Name */}
           <input
+            placeholder="First Name"
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -99,8 +110,9 @@ function SignupFormModal() {
           />
         </label>
         <label>
-          Last Name
+          {/* Last Name */}
           <input
+            placeholder="Last Name"
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -108,8 +120,9 @@ function SignupFormModal() {
           />
         </label>
         <label>
-          Password
+          {/* Password */}
           <input
+            placeholder="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -117,17 +130,20 @@ function SignupFormModal() {
           />
         </label>
         <label>
-          Confirm Password
+          {/* Confirm Password */}
           <input
             type="password"
+            placeholder="Confirm Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
         </label>
         <button
-          disabled={errors.length === 0 && confirmPassword === password ? false : true}
-          className="submit-button"
+          disabled={
+            errors.length === 0 && confirmPassword === password ? false : true
+          }
+          className="signup-submit-button"
           type="submit"
         >
           Sign Up
