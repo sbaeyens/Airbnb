@@ -26,10 +26,13 @@ let spotsArr = Object.values(spots);
     console.log("spotsArr from allspots", spotsArr);
 
 return (
-  <div className="all-spots">
-    {/* <section className='all-spots'> */}
-    {spots && spotsArr.map((spot) => <SpotCard spot={spot} key={spot.name} />)}
-    {/* </section> */}
+  <div className="all-spots-container">
+    <div className="all-spots">
+      {/* <section className='all-spots'> */}
+      {spots &&
+        spotsArr.map((spot) => <SpotCard spot={spot} key={spot.name} />)}
+      {/* </section> */}
+    </div>
   </div>
 );
 }
