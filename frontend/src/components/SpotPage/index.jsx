@@ -168,10 +168,18 @@ function SpotPage() {
         {/* post a review button - Only visible for:
             - logged in user
             - if current user hasn't made review */}
-
+        <div>
+          {isOwner === false &&
+          sessionUser.id !== 0 &&
+          sessionHasNoReview &&
+          reviewsArr.length === 0 ? (
+            <h2>Be the first to post a review!</h2>
+          ) : null}
+        </div>
         <div>
           {isOwner === false && sessionUser.id !== 0 && sessionHasNoReview ? (
             <OpenModalButton
+              classAttribute={"submit-button"}
               buttonText="Post Review"
               modalComponent={<PostReviewModal spotId={spotId} />}
             />
@@ -183,14 +191,6 @@ function SpotPage() {
             reviewsArr.map((review) => (
               <SingleReview review={review} sessionUser={sessionUser} />
             ))}
-        </div>
-        <div>
-          {isOwner === false &&
-          sessionUser.id !== 0 &&
-          sessionHasNoReview &&
-          reviewsArr.length === 0 ? (
-            <h2>Be the first to post a review!</h2>
-          ) : null}
         </div>
       </div>
     </div>
