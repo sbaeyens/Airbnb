@@ -140,9 +140,11 @@ function SpotPage() {
                   ? "New"
                   : `${parseFloat(singleSpot.avgStarRating).toFixed(
                       1
-                    )} rating `}{" "}
-                • {singleSpot.numReviews} review
-                {singleSpot.numReviews > 0 ? "s" : null}
+                    )} rating • `}
+                {!singleSpot.numReviews
+                  ? " "
+                  : `${singleSpot.numReviews} review`}
+                {singleSpot.numReviews > 1 ? "s" : null}
               </span>
             </p>
           </div>
@@ -159,7 +161,8 @@ function SpotPage() {
             {!singleSpot.numReviews
               ? "New"
               : `${parseFloat(singleSpot.avgStarRating).toFixed(1)} rating • `}
-            {!singleSpot.numReviews ? " " : `${singleSpot.numReviews} reviews`}
+            {!singleSpot.numReviews ? " " : `${singleSpot.numReviews} review`}
+            {singleSpot.numReviews > 1 ? "s" : null}
           </span>
         </h2>
         {/* post a review button - Only visible for:
@@ -177,10 +180,15 @@ function SpotPage() {
         {/* create single review component */}
         <div className="reviews-list">
           {reviewsArr &&
-            reviewsArr.map((review) => <SingleReview review={review} sessionUser={sessionUser}/>)}
+            reviewsArr.map((review) => (
+              <SingleReview review={review} sessionUser={sessionUser} />
+            ))}
         </div>
         <div>
-          {isOwner === false && sessionUser.id !== 0 && sessionHasNoReview && reviewsArr.length ===0 ? (
+          {isOwner === false &&
+          sessionUser.id !== 0 &&
+          sessionHasNoReview &&
+          reviewsArr.length === 0 ? (
             <h2>Be the first to post a review!</h2>
           ) : null}
         </div>

@@ -123,6 +123,11 @@
   margin-bottom: 15px;
 }
 
+.reviews-list {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 .submit-button-reserve {
   background-color: lightcoral;
   border: 1px solid #222222;
