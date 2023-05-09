@@ -50,6 +50,12 @@ function NewSpotForm() {
           if (longitude.length === 0) {
             newErrors.longitude = "Longitude is required";
           }
+          if (isNaN(longitude)) {
+            newErrors.longitude = "longitude must be a number";
+          }
+          if (isNaN(latitude)) {
+            newErrors.latitude = "latitude must be a number";
+          }
           if (description.length < 30) {
             newErrors.description =
               "Description needs a minimum of 30 characters";
@@ -210,7 +216,7 @@ function NewSpotForm() {
               Latitude{" "}
               <span className="error">{hasSubmitted && errors.latitude}</span>
               <input
-                type="text"
+                type="number"
                 name="latitude"
                 value={latitude}
                 placeholder="Latitude"
@@ -222,7 +228,7 @@ function NewSpotForm() {
               Longitude{" "}
               <span className="error">{hasSubmitted && errors.longitude}</span>
               <input
-                type="text"
+                type="number"
                 name="longitude"
                 value={longitude}
                 placeholder="Longitude"
