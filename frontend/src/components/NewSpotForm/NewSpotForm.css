@@ -10,13 +10,13 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-label {
+.new-spot-form label {
   display: block;
   width: 100%;
   padding: 3px;
 }
 
-input,
+.new-spot-form input,
 textarea {
   display: block;
   width: 100%;

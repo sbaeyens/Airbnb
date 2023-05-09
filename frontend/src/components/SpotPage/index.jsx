@@ -7,12 +7,22 @@ import SingleReview from "../SingleReview";
 import OpenModalButton from "../OpenModalButton";
 import "./SpotPage.css";
 import PostReviewModal from "../PostReviewModal";
+// import "react-calendar/dist/Calendar.css";
+// import Calendar from "react-calendar";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
+import "react-calendar/dist/Calendar.css";
+
 
 function SpotPage() {
   let sessionUser
   sessionUser = useSelector((state) => state.session.user);
   let spotId = useParams().spotId;
-  // console.log(spotId)
+  const [checkin, setCheckin] = useState('Add Date')
+  const [checkout, setCheckout] = useState('Add Date')
+  const [value, onChange] = useState([new Date(), new Date()]);
+  const [calendarOpen, setCalendarOpen] = useState(false)
+
   let reviewsArr = []
   //---GRAB SPOT DATA---//
   const dispatch = useDispatch();
@@ -74,6 +84,14 @@ function SpotPage() {
   // check if current session is owner
   let isOwner = false;
   if (singleSpot.ownerId === sessionUser.id) isOwner = true;
+
+  const handleOpenCalendar = (e) => {
+    setCalendarOpen(true)
+    document.addEventListener("click", () => {
+      setCalendarOpen(false);
+    });
+
+  }
 
   return (
     <div className="spot-page-parent">
@@ -147,6 +165,24 @@ function SpotPage() {
                 {singleSpot.numReviews > 1 ? "s" : null}
               </span>
             </p>
+          </div>
+          <div className="date-selector" onClick={(e) => {
+            e.stopPropagation()
+            handleOpenCalendar()
+          }}>
+            <div className="check-in-selector">
+              <span className="check-in-out-text">CHECK-IN</span>
+              <span>{checkin}</span>
+            </div>
+            <div className="check-out-selector">
+              <span className="check-in-out-text">CHECKOUT</span>
+              <span>{checkout}</span>
+            </div>
+          {calendarOpen && (
+              <div className="calendar-container">
+              <DateRangePicker onChange={onChange} value={value} />
+            </div>
+          )}
           </div>
           <div className="reserve-modal-button">
             <button className="submit-button-reserve">Reserve</button>
