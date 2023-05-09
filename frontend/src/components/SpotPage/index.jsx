@@ -10,8 +10,8 @@ import PostReviewModal from "../PostReviewModal";
 // import "react-calendar/dist/Calendar.css";
 // import Calendar from "react-calendar";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
-import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
-import "react-calendar/dist/Calendar.css";
+// import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
+// import "react-calendar/dist/Calendar.css";
 
 
 function SpotPage() {
@@ -22,6 +22,14 @@ function SpotPage() {
   const [checkout, setCheckout] = useState('Add Date')
   const [value, onChange] = useState([new Date(), new Date()]);
   const [calendarOpen, setCalendarOpen] = useState(false)
+  const [startDate, setStartDate] = useState("Add date");
+  const [endDate, setEndDate] = useState("Add date");
+  const [selectedDates, setSelectedDates] = useState("");
+  const [numNights, setNumNights] = useState("Select dates");
+  const [numNightsPrice, setNumNightsPrice] = useState(1);
+  const [travelDates, setTravelDates] = useState(
+    "Add travel dates for exact pricing"
+  );
 
   let reviewsArr = []
   //---GRAB SPOT DATA---//
@@ -92,6 +100,15 @@ function SpotPage() {
     });
 
   }
+
+  const handleClearDates = (e) => {
+    setStartDate("Add date");
+    setEndDate("Add date");
+    setNumNights("Select dates");
+    setNumNightsPrice(1);
+    setTravelDates("Add travel dates for exact pricing");
+    setSelectedDates("");
+  };
 
   return (
     <div className="spot-page-parent">
@@ -166,23 +183,135 @@ function SpotPage() {
               </span>
             </p>
           </div>
-          <div className="date-selector" onClick={(e) => {
-            e.stopPropagation()
-            handleOpenCalendar()
-          }}>
-            <div className="check-in-selector">
-              <span className="check-in-out-text">CHECK-IN</span>
-              <span>{checkin}</span>
+
+          <div
+            className="check-in-check-out"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleOpenCalendar();
+            }}
+          >
+            <div className="check-in-date">
+              <div className="check-in-date-inner">
+                <span id="check-in">CHECK-IN</span>
+                <span id="check-in-mdy">{startDate}</span>
+              </div>
             </div>
-            <div className="check-out-selector">
-              <span className="check-in-out-text">CHECKOUT</span>
-              <span>{checkout}</span>
+            <div className="check-out-date">
+              <div className="check-in-date-inner">
+                <span id="check-in">CHECKOUT</span>
+                <span id="check-in-mdy">{endDate}</span>
+              </div>
             </div>
-          {calendarOpen && (
+            {calendarOpen && (
               <div className="calendar-container">
-              <DateRangePicker onChange={onChange} value={value} />
-            </div>
-          )}
+                <div className="calendar-wrapper">
+                  <div className="date-range-top-info">
+                    <div className="date-range-top-info-left">
+                      <span id="date-range-top-info-nights">{numNights}</span>
+                      <span id="date-range-top-info-range">{travelDates}</span>
+                    </div>
+                    <div id="datepicker-checkin-checkout">
+                      <div className="check-in-date" id="datepicker-checkin">
+                        <div className="check-in-date-inner">
+                          <span id="check-in">CHECK-IN</span>
+                          <span id="check-in-mdy">{startDate}</span>
+                        </div>
+                      </div>
+                      <div className="check-out-date" id="datepicker-checkout">
+                        <div className="check-in-date-inner">
+                          <span id="check-in">CHECKOUT</span>
+                          <span id="check-in-mdy">{endDate}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <DateRangePicker
+                    calendarClassName="daterangepicker"
+                    onClick={(e) => e.stopPropagation()}
+                    onChange={setSelectedDates}
+                    value={selectedDates}
+                    rangeDivider={false}
+                    showDoubleView={true}
+                    monthPlaceholder={"mm"}
+                    yearPlaceholder={"yyyy"}
+                    dayPlaceholder={"dd"}
+                    showNeighboringMonth={false}
+                    showFixedNumberOfWeeks={false}
+                    isOpen={true}
+                    closeCalendar={false}
+                    calendarType={"US"}
+                    minDetail={"month"}
+                    // onClickDay={(value) => {
+                    //   if (startDate == "Add date") {
+                    //     setStartDate(value.toLocaleDateString());
+                    //   }
+                    //   if (selectedDates[1]) {
+                    //     setStartDate(value.toLocaleDateString());
+                    //     setEndDate("Add date");
+                    //     setNumNights("Select dates");
+                    //     setNumNightsPrice(1);
+                    //     setTravelDates("Add travel dates for exact pricing");
+                    //     setSelectedDates("");
+                    //   }
+                    // }}
+                    // tileDisabled={({ a, date, c }) => {
+                    //   const startDateToJSON = new Date(startDate);
+                    //   // console.log(startDateToJSON, 'JSON START DATE')
+                    //   if (
+                    //     date.toJSON() < today.toJSON() ||
+                    //     (startDate !== "Add date" &&
+                    //       date.toJSON() < startDateToJSON.toJSON())
+                    //   ) {
+                    //     // console.log(date.toJSON(), 'DATE IN CALENDAR')
+                    //     return true;
+                    //   }
+                    //   for (let booking of Object.values(allBookings)) {
+                    //     let start = booking.startDate;
+                    //     let end = booking.endDate;
+                    //     if (
+                    //       date.toJSON() == start ||
+                    //       date.toJSON() == end ||
+                    //       (date.toJSON() > start && date.toJSON() < end)
+                    //     ) {
+                    //       return true;
+                    //     }
+                    //   }
+                    //   for (let booking of Object.values(spotBookings)) {
+                    //     let start = booking.startDate;
+                    //     let end = booking.endDate;
+                    //     if (
+                    //       date.toJSON() == start ||
+                    //       date.toJSON() == end ||
+                    //       (date.toJSON() > start && date.toJSON() < end)
+                    //     ) {
+                    //       return true;
+                    //     }
+                    //   }
+                    // }}
+                  />
+                  <div className="calendar-clear-and-close">
+                    <span
+                      id="clear-dates"
+                      onClick={() => {
+                        handleClearDates();
+                      }}
+                    >
+                      Clear dates
+                    </span>
+                    <span
+                      id="close-calendar"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCalendarOpen(false);
+                      }}
+                    >
+                      {endDate == "Add date" ? "Close" : "Ok"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
           <div className="reserve-modal-button">
             <button className="submit-button-reserve">Reserve</button>
