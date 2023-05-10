@@ -13,7 +13,7 @@
 }
 .reserve-modal {
   width: 300px;
-  height: 100px;
+  height: auto;
   color: black;
   font-family: Helvetica, sans-serif;
   text-decoration: none;
@@ -32,6 +32,37 @@
 .reserve-modal-button {
   display: flex;
   justify-content: center;
+}
+
+.booking-selection {
+  margin-top: 10px;
+  padding-top: 5px;
+  display: flex;
+  border: solid lightgray 1px;
+  border-radius: 5px;
+}
+
+.date-input-label {
+  font-size: smaller;
+  color: gray;
+  padding: 5px;
+}
+
+.check-in {
+  border-right: solid lightgray 1px;
+  width: 50%;
+}
+
+.check-out {
+  width: 50%;
+}
+
+.date-input {
+  width: fit-content;
+  font-family: Arial, Helvetica, sans-serif;
+  /* font-size: 10px; */
+  font-weight: bold;
+  border: none;
 }
 
 .image-grid {

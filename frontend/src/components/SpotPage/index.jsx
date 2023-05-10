@@ -8,10 +8,13 @@ import OpenModalButton from "../OpenModalButton";
 import "./SpotPage.css";
 import PostReviewModal from "../PostReviewModal";
 
+
 function SpotPage() {
   let sessionUser
   sessionUser = useSelector((state) => state.session.user);
   let spotId = useParams().spotId;
+  const [checkin, setCheckin] = useState("")
+  const [checkout, setCheckout] = useState("");
   // console.log(spotId)
   let reviewsArr = []
   //---GRAB SPOT DATA---//
@@ -50,16 +53,16 @@ function SpotPage() {
 
   //   console.log("single spot from spotPage", singleSpot);
   //   console.log("image from single spot array", singleSpot.SpotImages[0].url);
-  console.log("spotReviews from component", spotReviews);
-  console.log("reviewsArr from component", reviewsArr);
+  // console.log("spotReviews from component", spotReviews);
+  // console.log("reviewsArr from component", reviewsArr);
 
   /// check if user has reviews on page:
   if (!sessionUser) {
     sessionUser = { id : 0 }
-    console.log("reached console log for check on sessionUser")
+    // console.log("reached console log for check on sessionUser")
   }
   // if (sessionUser === undefined) sessionUser = 0;
-  console.log("sessionUser should be 0 now", sessionUser)
+  // console.log("sessionUser should be 0 now", sessionUser)
 
   let sessionHasNoReview = true;
 
@@ -74,6 +77,12 @@ function SpotPage() {
   // check if current session is owner
   let isOwner = false;
   if (singleSpot.ownerId === sessionUser.id) isOwner = true;
+
+  const handleReserve = () => {
+    console.log("checkin from handler", checkin)
+    console.log("checkout from handler", checkout);
+  }
+
 
   return (
     <div className="spot-page-parent">
@@ -148,8 +157,40 @@ function SpotPage() {
               </span>
             </p>
           </div>
+          <div className="booking-selection">
+            <div className="check-in">
+              <span className="date-input-label">CHECK-IN:</span>
+              <div className="date-input-wrapper">
+                <input
+                  className="date-input"
+                  type="date"
+                  id="start"
+                  name="trip-start"
+                  value={checkin}
+                  min={Date()}
+                  onChange={(e) => setCheckin(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="check-out">
+              <span className="date-input-label">CHECKOUT:</span>
+              <div className="date-input-wrapper">
+                <input
+                  className="date-input"
+                  type="date"
+                  id="end"
+                  name="trip-end"
+                  value={checkout}
+                  min={Date()}
+                  onChange={(e) => setCheckout(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
           <div className="reserve-modal-button">
-            <button className="submit-button-reserve">Reserve</button>
+            <button className="submit-button-reserve" onClick={handleReserve()}>
+              Reserve
+            </button>
           </div>
         </div>
       </div>
