@@ -6,13 +6,9 @@ import OpenModalButton from "../OpenModalButton";
 function SingleReview({ review, sessionUser }) {
   let date = review.createdAt
   let dateParsed = Date.parse(date);
-  console.log("date parsed",dateParsed );
   let dateobj = new Date(dateParsed)
-  console.log("date string", dateobj);
   let newdate = dateobj.toString()
-  console.log("newdate", newdate)
   let dateArr = newdate.split(' ')
-  console.log("dateArr", dateArr)
   // let newDate = dateobj.getFullYear() + "/" + (dateobj.getMonth() + 1);
   // console.log("newDate", newDate)
   let dateMonth = dateArr[1]
@@ -24,9 +20,7 @@ function SingleReview({ review, sessionUser }) {
   if (sessionUser.id === review.userId) isSessionReview = true
 
 
-    console.log("review from single review component", review)
     if (!review) return null
-    console.log("review from Single Review component", review)
     return (
       <div className="single-review">
         <h3 className="review-text">{review.User.firstName}</h3>

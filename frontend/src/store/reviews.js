@@ -82,7 +82,6 @@ export default function reviewsReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_SPOT_REVIEWS:
       const reviews = { ...action.payload.Reviews };
-      console.log("action.payload.Reviews from REDUCER", reviews);
       let reviewsArr = Object.values(reviews);
       let normalizedReviews = {};
       reviewsArr.forEach((review) => (normalizedReviews[review.id] = review));
@@ -95,20 +94,16 @@ export default function reviewsReducer(state = initialState, action) {
       const newReview = { ...action.payload };
       let spot = state.spot
       spot[newReview.id] = newReview
-      console.log("newReview from ADD_NEW_REVIEW", newReview);
-      console.log("spot from inside reducer", spot)
+
       let newResult = {
         ...state,
         spot
       }
-      console.log("result from inside reducer", result)
       return newResult;
     case DELETE_REVIEW:
       newState = { ...state }
-      // console.log("$$$$$$$$$$$$$ newState", newState)
-        console.log("action.payload from reducer", action.payload)
+
         delete newState.spot[action.payload]
-        // console.log("$$$$$$$$$$$$$  newState after delete", newState);
         newState = {
           ...newState,
           spot: {...newState.spot}

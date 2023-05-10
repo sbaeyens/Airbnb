@@ -72,15 +72,15 @@ function SpotPage() {
     });
   }
 
-  console.log("sessionHasReview", sessionHasNoReview)
-
   // check if current session is owner
   let isOwner = false;
   if (singleSpot.ownerId === sessionUser.id) isOwner = true;
 
-  const handleReserve = () => {
-    console.log("checkin from handler", checkin)
+  const handleReserve = async (e) => {
+    console.log("checkin from handler", new Date(checkin))
     console.log("checkout from handler", checkout);
+
+
   }
 
 
@@ -188,7 +188,7 @@ function SpotPage() {
             </div>
           </div>
           <div className="reserve-modal-button">
-            <button className="submit-button-reserve" onClick={handleReserve()}>
+            <button className="submit-button-reserve" onClick={handleReserve}>
               Reserve
             </button>
           </div>
