@@ -7,11 +7,14 @@ import SingleReview from "../SingleReview";
 import OpenModalButton from "../OpenModalButton";
 import "./SpotPage.css";
 import PostReviewModal from "../PostReviewModal";
+import { addNewBooking, getSpotBookings } from "../../store/bookings";
+import { compareAsc, differenceInCalendarDays, format } from "date-fns";
 
 
 function SpotPage() {
   let sessionUser
   sessionUser = useSelector((state) => state.session.user);
+  let bookings = useSelector((state) => state.bookings)
   let spotId = useParams().spotId;
   const [checkin, setCheckin] = useState("")
   const [checkout, setCheckout] = useState("");
@@ -25,7 +28,9 @@ function SpotPage() {
 
   useEffect(() => {
     dispatch(getSingleSpot(spotId));
-  }, [dispatch]);
+    dispatch(getSpotBookings(spotId))
+  }, []);
+  console.log("bookings", bookings)
 
   //---GRAB REVIEWS DATA---//
   const spotReviews = useSelector((state) => {
@@ -77,12 +82,26 @@ function SpotPage() {
   if (singleSpot.ownerId === sessionUser.id) isOwner = true;
 
   const handleReserve = async (e) => {
+    e.preventDefault()
     console.log("checkin from handler", new Date(checkin))
-    console.log("checkout from handler", checkout);
-
+    console.log("checkout from handler", new Date(checkout));
+    let startDate = new Date(checkin);
+    let endDate = new Date(checkout);
+    let newBooking = {
+      spotId,
+      "userId": sessionUser.id,
+      startDate,
+      endDate
+    }
+    console.log(newBooking)
+    dispatch(addNewBooking(newBooking))
 
   }
 
+  let costSummaryNights = (singleSpot.price) * (differenceInCalendarDays(new Date(checkout), new Date(checkin)));
+  let costCleaningFee = Math.round(singleSpot.price * .25)
+  let costServiceFee = costSummaryNights * .10
+  let totalCostBeforeTaxes = (costSummaryNights + costCleaningFee + costServiceFee)
 
   return (
     <div className="spot-page-parent">
@@ -141,7 +160,9 @@ function SpotPage() {
         </div>
         <div className="reserve-modal">
           <div className="reserve-modal-details">
-            <p>{`$${singleSpot.price} / night`}</p>
+            <p>
+              <span className="price-lrg">${singleSpot.price}</span> night
+            </p>
             <p>
               <span>
                 <i className="fa-regular fa-star"></i>
@@ -159,7 +180,7 @@ function SpotPage() {
           </div>
           <div className="booking-selection">
             <div className="check-in">
-              <span className="date-input-label">CHECK-IN:</span>
+              <span className="date-input-label">CHECK-IN</span>
               <div className="date-input-wrapper">
                 <input
                   className="date-input"
@@ -173,7 +194,7 @@ function SpotPage() {
               </div>
             </div>
             <div className="check-out">
-              <span className="date-input-label">CHECKOUT:</span>
+              <span className="date-input-label">CHECKOUT</span>
               <div className="date-input-wrapper">
                 <input
                   className="date-input"
@@ -191,6 +212,34 @@ function SpotPage() {
             <button className="submit-button-reserve" onClick={handleReserve}>
               Reserve
             </button>
+          </div>
+          <div className="price-summary">
+            <div className="cost-summary-line nightly-charge-summary">
+              <span>
+                ${singleSpot.price} x{" "}
+                {differenceInCalendarDays(
+                  new Date(checkout),
+                  new Date(checkin)
+                )}{" "}
+                nights
+              </span>
+              <span>${costSummaryNights.toLocaleString()}</span>
+            </div>
+            <div className="cost-summary-line cleaning-fee">
+              <span>Cleaning Fee</span>
+              <span>${costCleaningFee}</span>
+            </div>
+            <div className="cost-summary-line service-fee">
+              <span>Service Fee</span>
+              <span>${costServiceFee}</span>
+            </div>
+            <div className="summary-line"></div>
+            <div className="cost-summary-line service-fee">
+              <span className="summary-text">Total Before Taxes</span>
+              <span className="summary-text">
+                ${totalCostBeforeTaxes.toLocaleString()}
+              </span>
+            </div>
           </div>
         </div>
       </div>

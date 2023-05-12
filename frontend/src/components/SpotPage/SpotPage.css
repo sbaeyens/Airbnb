@@ -12,7 +12,7 @@
   padding: 20px;
 }
 .reserve-modal {
-  width: 300px;
+  width: 400px;
   height: auto;
   color: black;
   font-family: Helvetica, sans-serif;
@@ -43,7 +43,7 @@
 }
 
 .date-input-label {
-  font-size: smaller;
+  font-size: 10px;
   color: gray;
   padding: 5px;
 }
@@ -68,7 +68,7 @@
 .image-grid {
   --gap: 16px;
   --num-cols: 4;
-  --row-height: 300px;
+  --row-height: 220px;
 
   box-sizing: border-box;
   padding: var(--gap);
@@ -80,8 +80,8 @@
 }
 
 .image-grid > img {
-  border-radius: 20px;
-  border-radius: 20px;
+  /* border-radius: 20px; */
+  /* border-radius: 20px; */
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -89,6 +89,8 @@
 
 .image-grid-col-2 {
   grid-column: span 2;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
 }
 
 .image-grid-row-2 {
@@ -160,13 +162,13 @@
 }
 
 .submit-button-reserve {
-  background-color: lightcoral;
-  border: 1px solid #222222;
+  background-image: linear-gradient(to right, #e61e4d, #d70466);
+  border: 0px solid #222222;
   border-radius: 8px;
   box-sizing: border-box;
   color: white;
   cursor: pointer;
-  display: inline-block;
+  /* display: inline-block; */
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
     "Helvetica Neue", sans-serif;
   font-size: 16px;
@@ -174,7 +176,7 @@
   line-height: 20px;
   margin: 20px 0px 0px 0px;
   outline: none;
-  padding: 6px 50px;
+  padding: 15px 50px;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -183,17 +185,19 @@
     transform 0.1s;
   user-select: none;
   -webkit-user-select: none;
-  width: auto;
+  width: 100%;
 }
 
 .submit-button-reserve:hover {
-  box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+  /* box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px; */
+  background-image: linear-gradient(to left, #e61e4d, #d70466);
+
   transition: box-shadow 0.2s;
 }
 
 .submit-button-reserve:active {
   background-color: #f7f7f7;
-  border-color: #000000;
+  /* border-color: #000000; */
   transform: scale(0.96);
 }
 
@@ -202,4 +206,35 @@
   color: #dddddd;
   cursor: not-allowed;
   opacity: 1;
+}
+
+.cost-summary-line {
+  padding: 10px 0px;
+}
+
+.nightly-charge-summary {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cleaning-fee {
+  display: flex;
+  justify-content: space-between;
+}
+
+.service-fee {
+  display: flex;
+  justify-content: space-between;
+}
+
+.price-lrg {
+  font-size: 1.5em;
+}
+
+.summary-line {
+  border-bottom: 1px solid lightgrey;
+}
+
+.summary-text {
+  font-weight: 700;
 }
