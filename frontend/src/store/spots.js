@@ -215,7 +215,6 @@ export default function spotsReducer(state = initialState, action) {
           ...state,
           singleSpot,
         };
-        console.log(result)
         return result
       case ADD_SPOT:
         const newSpot = { ...action.payload }
