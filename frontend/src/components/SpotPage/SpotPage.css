@@ -1,11 +1,16 @@
 .spot-name {
   font-weight: 500;
   padding-bottom: 5px;
+  margin-top: -10px;
 }
 
 .spot-subheading {
   font-weight: 300;
   font-size: 1em;
+}
+
+.subheading-bold {
+  font-weight: 600;
 }
 
 .star-subhead {
@@ -34,9 +39,57 @@
   justify-content: space-between;
   padding: 20px;
 }
+
+.spot-details {
+  width: 70%;
+  padding-right: 40px;
+  /* padding-top: 20px; */
+}
+
+.spot-description-heading {
+  font-weight: 600;
+  padding-top: 30px;
+}
+
+.perks-container {
+  padding: 10px 0px;
+}
+
+.perk {
+  padding: 15px;
+  display: flex;
+}
+.perk-logo {
+  font-size: 23px;
+  padding-right: 15px;
+}
+
+.perk-text {
+  display: flex;
+  flex-direction: column;
+}
+.perk-heading {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.perk-description {
+  /* font-size: 18px; */
+  font-weight: 200;
+  /* color: gray; */
+}
+
+.grey-divider {
+  border-bottom: 2px solid lightgray;
+  width: 100%;
+  padding: 10px 0px 10px 0px;
+}
+
 .reserve-modal {
+  /* position: sticky !important;
+  top: 10px; */
   width: 400px;
-  height: auto;
+  height: fit-content;
   color: black;
   font-family: Helvetica, sans-serif;
   text-decoration: none;
@@ -45,6 +98,10 @@
   border-radius: 10px;
   overflow: hidden;
   padding: 20px;
+}
+
+.reserve-star {
+  padding-right: 5px;
 }
 
 .reserve-modal-details {

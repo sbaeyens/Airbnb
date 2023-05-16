@@ -3,6 +3,10 @@
 }
 
 .navbar {
+  position: sticky;
+  top: 0px;
+  z-index: 200;
+  background-color: white;
   display: flex;
   font-family: Helvetica, sans-serif;
   justify-content: space-between;

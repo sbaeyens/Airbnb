@@ -109,19 +109,17 @@ function SpotPage() {
         <div className="top-info">
           <h1 className="spot-name">{singleSpot.name}</h1>
           <h3 className="spot-subheading">
+            <span className="subheading-bold">
+              <i className="fa-solid fa-star star-subhead"></i>
+              {!singleSpot.numReviews
+                ? "New"
+                : `${parseFloat(singleSpot.avgStarRating).toFixed(1)}  • `}
+            </span>
             <span>
-                  <i className="fa-solid fa-star star-subhead"></i>
-                  {!singleSpot.numReviews
-                    ? "New"
-                    : `${parseFloat(singleSpot.avgStarRating).toFixed(
-                        1
-                      )} rating • `}
-                  {!singleSpot.numReviews
-                    ? " "
-                    : `${singleSpot.numReviews} review`}
+              {!singleSpot.numReviews ? " " : `${singleSpot.numReviews} review`}
               {singleSpot.numReviews > 1 ? "s" : null}
               {" • "}
-                </span>
+            </span>
             {singleSpot.city}, {singleSpot.state}, {singleSpot.country}
           </h3>
         </div>
@@ -169,9 +167,47 @@ function SpotPage() {
         </div>
         <div className="bottom-info">
           <div className="spot-details">
-            <h2>{`Hosted by ${singleSpot.User.firstName} ${singleSpot.User.lastName}`}</h2>
+            <h2 className="spot-description-heading">{`${singleSpot.name} hosted by ${singleSpot.User.firstName} ${singleSpot.User.lastName}`}</h2>
+            <div className="grey-divider"></div>
+            <div className="perks-container">
+              <div className="perk">
+                <div className="perk-logo">
+                  <i class="fa-solid fa-crown"></i>
+                </div>
+                <div className="perk-text">
+                  <div className="perk-heading">Curtis is a Superhost</div>
+                  <div className="perk-description">
+                    Superhosts are experienced, highly rated hosts who are
+                    committed to providing great stays for guests.
+                  </div>
+                </div>
+              </div>
+              <div className="perk">
+                <div className="perk-logo">
+                  <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div className="perk-text">
+                  <div className="perk-heading">Great Location</div>
+                  <div className="perk-description">
+                    100% of recent guests gave the location a 5-star rating.
+                  </div>
+                </div>
+              </div>
+              <div className="perk">
+                <div className="perk-logo">
+                  <i class="fa-solid fa-calendar"></i>
+                </div>
+                <div className="perk-text">
+                  <div className="perk-heading">Free Cancelation</div>
+                  <div className="perk-description"></div>
+                </div>
+              </div>
+            </div>
+            <div className="grey-divider"></div>
+            <h2 className="spot-description-heading">About this place</h2>
             <p>{singleSpot.description}</p>
           </div>
+
           <div className="reserve-modal">
             <div className="reserve-modal-details">
               <p>
@@ -179,7 +215,7 @@ function SpotPage() {
               </p>
               <p>
                 <span>
-                  <i className="fa-solid fa-star"></i>
+                  <i className="fa-solid fa-star reserve-star"></i>
                   {!singleSpot.numReviews
                     ? "New"
                     : `${parseFloat(singleSpot.avgStarRating).toFixed(
@@ -227,34 +263,38 @@ function SpotPage() {
                 Reserve
               </button>
             </div>
-            <div className="price-summary">
-              <div className="cost-summary-line nightly-charge-summary">
-                <span>
-                  ${singleSpot.price} x{" "}
-                  {differenceInCalendarDays(
-                    new Date(checkout),
-                    new Date(checkin)
-                  )}{" "}
-                  nights
-                </span>
-                <span>${costSummaryNights.toLocaleString()}</span>
+            {costSummaryNights > 1 ? (
+              <div className="price-summary">
+                <div className="cost-summary-line nightly-charge-summary">
+                  <span>
+                    ${singleSpot.price} x{" "}
+                    {differenceInCalendarDays(
+                      new Date(checkout),
+                      new Date(checkin)
+                    )}{" "}
+                    nights
+                  </span>
+                  <span>${costSummaryNights.toLocaleString()}</span>
+                </div>
+                <div className="cost-summary-line cleaning-fee">
+                  <span>Cleaning Fee</span>
+                  <span>${costCleaningFee}</span>
+                </div>
+                <div className="cost-summary-line service-fee">
+                  <span>Service Fee</span>
+                  <span>${costServiceFee}</span>
+                </div>
+                <div className="summary-line"></div>
+                <div className="cost-summary-line service-fee">
+                  <span className="summary-text">Total Before Taxes</span>
+                  <span className="summary-text">
+                    ${totalCostBeforeTaxes.toLocaleString()}
+                  </span>
+                </div>
               </div>
-              <div className="cost-summary-line cleaning-fee">
-                <span>Cleaning Fee</span>
-                <span>${costCleaningFee}</span>
-              </div>
-              <div className="cost-summary-line service-fee">
-                <span>Service Fee</span>
-                <span>${costServiceFee}</span>
-              </div>
-              <div className="summary-line"></div>
-              <div className="cost-summary-line service-fee">
-                <span className="summary-text">Total Before Taxes</span>
-                <span className="summary-text">
-                  ${totalCostBeforeTaxes.toLocaleString()}
-                </span>
-              </div>
-            </div>
+            ) : (
+              <div>  </div>
+            )}
           </div>
         </div>
         {/* div section for reviews */}
