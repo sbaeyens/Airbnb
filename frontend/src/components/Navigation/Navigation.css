@@ -3,21 +3,31 @@
 }
 
 .navbar {
+  position: sticky;
+  top: 0px;
+  z-index: 200;
+  background-color: white;
   display: flex;
   font-family: Helvetica, sans-serif;
   justify-content: space-between;
-  border-bottom: solid;
-  border-color: lightgray;
-  padding: 10px;
+  border-bottom: 1px solid;
+  border-color: rgb(231, 230, 230);
+  padding: 15px 50px 10px 50px;
 }
 
 /* .profileButton:hover {
   box-shadow: 5px 5px 5px black;
 } */
+#nav-typelogo {
+  /* width: 40px; */
+  height: 40px;
+  /* margin-left: 20px; */
+}
 
 #nav-logo {
   width: 40px;
   height: 40px;
+  margin-left: 20px;
 }
 
 .float-menu {
@@ -99,4 +109,8 @@ p {
   user-select: none;
   -webkit-user-select: none;
   width: auto;
+}
+
+.fa-star {
+  font-size: 13px;
 }
