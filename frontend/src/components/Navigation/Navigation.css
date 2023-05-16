@@ -106,3 +106,7 @@ p {
   -webkit-user-select: none;
   width: auto;
 }
+
+.fa-star {
+  font-size: 13px;
+}

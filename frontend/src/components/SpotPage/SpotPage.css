@@ -1,3 +1,17 @@
+.spot-name {
+  font-weight: 500;
+  padding-bottom: 5px;
+}
+
+.spot-subheading {
+  font-weight: 300;
+  font-size: 1em;
+}
+
+.star-subhead {
+  padding-right: 5px;
+}
+
 .spot-page-parent {
   font-family: Helvetica, sans-serif;
   padding: 15px;
@@ -75,12 +89,12 @@
 }
 
 .image-grid {
-  --gap: 16px;
+  --gap: 5px;
   --num-cols: 4;
-  --row-height: 220px;
+  --row-height: 200px;
 
   box-sizing: border-box;
-  padding: var(--gap);
+  padding: 0px 20px;
 
   display: grid;
   grid-template-columns: repeat(var(--num-cols), 1fr);
@@ -107,10 +121,23 @@
 }
 
 /* Anything udner 1024px */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 600px) {
   .image-grid {
     --num-cols: 2;
+    --num-rows: 1;
     --row-height: 200px;
+  }
+
+  .img1,
+  .img2,
+  .img3,
+  .img4 {
+    visibility: hidden;
+    position: fixed;
+  }
+
+  .image-grid-col-2 {
+    border-radius: 15px;
   }
 }
 
@@ -168,6 +195,13 @@
 .reviews-list {
   display: flex;
   flex-direction: column-reverse;
+}
+
+.img4 {
+  border-bottom-right-radius: 20px;
+}
+.img2 {
+  border-top-right-radius: 20px;
 }
 
 .submit-button-reserve {
@@ -246,4 +280,9 @@
 
 .summary-text {
   font-weight: 700;
+}
+
+.star-heading {
+  font-size: large;
+  padding-right: 10px;
 }

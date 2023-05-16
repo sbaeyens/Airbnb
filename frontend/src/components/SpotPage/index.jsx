@@ -107,8 +107,21 @@ function SpotPage() {
     <div className="spot-page-parent">
       <div className="spot-page-wrapper">
         <div className="top-info">
-          <h1>{singleSpot.name}</h1>
-          <h3>
+          <h1 className="spot-name">{singleSpot.name}</h1>
+          <h3 className="spot-subheading">
+            <span>
+                  <i className="fa-solid fa-star star-subhead"></i>
+                  {!singleSpot.numReviews
+                    ? "New"
+                    : `${parseFloat(singleSpot.avgStarRating).toFixed(
+                        1
+                      )} rating • `}
+                  {!singleSpot.numReviews
+                    ? " "
+                    : `${singleSpot.numReviews} review`}
+              {singleSpot.numReviews > 1 ? "s" : null}
+              {" • "}
+                </span>
             {singleSpot.city}, {singleSpot.state}, {singleSpot.country}
           </h3>
         </div>
@@ -124,7 +137,7 @@ function SpotPage() {
 
           {singleSpot.SpotImages.length > 1 ? (
             <img
-              className="other-img"
+              className="other-img img1"
               src={singleSpot.SpotImages[1].url}
               alt={singleSpot.name}
             />
@@ -132,7 +145,7 @@ function SpotPage() {
 
           {singleSpot.SpotImages.length > 2 ? (
             <img
-              className="other-img"
+              className="other-img img2"
               src={singleSpot.SpotImages[2].url}
               alt={singleSpot.name}
             />
@@ -140,7 +153,7 @@ function SpotPage() {
 
           {singleSpot.SpotImages.length > 3 ? (
             <img
-              className="other-img"
+              className="other-img img3"
               src={singleSpot.SpotImages[3].url}
               alt={singleSpot.name}
             />
@@ -148,7 +161,7 @@ function SpotPage() {
 
           {singleSpot.SpotImages.length > 4 ? (
             <img
-              className="other-img"
+              className="other-img img4"
               src={singleSpot.SpotImages[4].url}
               alt={singleSpot.name}
             />
@@ -166,7 +179,7 @@ function SpotPage() {
               </p>
               <p>
                 <span>
-                  <i className="fa-regular fa-star"></i>
+                  <i className="fa-solid fa-star"></i>
                   {!singleSpot.numReviews
                     ? "New"
                     : `${parseFloat(singleSpot.avgStarRating).toFixed(
@@ -248,7 +261,7 @@ function SpotPage() {
         <div className="reviews-section-parent">
           <h2 className="reviews-header-text">
             <span>
-              <i className="fa-regular fa-star"></i>
+              <i className="fa-solid fa-star star-heading"></i>
               {!singleSpot.numReviews
                 ? "New"
                 : `${parseFloat(singleSpot.avgStarRating).toFixed(

@@ -13,7 +13,6 @@ function SpotCard({ spot, sessionUser }) {
 
   // console.log("isOwner value", isOwner)
 
-  console.log("spot.id from inside spotcard", spot.id)
 
     return (
       <div className="spot-card" key={spot.name}>
@@ -31,7 +30,7 @@ function SpotCard({ spot, sessionUser }) {
             </div>
             <div>
               <span className="rating-section">
-                <i className="fa-regular fa-star"></i>
+                <i className="fa-solid fa-star"></i>
                 {!spot.avgRating
                   ? "New"
                   : parseFloat(spot.avgRating).toFixed(1)}

@@ -9,4 +9,5 @@
   display: flex;
   /* max-width: 1400px; */
   justify-content: center;
+  padding-top: 30px;
 }
