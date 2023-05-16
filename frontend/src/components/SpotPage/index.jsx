@@ -293,10 +293,11 @@ function SpotPage() {
                 </div>
               </div>
             ) : (
-              <div>  </div>
+              <div> </div>
             )}
           </div>
         </div>
+        <div className="grey-divider"></div>
         {/* div section for reviews */}
         <div className="reviews-section-parent">
           <h2 className="reviews-header-text">
