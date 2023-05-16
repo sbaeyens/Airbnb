@@ -1,5 +1,14 @@
 .spot-page-parent {
   font-family: Helvetica, sans-serif;
+  padding: 15px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.spot-page-wrapper {
+  /* justify-content: center; */
+  max-width: 1400px;
 }
 
 .top-info {

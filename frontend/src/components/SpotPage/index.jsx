@@ -105,182 +105,186 @@ function SpotPage() {
 
   return (
     <div className="spot-page-parent">
-      <div className="top-info">
-        <h1>{singleSpot.name}</h1>
-        <h3>
-          {singleSpot.city}, {singleSpot.state}, {singleSpot.country}
-        </h3>
-      </div>
-
-      <div className="image-grid">
-        {singleSpot.SpotImages.length > 0 ? (
-          <img
-            className="image-grid-col-2 image-grid-row-2"
-            src={singleSpot.SpotImages[0].url}
-            alt={singleSpot.name}
-          />
-        ) : null}
-
-        {singleSpot.SpotImages.length > 1 ? (
-          <img
-            className="other-img"
-            src={singleSpot.SpotImages[1].url}
-            alt={singleSpot.name}
-          />
-        ) : null}
-
-        {singleSpot.SpotImages.length > 2 ? (
-          <img
-            className="other-img"
-            src={singleSpot.SpotImages[2].url}
-            alt={singleSpot.name}
-          />
-        ) : null}
-
-        {singleSpot.SpotImages.length > 3 ? (
-          <img
-            className="other-img"
-            src={singleSpot.SpotImages[3].url}
-            alt={singleSpot.name}
-          />
-        ) : null}
-
-        {singleSpot.SpotImages.length > 4 ? (
-          <img
-            className="other-img"
-            src={singleSpot.SpotImages[4].url}
-            alt={singleSpot.name}
-          />
-        ) : null}
-      </div>
-      <div className="bottom-info">
-        <div className="spot-details">
-          <h2>{`Hosted by ${singleSpot.User.firstName} ${singleSpot.User.lastName}`}</h2>
-          <p>{singleSpot.description}</p>
+      <div className="spot-page-wrapper">
+        <div className="top-info">
+          <h1>{singleSpot.name}</h1>
+          <h3>
+            {singleSpot.city}, {singleSpot.state}, {singleSpot.country}
+          </h3>
         </div>
-        <div className="reserve-modal">
-          <div className="reserve-modal-details">
-            <p>
-              <span className="price-lrg">${singleSpot.price}</span> night
-            </p>
-            <p>
-              <span>
-                <i className="fa-regular fa-star"></i>
-                {!singleSpot.numReviews
-                  ? "New"
-                  : `${parseFloat(singleSpot.avgStarRating).toFixed(
-                      1
-                    )} rating • `}
-                {!singleSpot.numReviews
-                  ? " "
-                  : `${singleSpot.numReviews} review`}
-                {singleSpot.numReviews > 1 ? "s" : null}
-              </span>
-            </p>
-          </div>
-          <div className="booking-selection">
-            <div className="check-in">
-              <span className="date-input-label">CHECK-IN</span>
-              <div className="date-input-wrapper">
-                <input
-                  className="date-input"
-                  type="date"
-                  id="start"
-                  name="trip-start"
-                  value={checkin}
-                  min={Date()}
-                  onChange={(e) => setCheckin(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="check-out">
-              <span className="date-input-label">CHECKOUT</span>
-              <div className="date-input-wrapper">
-                <input
-                  className="date-input"
-                  type="date"
-                  id="end"
-                  name="trip-end"
-                  value={checkout}
-                  min={Date()}
-                  onChange={(e) => setCheckout(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="reserve-modal-button">
-            <button className="submit-button-reserve" onClick={handleReserve}>
-              Reserve
-            </button>
-          </div>
-          <div className="price-summary">
-            <div className="cost-summary-line nightly-charge-summary">
-              <span>
-                ${singleSpot.price} x{" "}
-                {differenceInCalendarDays(
-                  new Date(checkout),
-                  new Date(checkin)
-                )}{" "}
-                nights
-              </span>
-              <span>${costSummaryNights.toLocaleString()}</span>
-            </div>
-            <div className="cost-summary-line cleaning-fee">
-              <span>Cleaning Fee</span>
-              <span>${costCleaningFee}</span>
-            </div>
-            <div className="cost-summary-line service-fee">
-              <span>Service Fee</span>
-              <span>${costServiceFee}</span>
-            </div>
-            <div className="summary-line"></div>
-            <div className="cost-summary-line service-fee">
-              <span className="summary-text">Total Before Taxes</span>
-              <span className="summary-text">
-                ${totalCostBeforeTaxes.toLocaleString()}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* div section for reviews */}
-      <div className="reviews-section-parent">
-        <h2 className="reviews-header-text">
-          <span>
-            <i className="fa-regular fa-star"></i>
-            {!singleSpot.numReviews
-              ? "New"
-              : `${parseFloat(singleSpot.avgStarRating).toFixed(1)} rating • `}
-            {!singleSpot.numReviews ? " " : `${singleSpot.numReviews} review`}
-            {singleSpot.numReviews > 1 ? "s" : null}
-          </span>
-        </h2>
-        {/* post a review button - Only visible for:
-            - logged in user
-            - if current user hasn't made review */}
-        <div>
-          {isOwner === false &&
-          sessionUser.id !== 0 &&
-          sessionHasNoReview &&
-          reviewsArr.length === 0 ? (
-            <h2>Be the first to post a review!</h2>
+
+        <div className="image-grid">
+          {singleSpot.SpotImages.length > 0 ? (
+            <img
+              className="image-grid-col-2 image-grid-row-2"
+              src={singleSpot.SpotImages[0].url}
+              alt={singleSpot.name}
+            />
           ) : null}
-        </div>
-        <div>
-          {isOwner === false && sessionUser.id !== 0 && sessionHasNoReview ? (
-            <OpenModalButton
-              classAttribute={"submit-button"}
-              buttonText="Post Review"
-              modalComponent={<PostReviewModal spotId={spotId} />}
+
+          {singleSpot.SpotImages.length > 1 ? (
+            <img
+              className="other-img"
+              src={singleSpot.SpotImages[1].url}
+              alt={singleSpot.name}
+            />
+          ) : null}
+
+          {singleSpot.SpotImages.length > 2 ? (
+            <img
+              className="other-img"
+              src={singleSpot.SpotImages[2].url}
+              alt={singleSpot.name}
+            />
+          ) : null}
+
+          {singleSpot.SpotImages.length > 3 ? (
+            <img
+              className="other-img"
+              src={singleSpot.SpotImages[3].url}
+              alt={singleSpot.name}
+            />
+          ) : null}
+
+          {singleSpot.SpotImages.length > 4 ? (
+            <img
+              className="other-img"
+              src={singleSpot.SpotImages[4].url}
+              alt={singleSpot.name}
             />
           ) : null}
         </div>
-        {/* create single review component */}
-        <div className="reviews-list">
-          {reviewsArr &&
-            reviewsArr.map((review) => (
-              <SingleReview review={review} sessionUser={sessionUser} />
-            ))}
+        <div className="bottom-info">
+          <div className="spot-details">
+            <h2>{`Hosted by ${singleSpot.User.firstName} ${singleSpot.User.lastName}`}</h2>
+            <p>{singleSpot.description}</p>
+          </div>
+          <div className="reserve-modal">
+            <div className="reserve-modal-details">
+              <p>
+                <span className="price-lrg">${singleSpot.price}</span> night
+              </p>
+              <p>
+                <span>
+                  <i className="fa-regular fa-star"></i>
+                  {!singleSpot.numReviews
+                    ? "New"
+                    : `${parseFloat(singleSpot.avgStarRating).toFixed(
+                        1
+                      )} rating • `}
+                  {!singleSpot.numReviews
+                    ? " "
+                    : `${singleSpot.numReviews} review`}
+                  {singleSpot.numReviews > 1 ? "s" : null}
+                </span>
+              </p>
+            </div>
+            <div className="booking-selection">
+              <div className="check-in">
+                <span className="date-input-label">CHECK-IN</span>
+                <div className="date-input-wrapper">
+                  <input
+                    className="date-input"
+                    type="date"
+                    id="start"
+                    name="trip-start"
+                    value={checkin}
+                    min={Date()}
+                    onChange={(e) => setCheckin(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="check-out">
+                <span className="date-input-label">CHECKOUT</span>
+                <div className="date-input-wrapper">
+                  <input
+                    className="date-input"
+                    type="date"
+                    id="end"
+                    name="trip-end"
+                    value={checkout}
+                    min={Date()}
+                    onChange={(e) => setCheckout(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="reserve-modal-button">
+              <button className="submit-button-reserve" onClick={handleReserve}>
+                Reserve
+              </button>
+            </div>
+            <div className="price-summary">
+              <div className="cost-summary-line nightly-charge-summary">
+                <span>
+                  ${singleSpot.price} x{" "}
+                  {differenceInCalendarDays(
+                    new Date(checkout),
+                    new Date(checkin)
+                  )}{" "}
+                  nights
+                </span>
+                <span>${costSummaryNights.toLocaleString()}</span>
+              </div>
+              <div className="cost-summary-line cleaning-fee">
+                <span>Cleaning Fee</span>
+                <span>${costCleaningFee}</span>
+              </div>
+              <div className="cost-summary-line service-fee">
+                <span>Service Fee</span>
+                <span>${costServiceFee}</span>
+              </div>
+              <div className="summary-line"></div>
+              <div className="cost-summary-line service-fee">
+                <span className="summary-text">Total Before Taxes</span>
+                <span className="summary-text">
+                  ${totalCostBeforeTaxes.toLocaleString()}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* div section for reviews */}
+        <div className="reviews-section-parent">
+          <h2 className="reviews-header-text">
+            <span>
+              <i className="fa-regular fa-star"></i>
+              {!singleSpot.numReviews
+                ? "New"
+                : `${parseFloat(singleSpot.avgStarRating).toFixed(
+                    1
+                  )} rating • `}
+              {!singleSpot.numReviews ? " " : `${singleSpot.numReviews} review`}
+              {singleSpot.numReviews > 1 ? "s" : null}
+            </span>
+          </h2>
+          {/* post a review button - Only visible for:
+            - logged in user
+            - if current user hasn't made review */}
+          <div>
+            {isOwner === false &&
+            sessionUser.id !== 0 &&
+            sessionHasNoReview &&
+            reviewsArr.length === 0 ? (
+              <h2>Be the first to post a review!</h2>
+            ) : null}
+          </div>
+          <div>
+            {isOwner === false && sessionUser.id !== 0 && sessionHasNoReview ? (
+              <OpenModalButton
+                classAttribute={"submit-button"}
+                buttonText="Post Review"
+                modalComponent={<PostReviewModal spotId={spotId} />}
+              />
+            ) : null}
+          </div>
+          {/* create single review component */}
+          <div className="reviews-list">
+            {reviewsArr &&
+              reviewsArr.map((review) => (
+                <SingleReview review={review} sessionUser={sessionUser} />
+              ))}
+          </div>
         </div>
       </div>
     </div>
