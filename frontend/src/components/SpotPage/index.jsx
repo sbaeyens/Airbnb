@@ -9,6 +9,8 @@ import "./SpotPage.css";
 import PostReviewModal from "../PostReviewModal";
 import { addNewBooking, getSpotBookings } from "../../store/bookings";
 import { compareAsc, differenceInCalendarDays, format } from "date-fns";
+import MapView from "../MapView";
+import MapSearch from "../MapSearch";
 
 
 function SpotPage() {
@@ -339,6 +341,11 @@ function SpotPage() {
                 <SingleReview review={review} sessionUser={sessionUser} />
               ))}
           </div>
+        </div>
+        <div className="grey-divider"></div>
+        <h2 className="spot-description-heading">Where you'll be</h2>
+        <div className="mapview-div">
+          <MapView singleSpot={singleSpot}></MapView>
         </div>
       </div>
     </div>

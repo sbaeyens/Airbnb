@@ -343,3 +343,7 @@
   font-size: large;
   padding-right: 10px;
 }
+
+.mapview-div {
+  border: 2px solid green;
+}

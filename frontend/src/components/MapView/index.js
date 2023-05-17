@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
-import "./MapSearch.css";
+import "./MapView.css";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import { useRef, useState, useEffect } from "react";
 import { NavLink, useHistory } from "react-router-dom/cjs/react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSpots } from "../../store/spots";
 
-function MapSearch() {
-    const dispatch = useDispatch();
-    const history = useHistory()
+function MapView({singleSpot}) {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const spots = useSelector((state) => {
     return state.spots.allSpots;
   });
 
+  console.log("singleSpot from mapcview", singleSpot)
   useEffect(() => {
     dispatch(getAllSpots());
   }, [dispatch]);
@@ -31,56 +32,46 @@ function MapSearch() {
   // Put all spots in array
   let spotsArr = Object.values(spots);
   // console.log("spotsArr", spotsArr)
-  console.log("spotsArr from allspots", spotsArr);
+  console.log("spotsArr from mapView", spotsArr);
 
   const containerStyle = {
     width: "400px",
     height: "400px",
   };
 
-  const center = { lat: 19.4326, lng: -99.1332 };
+  const center = { lat: singleSpot.lat, lng: singleSpot.lng };
 
   if (!isLoaded) {
     <div>LOADING...</div>;
   }
 
-    const testText = "hello world"
 
-    const spotLinkHandler = (spotId) => {
-        console.log(spotId)
-        history.push(`/spots/${spotId}`);
-    }
 
   return (
-    <div className="map-search-wrapper">
+    <div className="map-search-wrapper-viewer">
       {isLoaded ? (
-        <div className="google-maps-box">
+        <div className="google-maps-box-viewer">
           <GoogleMap
             center={center}
-            zoom={3}
+            zoom={12}
             mapContainerStyle={{ width: "100%", height: "100%" }}
           >
-            {spots && spotsArr.map((spot) => (
-              <Marker
-                position={{ lat: spot.lat, lng: spot.lng }}
-                icon={"none"}
-                onClick={(e) => spotLinkHandler(spot.id)}
-                label={{
-                  text: `$${(spot.price).toString()}`,
-                  className: "marker-label",
-                }}
-              ></Marker>
-            ))}
+            {spots &&
+              spotsArr.map((spot) => (
+                <Marker
+                  position={{ lat: singleSpot.lat, lng: singleSpot.lng }}
+                  icon={"none"}
+                  label={{
+                    text: `$${spot.price.toString()}`,
+                    className: "marker-label",
+                  }}
+                ></Marker>
+              ))}
           </GoogleMap>
         </div>
       ) : null}
-      <NavLink to="/">
-        <div className="floating-map-toggle">
-          Show List <i className="fa-solid fa-map fa-show"></i>
-        </div>
-      </NavLink>
     </div>
   );
 }
 
-export default MapSearch;
+export default MapView;
