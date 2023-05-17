@@ -1,24 +1,54 @@
 import { Link } from "react-router-dom";
 import "./MapSearch.css";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
-import { useRef, useState } from "react";
-import { NavLink } from "react-router-dom/cjs/react-router-dom";
+import { useRef, useState, useEffect } from "react";
+import { NavLink, useHistory } from "react-router-dom/cjs/react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllSpots } from "../../store/spots";
 
 function MapSearch() {
-    console.log("process.env", process.env)
-    const { isLoaded } = useJsApiLoader({
-      googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
-    });
+    const dispatch = useDispatch();
+    const history = useHistory()
+  const spots = useSelector((state) => {
+    return state.spots.allSpots;
+  });
 
-    const containerStyle = {
-      width: "400px",
-      height: "400px",
-    };
+  useEffect(() => {
+    dispatch(getAllSpots());
+  }, [dispatch]);
 
-    const center = { lat: 48.8584, lng: 2.2945 };
+  console.log("state from Allspots component", spots);
 
-    if (!isLoaded) {
-        <div>LOADING...</div>
+  console.log("process.env", process.env);
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+  });
+
+  if (!spots) {
+    return null;
+  }
+
+  // Put all spots in array
+  let spotsArr = Object.values(spots);
+  // console.log("spotsArr", spotsArr)
+  console.log("spotsArr from allspots", spotsArr);
+
+  const containerStyle = {
+    width: "400px",
+    height: "400px",
+  };
+
+  const center = { lat: 19.4326, lng: -99.1332 };
+
+  if (!isLoaded) {
+    <div>LOADING...</div>;
+  }
+
+    const testText = "hello world"
+
+    const spotLinkHandler = (spotId) => {
+        console.log(spotId)
+        history.push(`/spots/${spotId}`);
     }
 
   return (
@@ -27,17 +57,20 @@ function MapSearch() {
         <div className="google-maps-box">
           <GoogleMap
             center={center}
-            zoom={10}
+            zoom={3}
             mapContainerStyle={{ width: "100%", height: "100%" }}
           >
-            <Marker
-              position={center}
-              icon={"none"}
-              label={{
-                text: `hahafdfha`,
-                className: "marker-label",
-              }}
-            ></Marker>
+            {spots && spotsArr.map((spot) => (
+              <Marker
+                position={{ lat: spot.lat, lng: spot.lng }}
+                icon={"none"}
+                onClick={(e) => spotLinkHandler(spot.id)}
+                label={{
+                  text: `$${(spot.price).toString()}`,
+                  className: "marker-label",
+                }}
+              ></Marker>
+            ))}
           </GoogleMap>
         </div>
       ) : null}
