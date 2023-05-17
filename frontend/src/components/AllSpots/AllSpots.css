@@ -1,3 +1,8 @@
+.all-spots-page-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
 .all-spots {
   display: flex;
   flex-wrap: wrap;
@@ -7,6 +12,7 @@
 
 .all-spots-container {
   display: flex;
+  flex-direction: column;
   /* max-width: 1400px; */
   justify-content: center;
   padding-top: 30px;
@@ -27,4 +33,28 @@
   border-radius: 50px;
   z-index: 2;
   box-shadow: rgba(0, 0, 0, 0.75) 0px 25px 50px -12px;
+}
+
+.personal-links-footer {
+  background-color: rgb(255, 255, 255);
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  border-top: 1px solid lightgray;
+}
+
+.footer-left {
+  padding-left: 75px;
+}
+
+.footer-right {
+  padding-right: 75px;
+}
+
+.portfolio-link {
+  padding: 10px;
 }

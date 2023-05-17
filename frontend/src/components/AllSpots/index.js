@@ -26,21 +26,31 @@ let spotsArr = Object.values(spots);
 // console.log("spotsArr", spotsArr)
     console.log("spotsArr from allspots", spotsArr);
 
-return (
-  <div className="all-spots-container">
-    <div className="all-spots">
-      {/* <section className='all-spots'> */}
-      {spots &&
-        spotsArr.map((spot) => <SpotCard spot={spot} key={spot.name} />)}
-      {/* </section> */}
-    <NavLink to="/map">
-      <div className="floating-map-toggle-main">
-        Show Map <i className="fa-solid fa-map fa-show"></i>
+  return (
+    <div className="all-spots-page-wrapper">
+      <div className="all-spots-container">
+        <div className="all-spots">
+          {/* <section className='all-spots'> */}
+          {spots &&
+            spotsArr.map((spot) => <SpotCard spot={spot} key={spot.name} />)}
+          {/* </section> */}
+          <NavLink to="/map">
+            <div className="floating-map-toggle-main">
+              Show Map <i className="fa-solid fa-map fa-show"></i>
+            </div>
+          </NavLink>
+        </div>
       </div>
-    </NavLink>
+      <div className="personal-links-footer">
+        <div className="footer-left">Built by Sean Baeyens - 2023</div>
+        <div className="footer-right">
+          <span className="portfolio-link">LinkedIn</span>
+          <span className="portfolio-link">Github</span>
+          <span className="portfolio-link">Portfolio</span>
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default AllSpots
