@@ -1,0 +1,28 @@
+.map-search-wrapper-viewer-x {
+  display: flex;
+  justify-content: center;
+  height: 400px;
+  width: 100%;
+  /* background-color: aqua; */
+}
+
+.google-maps-box-viewer {
+  height: 500px;
+  width: 100%;
+  /* background-color: blueviolet; */
+  z-index: 3;
+}
+
+.marker-label-viewer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: aliceblue;
+  height: 20px;
+  width: auto;
+  border-radius: 15px;
+  padding: 5px 8px;
+  box-shadow: 0px 0px 3px #33333333;
+  z-index: 1;
+  font-weight: 800;
+}
