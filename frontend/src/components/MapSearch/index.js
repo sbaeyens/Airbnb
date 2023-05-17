@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "./MapSearch.css";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 import { useRef, useState } from "react";
+import { NavLink } from "react-router-dom/cjs/react-router-dom";
 
 function MapSearch() {
     console.log("process.env", process.env)
@@ -21,14 +22,30 @@ function MapSearch() {
     }
 
   return (
-      <div className="map-search-wrapper">
-          {isLoaded ? (<div className="google-maps-box">
-              <GoogleMap center={center} zoom={15} mapContainerStyle={{ width: '100%', height: '100%' }}>
-              </GoogleMap>
-          </div>) : (null)}
-      <div className="floating-map-toggle">
-        Show Map <i className="fa-solid fa-map fa-show"></i>
-      </div>
+    <div className="map-search-wrapper">
+      {isLoaded ? (
+        <div className="google-maps-box">
+          <GoogleMap
+            center={center}
+            zoom={10}
+            mapContainerStyle={{ width: "100%", height: "100%" }}
+          >
+            <Marker
+              position={center}
+              icon={"none"}
+              label={{
+                text: `hahafdfha`,
+                className: "marker-label",
+              }}
+            ></Marker>
+          </GoogleMap>
+        </div>
+      ) : null}
+      <NavLink to="/">
+        <div className="floating-map-toggle">
+          Show List <i className="fa-solid fa-map fa-show"></i>
+        </div>
+      </NavLink>
     </div>
   );
 }

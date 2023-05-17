@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllSpots } from '../../store/spots';
 import SpotCard from '../SpotCard'
 import './AllSpots.css'
+import { NavLink } from 'react-router-dom/cjs/react-router-dom';
 
 function AllSpots() {
 const dispatch = useDispatch();
@@ -32,6 +33,11 @@ return (
       {spots &&
         spotsArr.map((spot) => <SpotCard spot={spot} key={spot.name} />)}
       {/* </section> */}
+    <NavLink to="/map">
+      <div className="floating-map-toggle-main">
+        Show Map <i className="fa-solid fa-map fa-show"></i>
+      </div>
+    </NavLink>
     </div>
   </div>
 );
