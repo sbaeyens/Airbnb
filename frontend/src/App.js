@@ -8,6 +8,7 @@ import SpotPage from "./components/SpotPage";
 import NewSpotForm from "./components/NewSpotForm";
 import AllSpotsByUser from "./components/AllSpotsByUser";
 import EditSpotForm from "./components/EditSpotForm";
+import MapSearch from "./components/MapSearch";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,9 @@ function App() {
         <Switch>
           <Route exact path={"/"}>
             <AllSpots />
+          </Route>
+          <Route exact path={"/map"}>
+            <MapSearch />
           </Route>
           <Route path={`/spots/new`}>
             <NewSpotForm />
