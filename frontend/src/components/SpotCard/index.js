@@ -41,7 +41,17 @@ function SpotCard({ spot, sessionUser }) {
         <div className="bottom-card-info">
           <Link to={`/spots/${spot.id}`}>
             <div>
-              <span className="price">${spot.price} night</span>
+
+              <span className="spot-title">{spot.name}</span>
+            </div>
+          </Link>
+
+        </div>
+        <div className="bottom-card-info">
+          <Link to={`/spots/${spot.id}`}>
+            <div>
+              <span className="price">${spot.price}</span>{" "}
+              <span className="night">night</span>
             </div>
           </Link>
           <div className="owner-buttons">

@@ -1,11 +1,11 @@
 .spot-card {
   /* border-style: dotted; */
   width: 300px;
-  height: 400px;
+  height: auto;
   color: black;
   font-family: Helvetica, sans-serif;
   text-decoration: none;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
   margin: 10px;
   border-radius: 10px;
   overflow: hidden;
@@ -16,6 +16,7 @@
   border-top-left-radius: 10px; */
   height: 300px;
   width: 300px;
+  border-radius: 10px;
   object-fit: cover;
 }
 
@@ -26,8 +27,8 @@
 .bottom-card-info {
   display: flex;
   justify-content: space-between;
-  padding-left: 10px;
-  padding-right: 10px;
+  /* padding-left: 10px;
+  padding-right: 10px; */
   padding-bottom: 0px;
   align-items: center;
 }
@@ -35,12 +36,15 @@
 .top-card-info {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  /* padding-left: 10px;
+  padding-right: 10px; */
+  padding-top: 5px;
+  font-weight: 600;
 }
 
 .lower-card-gap {
   overflow: hidden;
-  height: 300px;
+  /* height: 300px; */
 }
 
 /* unvisited link */
@@ -67,14 +71,24 @@ a:active {
   text-decoration: none;
 }
 
+.spot-title {
+  font-weight: 300;
+  color: grey;
+}
+
 .price {
-  font-weight: bold;
+  font-weight: 600;
+}
+
+.night {
+  font-weight: 300;
 }
 
 .rating-section {
   display: flex;
   align-items: center;
   gap: 5px;
+  font-weight: 300;
 }
 
 .submit-button-card {

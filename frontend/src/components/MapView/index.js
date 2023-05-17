@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./MapView.css";
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, Marker, OverlayView } from "@react-google-maps/api";
 import { useRef, useState, useEffect } from "react";
 import { NavLink, useHistory } from "react-router-dom/cjs/react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,7 +45,7 @@ function MapView({singleSpot}) {
     <div>LOADING...</div>;
   }
 
-
+  let homeIcon = <i className="fa-solid fa-star star-heading"></i>
 
   return (
     <div className="map-search-wrapper-viewer">
@@ -58,14 +58,14 @@ function MapView({singleSpot}) {
           >
             {spots &&
               spotsArr.map((spot) => (
-                <Marker
+                <OverlayView
                   position={{ lat: singleSpot.lat, lng: singleSpot.lng }}
-                  icon={"none"}
-                  label={{
-                    text: `$${spot.price.toString()}`,
-                    className: "marker-label",
-                  }}
-                ></Marker>
+                  mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+                >
+                  <div className="marker-label-viewer">
+                    <i className="fa-solid fa-house" />
+                  </div>
+                </OverlayView>
               ))}
           </GoogleMap>
         </div>
