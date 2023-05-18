@@ -62,7 +62,7 @@ function MapSearch() {
           >
             {spots && spotsArr.map((spot) => (
               <Marker
-                position={{ lat: spot.lat, lng: spot.lng }}
+                position={{ lat: Number(spot.lat), lng: Number(spot.lng) }}
                 icon={"none"}
                 onClick={(e) => spotLinkHandler(spot.id)}
                 label={{

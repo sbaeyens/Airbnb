@@ -59,7 +59,7 @@ function MapView({singleSpot}) {
             {spots &&
               spotsArr.map((spot) => (
                 <OverlayView
-                  position={{ lat: singleSpot.lat, lng: singleSpot.lng }}
+                  position={{ lat: Number(singleSpot.lat), lng: Number(singleSpot.lng) }}
                   mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
                 >
                   <div className="marker-label-viewer">
