@@ -39,7 +39,7 @@ function MapView({singleSpot}) {
     height: "400px",
   };
 
-  const center = { lat: singleSpot.lat, lng: singleSpot.lng };
+  const center = { lat: Number(singleSpot.lat), lng: Number(singleSpot.lng) };
 
   if (!isLoaded) {
     <div>LOADING...</div>;
