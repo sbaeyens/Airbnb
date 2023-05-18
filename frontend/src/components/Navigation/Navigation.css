@@ -114,3 +114,60 @@ p {
 .fa-star {
   font-size: 13px;
 }
+
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* position: fixed; */
+  left: 50%;
+  /* transform: translate(-50%, 0); */
+  width: 352px;
+  height: 40px;
+  margin-bottom: -3px;
+  background-color: white;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 2px 5px;
+  transition: box-shadow 0.2s ease-in-out;
+  border-radius: 25px;
+  border: solid 1px #dddddd;
+  cursor: pointer;
+  padding-right: 6px;
+  padding-left: 20px;
+}
+
+.search-bar-container:hover {
+  box-shadow: lightgray 0px 2px 5px;
+}
+
+.search-bar-inner-search-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-size: 200% 200%;
+  background-position: 50%;
+  background-image: radial-gradient(
+    circle at center center,
+    rgb(255, 56, 92) 0%,
+    rgb(230, 30, 77) 0%,
+    rgb(227, 28, 95) 40%,
+    rgb(215, 4, 102) 57.5%,
+    rgb(189, 30, 89) 75%,
+    rgb(189, 30, 89) 100%
+  );
+}
+
+#search-bar-inner-search-icon {
+  color: white;
+  font-size: 12px;
+}
+
+input {
+  border: none;
+}
+
+input:focus {
+  outline: none;
+}
