@@ -9,6 +9,7 @@ import NewSpotForm from "./components/NewSpotForm";
 import AllSpotsByUser from "./components/AllSpotsByUser";
 import EditSpotForm from "./components/EditSpotForm";
 import MapSearch from "./components/MapSearch";
+import SearchResults from "./components/SearchResults";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route path={"/search"}>
+            <SearchResults />
+          </Route>
           <Route exact path={"/"}>
             <AllSpots />
           </Route>
