@@ -17,8 +17,8 @@ function Navigation({ isLoaded }) {
   const onClickHandler = (company, ticker) => {
     // setValue(company)
     // setStockTick(ticker)
-    history.push(`/spots/search/?test`);
-    setSearch("");
+    history.push(`/search?${search}`);
+    // setSearch("");
   };
 
   return (
