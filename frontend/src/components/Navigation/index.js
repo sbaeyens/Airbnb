@@ -14,10 +14,18 @@ function Navigation({ isLoaded }) {
     setSearch(e.target.value);
   };
 
-  const onClickHandler = (company, ticker) => {
+  const onClickHandler = (e, company, ticker) => {
     // setValue(company)
     // setStockTick(ticker)
-    history.push(`/search?${search}`);
+    e.preventDefault();
+    let queryObj = {
+      location: search
+      // dateRange: daterange will go here if/when added to query
+    }
+    const searchParams = new URLSearchParams(queryObj)
+    console.log("searchParams", searchParams.toString());
+    let queryString = searchParams.toString();
+    history.push(`/search?${queryString}`);
     // setSearch("");
   };
 

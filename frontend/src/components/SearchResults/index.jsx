@@ -41,19 +41,25 @@ function SearchResults() {
      height: "400px",
    };
 
-    let searchTermTemp = "paris"
+   let url = window.location.href
+   let searchParams = new URL(url).searchParams
+   const entries = new URLSearchParams(searchParams).entries()
+   const queryArr = Array.from(entries)
+    console.log("queryArr[0][1]", queryArr[0][1])
+
+   let searchLocation = queryArr[0][1] ? queryArr[0][1] : "paris";
 
     let searchResultsArray = []
     if (spotsArr.length > 0) {
 
         for (let spot of spotsArr) {
-            if (spot.city.toLowerCase().includes(searchTermTemp.toLowerCase())) {
+            if (spot.city.toLowerCase().includes(searchLocation.toLowerCase())) {
               searchResultsArray.push(spot);
             }
-            if (spot.state.toLowerCase().includes(searchTermTemp.toLowerCase())) {
+            if (spot.state.toLowerCase().includes(searchLocation.toLowerCase())) {
               searchResultsArray.push(spot);
             }
-            if (spot.country.toLowerCase().includes(searchTermTemp.toLowerCase())) {
+            if (spot.country.toLowerCase().includes(searchLocation.toLowerCase())) {
               searchResultsArray.push(spot);
             }
         }
@@ -81,7 +87,7 @@ function SearchResults() {
       <div className="search-page-wrapper">
         <div className="search-spots-container">
           <div className="search-results-summary">
-            {`${searchResultsArray.length} stays in ${searchTermTemp} `}
+            {`${searchResultsArray.length} stays in ${searchLocation} `}
           </div>
           <div className="search-all-spots">
             {/* <section className='all-spots'> */}
