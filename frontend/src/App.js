@@ -10,6 +10,7 @@ import AllSpotsByUser from "./components/AllSpotsByUser";
 import EditSpotForm from "./components/EditSpotForm";
 import MapSearch from "./components/MapSearch";
 import SearchResults from "./components/SearchResults";
+import Trips from "./components/Trips";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,9 @@ function App() {
           </Route>
           <Route path={`/spots/:spotId`}>
             <SpotPage />
+          </Route>
+          <Route path={`/trips`}>
+            <Trips />
           </Route>
         </Switch>
       )}

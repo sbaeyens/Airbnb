@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_SPOT_BOOKINGS = "bookings/LOAD_SPOT_BOOKINGS";
 const ADD_SPOT_BOOKING = "bookings/ADD_SPOT_BOOKING";
+const LOAD_USER_BOOKINGS = "bookings/LOAD_USER_BOOKINGS";
 
 
 //--------ACTIONS--------//
@@ -17,6 +18,11 @@ const addSpotBooking = (payload) => ({
   payload,
 });
 
+// SPOT BOOKINGS
+const loadUserBookings = (payload) => ({
+  type: LOAD_USER_BOOKINGS,
+  payload,
+});
 
 //--------THUNKS--------//
 export const getSpotBookings = (spotId) => async (dispatch) => {
@@ -44,8 +50,17 @@ export const addNewBooking = (newBooking) => async (dispatch) => {
   }
 };
 
+export const getUserBookings = () => async (dispatch) => {
+  const response = await fetch(`/api/bookings/current`);
+  if (response.ok) {
+    const payload = await response.json();
+    dispatch(loadUserBookings(payload));
+  }
+};
+
 // INTIAL STATE
 const initialState = {
+  user: {},
   spot: {},
 };
 
@@ -68,11 +83,24 @@ export default function reviewsReducer(state = initialState, action) {
       };
       return result;
     case ADD_SPOT_BOOKING:
-          const newBooking = { ...action.payload };
-          console.log("newBooking from reducer", newBooking)
+      const newBooking = { ...action.payload };
+      console.log("newBooking from reducer", newBooking);
 
       return { ...state };
+    case LOAD_USER_BOOKINGS:
+      let userBookings = { ...action.payload.Bookings };
+      console.log("bookings from inside reducer", userBookings);
+      // let bookingsArr = Object.values(bookings);
+      // let normalizedBookings = {};
+      // bookingsArr.forEach(
+      //   (booking) => (normalizedBookings[booking.id] = booking)
+      // );
+      result = {
+        ...state,
+        user: userBookings,
+      };
 
+      return result;
     default:
       return state;
   }
