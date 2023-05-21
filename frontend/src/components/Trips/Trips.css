@@ -1,0 +1,55 @@
+.future-booking-card {
+  display: flex;
+  width: 1200px;
+  flex-direction: row;
+  border: 1px solid gray;
+  height: 500px;
+  border-radius: 15px;
+}
+
+.left-future-booking-card-info {
+  flex: 1;
+}
+
+.right-future-booking-card-info {
+  flex: 1;
+}
+
+.booking-card-upper {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid lightgray;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-top: 20px;
+}
+
+.booking-card-name {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.booking-card-location {
+  color: #717171;
+  font-size: 15px;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.future-booking-img {
+  object-fit: cover;
+  overflow: hidden;
+  flex: 1;
+  border-bottom-right-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.booking-card-lower {
+  display: flex;
+}
+
+.booking-card-bottom-left {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid lightgray;
+}
