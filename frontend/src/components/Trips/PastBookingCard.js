@@ -1,23 +1,30 @@
 import "./Trips.css";
+import { compareAsc, differenceInCalendarDays, format } from "date-fns";
+
 
 function PastBookingCard({ booking }) {
+
+
   if (!booking) return null;
   return (
-    <div className="single-review">
-      <div className="review-container">
-        <div className="review-heading">
-          <div className="review-user-icon">
-            <i class="fa-regular fa-circle-user"></i>
-          </div>
-          <div className="review-header">
-            <h3 className="review-text">{booking.Spot.name}</h3>
-            <h4 className="review-text date">
-              {booking.Spot.city}, {booking.Spot.state}
-            </h4>
-          </div>
+    <div className="past-booking-card">
+      <img
+        src={booking.Spot.previewImage}
+        alt="image"
+        className="past-booking-img"
+      />
+      <div className="past-booking-right">
+        <div className="past-booking-top-info">
+          <span className="past-booking-title">{booking.Spot.name}</span>
+          <span className="past-booking-grey-text">
+            {booking.Spot.city}, {booking.Spot.state}
+          </span>
         </div>
-        <div className="review-body">
-          <p className="review-text description">lorem</p>
+        <div className="past-booking-bottom-info">
+          <span className="past-booking-grey-text">
+            {format(new Date(booking.startDate), "MMMM dd")} -{" "}
+            {format(new Date(booking.endDate), "MMMM dd")}
+          </span>
         </div>
       </div>
     </div>

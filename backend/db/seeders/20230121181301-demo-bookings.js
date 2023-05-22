@@ -61,6 +61,36 @@ module.exports = {
           startDate: new Date("2023-06-19"),
           endDate: new Date("2023-07-21"),
         },
+        {
+          spotId: 4,
+          userId: 1,
+          startDate: new Date("2022-01-19"),
+          endDate: new Date("2022-02-04"),
+        },
+        {
+          spotId: 6,
+          userId: 1,
+          startDate: new Date("2021-10-19"),
+          endDate: new Date("2021-11-04"),
+        },
+        {
+          spotId: 7,
+          userId: 1,
+          startDate: new Date("2022-03-24"),
+          endDate: new Date("2022-03-27"),
+        },
+        {
+          spotId: 6,
+          userId: 1,
+          startDate: new Date("2023-09-24"),
+          endDate: new Date("2023-09-27"),
+        },
+        {
+          spotId: 2,
+          userId: 1,
+          startDate: new Date("2023-12-14"),
+          endDate: new Date("2023-12-27"),
+        },
       ],
       {}
     );

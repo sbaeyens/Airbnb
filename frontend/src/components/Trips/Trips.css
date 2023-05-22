@@ -145,3 +145,44 @@
   margin-top: 20px;
   width: 100%;
 }
+
+.past-booking-card {
+  display: flex;
+  width: 350px;
+  height: 120px;
+  overflow: hidden;
+  /* border: 2px solid red; */
+}
+
+.past-booking-img {
+  width: 30%;
+  object-fit: cover;
+  object-position: center;
+  /* overflow: hidden; */
+  flex: 1;
+  border-radius: 15px;
+}
+
+.past-booking-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 60%;
+  padding-left: 15px;
+}
+
+.past-booking-top-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.past-booking-top-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.past-booking-grey-text {
+  font-size: 13px;
+  font-weight: 300;
+  color: #a8a8a8;
+}
