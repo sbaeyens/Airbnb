@@ -48,11 +48,15 @@
 }
 
 .profileButton {
-  background-color: white;
+  align-items: center;
+  border: 1px solid #d3d3d3;
+  border-radius: 25px;
+  cursor: pointer;
+  display: flex;
   height: 40px;
-  width: 80px;
-  border-radius: 20px;
-  margin-right: 20px;
+  justify-content: center;
+  width: 75px;
+  background-color: white;
 }
 
 i {
@@ -75,6 +79,7 @@ p {
 }
 
 .profile-modal {
+  font-weight: 300;
 }
 
 .menu-links {
@@ -85,7 +90,7 @@ p {
 }
 
 .logout-button {
-  background-color: grey;
+  /* background-color: grey;
   border: 1px solid #222222;
   border-radius: 15px;
   box-sizing: border-box;
@@ -108,7 +113,19 @@ p {
     transform 0.1s;
   user-select: none;
   -webkit-user-select: none;
-  width: auto;
+  width: auto; */
+  border: none;
+  font-size: 15px;
+  padding-left: 3px;
+  background-color: white;
+  padding-top: 5px;
+  width: 100%;
+  display: flex;
+  border-radius: 5px;
+}
+
+.logout-button:hover {
+  background-color: #d3d3d3;
 }
 
 .fa-star {
@@ -139,6 +156,10 @@ p {
   box-shadow: lightgray 0px 2px 5px;
 }
 
+.search-bar-inner-wrapper {
+  width: 100%;
+}
+
 .search-bar-inner-search-button {
   display: flex;
   align-items: center;
@@ -166,8 +187,45 @@ p {
 
 input {
   border: none;
+  /* width: 100%; */
 }
 
 input:focus {
   outline: none;
+}
+
+.fa-bars,
+.fa-user-circle {
+  color: #585858;
+  margin-left: 9px;
+  margin-right: 4px;
+}
+
+.fa-bars {
+  font-size: 16px;
+  margin-left: 15px;
+}
+.fa-user-circle {
+  font-size: 28px;
+  padding-right: 5px;
+}
+
+.create-new-spot-link {
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 12px;
+  padding: 12px;
+  right: 180px;
+}
+
+.create-new-spot-link:hover {
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 12px;
+  padding: 12px;
+  right: 180px;
+  background-color: #f5f5f5;
+  border: none;
 }

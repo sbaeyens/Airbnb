@@ -48,9 +48,9 @@ function ProfileButton({ user }) {
 
   return (
     <div>
-      <button className="profileButton" onClick={openMenu}>
+      <div className="profileButton" onClick={openMenu}>
         <i className="fa-solid fa-bars" /> <i className="fas fa-user-circle" />
-      </button>
+      </div>
       <div className={`${ulClassName} profile-modal`} ref={ulRef}>
         {user ? (
           <>

@@ -26,6 +26,7 @@ function Navigation({ isLoaded }) {
     console.log("searchParams", searchParams.toString());
     let queryString = searchParams.toString();
     history.push(`/search?${queryString}`);
+    window.location.reload(false);
     // setSearch("");
   };
 
@@ -59,11 +60,12 @@ function Navigation({ isLoaded }) {
           <i
             className="fa-solid fa-magnifying-glass"
             id="search-bar-inner-search-icon"
+            onClick={onClickHandler}
           />
         </div>
       </div>
       <div className="right-nav">
-        {sessionUser ? <Link to="/spots/new">Create New Spot</Link> : <></>}
+        {sessionUser ? <Link to="/spots/new" className="create-new-spot-link">Create New Spot</Link> : <></>}
         <div className="profileButton">
           {isLoaded && <ProfileButton user={sessionUser} />}
         </div>
