@@ -36,23 +36,26 @@ function Trips() {
     console.log("futureBookings", futureBookings)
     console.log("pastBookings", pastBookings);
 
-
   return (
     <div className="trips-page-container">
       <span className="trips-header">Trips</span>
-      <div className="grey-divider"></div>
-      <span className="upcoming-trips-header">Upcoming Reservations</span>
+      {/* <div className="grey-divider"></div> */}
       <div className="upcoming-trips">
+        <span className="upcoming-trips-header">Upcoming Reservations</span>
         {bookings &&
           futureBookings.map((booking) => (
             <FutureBookingCard booking={booking} />
           ))}
       </div>
-      <div className="grey-divider"></div>
-      <span className="past-trips-header">Where You've Been</span>
+      {/* <div className="grey-divider"></div> */}
       <div className="past-trips">
-        {bookings &&
-          pastBookings.map((booking) => <PastBookingCard booking={booking} />)}
+        <span className="past-trips-header">Where You've Been</span>
+        <div className="past-trips-wrapper">
+          {bookings &&
+            pastBookings.map((booking) => (
+              <PastBookingCard booking={booking} />
+            ))}
+        </div>
       </div>
     </div>
   );

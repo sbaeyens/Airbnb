@@ -4,11 +4,15 @@ import { compareAsc, differenceInCalendarDays, format } from "date-fns";
 function FutureBookingCard({ booking }) {
 
     let stayLength = (booking) => {
-        differenceInCalendarDays(
+       let days = differenceInCalendarDays(
                       new Date(booking.endDate),
                       new Date(booking.startDate)
-                    )}
-  if (!booking) return null;
+        )
+        return days
+    }
+
+    if (!booking) return null;
+
   return (
     <div className="future-booking-card">
       <div className="left-future-booking-card-info">
@@ -20,17 +24,23 @@ function FutureBookingCard({ booking }) {
             </span>
           </div>
           <div className="booking-card-lower">
-            <div className="booking-card-bottom-left">
-              <span className="booking-card-dates-and-nights">Dates</span>
-              <span className="booking-card-dates">
-                {booking.startDate} - {booking.endDate}
-              </span>
-              <span className="booking-card-dates-and-nights">Nights</span>
-                          <span className="booking-card-length">{ stayLength(booking)}</span>
+            <div className="booking-card-lower-left-inner">
+              <div className="booking-card-bottom-left">
+                <span className="booking-card-dates-and-nights">Dates</span>
+                <span className="booking-card-length">
+                  {format(new Date(booking.startDate), "MMMM dd")} -{" "}
+                  {format(new Date(booking.endDate), "MMMM dd")}
+                </span>
+                <span className="booking-card-dates-and-nights">Nights</span>
+                <span className="booking-card-length">
+                  {stayLength(booking)} nights
+                </span>
+              </div>
             </div>
             <div className="booking-card-bottom-right">
               <span className="booking-card-description">
-                lorem ipsum description. Add to backend route
+                {" "}
+                {booking.Spot.description}
               </span>
             </div>
           </div>

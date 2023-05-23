@@ -12,7 +12,7 @@ router.get('/current', requireAuth, async (req, res) => {
         where: { userId: req.user.id },
         include: {
             model: Spot,
-            attributes: {exclude: ['description', 'createdAt', 'updatedAt']}
+            attributes: {exclude: ['createdAt', 'updatedAt']}
         }
     })
 
@@ -24,7 +24,7 @@ router.get('/current', requireAuth, async (req, res) => {
         let bookingObj = booking.toJSON()
         bookingsArr.push(bookingObj)
     })
-    console.log(bookingsArr)
+    console.log("bookingsArr from backend route", bookingsArr);
 
 
     let finalBookingsObj = {}
@@ -42,6 +42,7 @@ router.get('/current', requireAuth, async (req, res) => {
         })
         let previewImgUrl = previewImg.toJSON()['url']
         // console.log(previewImgUrl)
+
 
         // console.log(bookingObj)
         bookingObj.Spot.previewImage = previewImgUrl
