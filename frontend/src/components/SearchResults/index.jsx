@@ -70,7 +70,7 @@ function SearchResults() {
     // let testCenter = { "lat": spotsArr[0].lat, "lng": spotsArr[0].lng }
     // console.log("testCenter", testCenter)
 
-   const center = { lat: Number(firstSpotLat), lng: Number(searchResultsArray[0]?.lng) };
+   const center = { lat: Number(firstSpotLat), lng: Number(searchResultsArray[0]?.lng + 0.270) };
 
    if (!isLoaded) {
      <div>LOADING...</div>;
