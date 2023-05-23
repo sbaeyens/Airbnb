@@ -177,7 +177,7 @@ function SpotPage() {
                   <i class="fa-solid fa-crown"></i>
                 </div>
                 <div className="perk-text">
-                  <div className="perk-heading">Curtis is a Superhost</div>
+                  <div className="perk-heading">{singleSpot.User.firstName} is a Superhost</div>
                   <div className="perk-description">
                     Superhosts are experienced, highly rated hosts who are
                     committed to providing great stays for guests.

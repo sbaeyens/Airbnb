@@ -308,6 +308,10 @@
   opacity: 1;
 }
 
+.price-summary {
+  padding-top: 15px;
+}
+
 .cost-summary-line {
   padding: 10px 0px;
 }
