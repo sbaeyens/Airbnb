@@ -28,17 +28,23 @@ function AllSpotsByUser() {
     // console.log("spotsArr", spotsArr)
     console.log("spotsArr from allspotsbyuser", spotsArr)
     return (
-      <div>
-        <div className="manage-spots-header-text">
-          <h1>Manage Spots</h1>
-        </div>
-        <div className="all-spots">
-          {/* <section className='all-spots'> */}
-          {spots &&
-            spotsArr.map((spot) => (
-              <SpotCard spot={spot} sessionUser={sessionUser} key={spot.name} />
-            ))}
-          {/* </section> */}
+      <div className="spots-by-user-wrapper">
+        <div>
+          <div className="manage-spots-header-text">
+            <h1 className="manage-spots-header">Manage Spots</h1>
+          </div>
+          <div className="all-spots">
+            {/* <section className='all-spots'> */}
+            {spots &&
+              spotsArr.map((spot) => (
+                <SpotCard
+                  spot={spot}
+                  sessionUser={sessionUser}
+                  key={spot.name}
+                />
+              ))}
+            {/* </section> */}
+          </div>
         </div>
       </div>
     );

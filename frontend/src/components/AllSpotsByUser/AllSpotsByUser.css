@@ -1,5 +1,16 @@
 .manage-spots-header-text {
-  padding: 20px;
-  margin-left: 50px;
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  /* margin-left: 15px; */
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.spots-by-user-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.manage-spots-header {
+  font-weight: 300;
 }
