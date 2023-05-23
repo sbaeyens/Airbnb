@@ -10,11 +10,11 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-label {
+/* label {
   display: block;
   width: 100%;
   padding: 3px;
-}
+} */
 
 input,
 textarea {

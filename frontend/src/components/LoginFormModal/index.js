@@ -57,46 +57,70 @@ function LoginFormModal() {
   };
 
   return (
-    <div className="login-modal">
-      <h1>Log In</h1>
+    <div className="login-modal-container">
+      <div className="top-bar">
+        <div className="mark-div">
+          <i
+            className="fa-solid fa-xmark"
+            style={{ fontSize: "20px" }}
+            onClick={closeModal}
+          />
+        </div>
+        <span className="log-in">Log In</span>
+      </div>
+      <div className="welcome">
+        <span>Welcome To Casabnb</span>
+      </div>
       <form onSubmit={handleSubmit}>
-        <ul>
+        {/* <ul>
           <span className="error">
             {hasSubmitted &&
               errors.map((error, idx) => <li key={idx}>{error}</li>)}
           </span>
-        </ul>
-        <label>
-          {/* Username or Email */}
-          <input
-            placeholder="Username or Email"
-            type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          {/* Password */}
-          <input
-            placeholder="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
+        </ul> */}
+        <div className="login-logout-inputs">
+          <label>
+            {/* Username or Email */}
+            <input
+              id="login-username"
+              placeholder="Username or Email"
+              type="text"
+              value={credential}
+              onChange={(e) => setCredential(e.target.value)}
+              required
+            />
+          </label>
+          <label>
+            {/* Password */}
+            <input
+              id="login-password"
+              placeholder="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+        {hasSubmitted && errors[0] && <div className="error-div">{errors[0]}</div>}
         <button
-          disabled={errors.length === 0 ? false : true}
-          className="login-submit-button"
+          // disabled={errors.length === 0 ? false : true}
+          className="login"
           type="submit"
         >
-          Log In
+          Continue
         </button>
       </form>
-      <div>
-        <button className="demo-submit-button demo" onClick={handleDemo}>
-          Demo User
+      <div className="or">
+        <div className="or-sides"></div>
+        <span style={{ fontSize: "12px", color: "gray", fontWeight: "250" }}>
+          or
+        </span>
+        <div className="or-sides"></div>
+      </div>
+      <div className="demo-button-div">
+        <button className="demo-butt" onClick={handleDemo}>
+          Continue as demo user
         </button>
       </div>
     </div>
