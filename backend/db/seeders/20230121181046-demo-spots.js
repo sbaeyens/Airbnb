@@ -44,8 +44,8 @@ module.exports = {
           city: "New York",
           state: "NY",
           country: "United States",
-          lat: 36.121558,
-          lng: -115.172067,
+          lat: 40.722907,
+          lng: -73.995914,
           name: "Luxury Downtown Loft",
           description:
             "Stay in style with this luxury loft located in the heart of downtown Vegas.",
@@ -97,7 +97,7 @@ module.exports = {
           state: "NV",
           country: "United States",
           lat: 36.119088,
-          lng: -115.163260,
+          lng: -115.16326,
           name: "Elegant Estate",
           description:
             "Indulge in luxury and stay in this elegant estate, located just minutes from the Strip.",
@@ -116,7 +116,58 @@ module.exports = {
             "Relax and unwind in this cozy cottage, located just steps away from stunning parks.",
           price: 100.0,
         },
-
+        {
+          ownerId: 2,
+          address: "753 Park St",
+          city: "Las Vegas",
+          state: "NV",
+          country: "United States",
+          lat: 36.159466,
+          lng: -115.131413,
+          name: "Cozy Cottage",
+          description:
+            "Relax and unwind in this cozy cottage, located just steps away from stunning parks.",
+          price: 100.0,
+        },
+        {
+          ownerId: 2,
+          address: "753 Park St",
+          city: "Las Vegas",
+          state: "NV",
+          country: "United States",
+          lat: 36.159466,
+          lng: -115.131413,
+          name: "Cozy Cottage",
+          description:
+            "Relax and unwind in this cozy cottage, located just steps away from stunning parks.",
+          price: 100.0,
+        },
+        {
+          ownerId: 2,
+          address: "753 Park St",
+          city: "Las Vegas",
+          state: "NV",
+          country: "United States",
+          lat: 36.159466,
+          lng: -115.131413,
+          name: "Cozy Cottage",
+          description:
+            "Relax and unwind in this cozy cottage, located just steps away from stunning parks.",
+          price: 100.0,
+        },
+        {
+          ownerId: 2,
+          address: "753 Park St",
+          city: "Las Vegas",
+          state: "NV",
+          country: "United States",
+          lat: 36.159466,
+          lng: -115.131413,
+          name: "Cozy Cottage",
+          description:
+            "Relax and unwind in this cozy cottage, located just steps away from stunning parks.",
+          price: 100.0,
+        },
       ],
       {}
     );
