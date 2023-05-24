@@ -1,7 +1,9 @@
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import "./Trips.css";
 import { compareAsc, differenceInCalendarDays, format } from "date-fns";
 
 function FutureBookingCard({ booking }) {
+  const history = useHistory()
 
     let stayLength = (booking) => {
        let days = differenceInCalendarDays(
@@ -28,8 +30,8 @@ function FutureBookingCard({ booking }) {
               <div className="booking-card-bottom-left">
                 <span className="booking-card-dates-and-nights">Dates</span>
                 <span className="booking-card-length">
-                  {format(new Date(booking.startDate), "MMMM dd")} -{" "}
-                  {format(new Date(booking.endDate), "MMMM dd")}
+                  {format(new Date(booking.startDate), "MMM dd")} -{" "}
+                  {format(new Date(booking.endDate), "MMM dd")}
                 </span>
                 <span className="booking-card-dates-and-nights">Nights</span>
                 <span className="booking-card-length">
@@ -50,6 +52,7 @@ function FutureBookingCard({ booking }) {
         src={booking.Spot.previewImage}
         alt="image"
         className="future-booking-img"
+        onClick={() => history.push(`/spots/${booking.Spot.id}`)}
       />
     </div>
   );

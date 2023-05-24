@@ -1,8 +1,10 @@
 import "./Trips.css";
 import { compareAsc, differenceInCalendarDays, format } from "date-fns";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 
 function PastBookingCard({ booking }) {
+  const history = useHistory();
 
 
   if (!booking) return null;
@@ -12,6 +14,7 @@ function PastBookingCard({ booking }) {
         src={booking.Spot.previewImage}
         alt="image"
         className="past-booking-img"
+        onClick={() => history.push(`/spots/${booking.Spot.id}`)}
       />
       <div className="past-booking-right">
         <div className="past-booking-top-info">

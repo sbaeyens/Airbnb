@@ -6,7 +6,9 @@ import './AllSpots.css'
 import { NavLink } from 'react-router-dom/cjs/react-router-dom';
 
 function AllSpots() {
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const sessionUser = useSelector((state) => state.session.user);
+
 const spots = useSelector((state) => {
   return state.spots.allSpots;
 });
@@ -32,6 +34,17 @@ let spotsArr = Object.values(spots);
   return (
     <div className="all-spots-page-wrapper">
       <div className="all-spots-container">
+        {/* <div className="login-alert-card">
+          <div className="alert-message">
+            <i className="fa-solid fa-warning"></i>
+            <span>Login with a demo user to explore more features:</span>
+          </div>
+          <div className="alert-cta">
+            <button className="alert-login-button">Login as demo user</button>
+
+            <button className="alert-dismiss-button">Login as demo user</button>
+          </div>
+        </div> */}
         <div className="all-spots">
           {/* <section className='all-spots'> */}
           {spots &&
