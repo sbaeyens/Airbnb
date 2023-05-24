@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllSpots } from '../../store/spots';
+import { clearSpotState, getAllSpots } from '../../store/spots';
 import SpotCard from '../SpotCard'
 import './AllSpots.css'
 import { NavLink } from 'react-router-dom/cjs/react-router-dom';
@@ -13,6 +13,9 @@ const spots = useSelector((state) => {
 
 useEffect(() => {
   dispatch(getAllSpots());
+  return () => {
+    dispatch(clearSpotState());
+  };
 }, [dispatch]);
 
 console.log("state from Allspots component", spots);
@@ -44,7 +47,7 @@ let spotsArr = Object.values(spots);
       <div className="personal-links-footer">
         <div className="footer-left">Built by Sean Baeyens - 2023</div>
         <div className="footer-right">
-          <span className="portfolio-link">LinkedIn</span>
+          <a className="portfolio-link">LinkedIn</a>
           <span className="portfolio-link">Github</span>
           <span className="portfolio-link">Portfolio</span>
         </div>

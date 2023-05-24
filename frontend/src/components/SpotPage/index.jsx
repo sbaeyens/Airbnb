@@ -11,6 +11,7 @@ import { addNewBooking, getSpotBookings } from "../../store/bookings";
 import { compareAsc, differenceInCalendarDays, format } from "date-fns";
 import MapView from "../MapView";
 import MapSearch from "../MapSearch";
+import { clearSpotState } from "../../store/spots";
 
 
 function SpotPage() {
@@ -31,6 +32,9 @@ function SpotPage() {
   useEffect(() => {
     dispatch(getSingleSpot(spotId));
     dispatch(getSpotBookings(spotId))
+    return () => {
+      dispatch(clearSpotState());
+    };
   }, []);
   console.log("bookings", bookings)
 
@@ -177,7 +181,9 @@ function SpotPage() {
                   <i class="fa-solid fa-crown"></i>
                 </div>
                 <div className="perk-text">
-                  <div className="perk-heading">{singleSpot.User.firstName} is a Superhost</div>
+                  <div className="perk-heading">
+                    {singleSpot.User.firstName} is a Superhost
+                  </div>
                   <div className="perk-description">
                     Superhosts are experienced, highly rated hosts who are
                     committed to providing great stays for guests.
@@ -197,10 +203,23 @@ function SpotPage() {
               </div>
               <div className="perk">
                 <div className="perk-logo">
+                  <i class="fa-solid fa-key"></i>
+                </div>
+                <div className="perk-text">
+                  <div className="perk-heading">Self Check-in</div>
+                  <div className="perk-description">
+                    Check yourself in with the lockbox.
+                  </div>
+                </div>
+              </div>
+              <div className="perk">
+                <div className="perk-logo">
                   <i class="fa-solid fa-calendar"></i>
                 </div>
                 <div className="perk-text">
-                  <div className="perk-heading">Free Cancelation</div>
+                  <div className="perk-heading">
+                    Free Cancelation for 48 hours
+                  </div>
                   <div className="perk-description"></div>
                 </div>
               </div>

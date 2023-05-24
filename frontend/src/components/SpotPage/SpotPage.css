@@ -27,7 +27,8 @@
 
 .spot-page-wrapper {
   /* justify-content: center; */
-  max-width: 1400px;
+  max-width: 1100px;
+  padding-bottom: 50px;
 }
 
 .top-info {
@@ -86,8 +87,8 @@
 }
 
 .reserve-modal {
-  /* position: sticky !important;
-  top: 10px; */
+  position: sticky !important;
+  top: 100px;
   width: 400px;
   height: fit-content;
   color: black;
