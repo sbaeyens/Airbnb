@@ -3,11 +3,70 @@
   justify-content: center;
 }
 
+.login-alert-card {
+  height: 70px;
+  width: 90%;
+  border: 0.5px solid lightgray;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: sticky;
+  top: 100px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alert-cta {
+  display: flex;
+}
+
+.alert-login-button {
+  background-image: linear-gradient(to right, #e61e4d, #d70466);
+  border: 0px solid #222222;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  /* display: inline-block; */
+  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto,
+    "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  /* margin: 20px 0px 0px 0px; */
+  outline: none;
+  padding: 15px 50px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: box-shadow 0.2s, -ms-transform 0.1s, -webkit-transform 0.1s,
+    transform 0.1s;
+  user-select: none;
+  -webkit-user-select: none;
+  width: 100%;
+}
+
+.alert-login-button:hover {
+  /* box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px; */
+  background-image: linear-gradient(to left, #e61e4d, #d70466);
+
+  transition: box-shadow 0.2s;
+}
+
+.alert-login-button:active {
+  background-color: #f7f7f7;
+  /* border-color: #000000; */
+  transform: scale(0.96);
+}
+
 .all-spots {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   max-width: 1440px;
+  margin-bottom: 80px;
 }
 
 .all-spots-container {
@@ -17,6 +76,7 @@
   justify-content: center;
   padding-top: 30px;
   /* position: relative; */
+  align-items: center;
 }
 
 .floating-map-toggle-main {

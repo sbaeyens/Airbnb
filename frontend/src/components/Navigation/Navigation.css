@@ -42,9 +42,28 @@
   justify-content: center;
 }
 
+.profile-dropdown-email {
+  padding-bottom: 10px;
+}
+
 .manage-spots {
-  border-bottom: 1px solid;
+  /* border-bottom: 1px solid; */
   border-top: 1px solid;
+}
+
+.manage-trips {
+  border-bottom: 1px solid;
+  /* border-top: 1px solid; */
+}
+
+.manage-spots:hover {
+  /* border-bottom: 1px solid; */
+  background-color: #d3d3d3;
+}
+
+.manage-trips:hover {
+  background-color: #d3d3d3;
+  /* border-top: 1px solid; */
 }
 
 .profileButton {
@@ -84,7 +103,7 @@ p {
 
 .menu-links {
   /* color: brown; */
-  cursor: pointer;
+  /* cursor: pointer; */
   list-style-type: none;
   padding: 4px;
 }
@@ -122,6 +141,8 @@ p {
   width: 100%;
   display: flex;
   border-radius: 5px;
+  margin-top: 5px;
+  cursor: pointer;
 }
 
 .logout-button:hover {
@@ -228,4 +249,14 @@ input:focus {
   right: 180px;
   background-color: #f5f5f5;
   border: none;
+}
+
+.menu-icon {
+  font-size: 13px;
+  padding-right: 4px;
+}
+
+.fa-passport {
+  /* font-size: 13px; */
+  padding-right: 7px;
 }

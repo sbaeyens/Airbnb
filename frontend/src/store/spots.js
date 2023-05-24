@@ -7,6 +7,8 @@ const ADD_PHOTOS = "spots/ADD_PHOTOS"
 const ALL_SPOTS_BY_USER = "spots/ALL_SPOTS_BY_USER"
 const DELETE_SPOT = "spots/DELETE_SPOT"
 const EDIT_SPOT = "spots/EDIT_SPOT"
+const CLEAR_SPOT_STATE = "spots/CLEAR_SPOT_STATE";
+
 
 //--------ACTIONS--------//
 // ALL SPOTS
@@ -50,6 +52,13 @@ const updateSpot = payload => ({
   type: EDIT_SPOT,
   payload
 })
+
+//CLEAR SPOT STATE
+export const clearSpotState = () => {
+  return {
+    type: CLEAR_SPOT_STATE,
+  };
+};
 
 //--------THUNKS--------//
 export const getAllSpots = () => async (dispatch) => {
@@ -199,11 +208,11 @@ export default function spotsReducer(state = initialState, action) {
         };
       case ALL_SPOTS_BY_USER:
         const allSpotsByUser = { ...action.payload.Spots };
-        let allSpotsArr = Object.values(allSpotsByUser)
-        let normalizedResult = {}
-        allSpotsArr.forEach((spot) => (normalizedResult[spot.id] = spot))
-        console.log("allSpotsByUser from in spotsReducer", allSpotsByUser)
-        console.log("allSpotsArr", allSpotsArr)
+        let allSpotsArr = Object.values(allSpotsByUser);
+        let normalizedResult = {};
+        allSpotsArr.forEach((spot) => (normalizedResult[spot.id] = spot));
+        console.log("allSpotsByUser from in spotsReducer", allSpotsByUser);
+        console.log("allSpotsArr", allSpotsArr);
         return {
           ...state,
           allSpots: normalizedResult,
@@ -215,45 +224,47 @@ export default function spotsReducer(state = initialState, action) {
           ...state,
           singleSpot,
         };
-        return result
+        return result;
       case ADD_SPOT:
-        const newSpot = { ...action.payload }
+        const newSpot = { ...action.payload };
         // result = {
         //   ...state,
         //   newSpot,
         // }
         // console.log("newSpot from ADD_SPOT REDUCER", newSpot)
-        return { ...state }
+        return { ...state };
       case ADD_PHOTOS:
-        const photosArray = { ...action.payload }
+        const photosArray = { ...action.payload };
         // console.log("photosArray from ADD_PHOTOS REDUCER", photosArray)
-        return { ...state }
+        return { ...state };
       case DELETE_SPOT:
-        newState = { ...state }
-        console.log("$$$$$$$$$$$$$ newState", newState)
-        delete newState.allSpots[action.payload]
+        newState = { ...state };
+        console.log("$$$$$$$$$$$$$ newState", newState);
+        delete newState.allSpots[action.payload];
         console.log("$$$$$$$$$$$$$  newState after delete", newState);
         newState = {
           ...newState,
-          allSpots: {...newState.allSpots}
-        }
-        return newState
-        // let newAllSpots = newState.allSpots
-        // console.log("reached reducer + action.spotId", action.spotId)
-        // console.log("newState from reducer", newState)
-        // console.log("action.payload from inside reducer", action.payload)
-        // let allSpotsArr = Object.values(newAllSpots)
-        // console.log("allSpotsArr ********", allSpotsArr)
-        // delete allSpotsArr[action.payload]
-        // console.log("allSpots from inside reducer", newAllSpots)
-        // result = {
-        //   ...newState,
-        //   newAllSpots
-        // }
-        // return result
+          allSpots: { ...newState.allSpots },
+        };
+        return newState;
+      // let newAllSpots = newState.allSpots
+      // console.log("reached reducer + action.spotId", action.spotId)
+      // console.log("newState from reducer", newState)
+      // console.log("action.payload from inside reducer", action.payload)
+      // let allSpotsArr = Object.values(newAllSpots)
+      // console.log("allSpotsArr ********", allSpotsArr)
+      // delete allSpotsArr[action.payload]
+      // console.log("allSpots from inside reducer", newAllSpots)
+      // result = {
+      //   ...newState,
+      //   newAllSpots
+      // }
+      // return result
       case EDIT_SPOT:
-        newState = { ...state }
-        return newState
+        newState = { ...state };
+        return newState;
+      case CLEAR_SPOT_STATE:
+        return { ...initialState };
       default:
         return state;
     }
