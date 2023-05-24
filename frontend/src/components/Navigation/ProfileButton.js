@@ -55,12 +55,23 @@ function ProfileButton({ user }) {
         {user ? (
           <>
             <p>Hello, {user.username}</p>
-            <p>{user.email}</p>
+            <p className="profile-dropdown-email">{user.email}</p>
             <p className="manage-spots">
-              <Link to="/spots/current">Manage Spots</Link>
+              <Link to="/spots/current">
+                <i className="fa-solid fa-home menu-icon" />
+                Manage Listings
+              </Link>
+            </p>
+            <p className="manage-trips">
+              <Link to="/trips">
+                <i className="fa-solid fa-passport menu-icon" />
+                Manage Trips
+              </Link>
             </p>
 
-            <button className="logout-button" onClick={logout}>Log Out</button>
+            <button className="logout-button" onClick={logout}>
+              Log Out
+            </button>
           </>
         ) : (
           <>

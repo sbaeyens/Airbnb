@@ -56,10 +56,10 @@ function SearchResults() {
             if (spot.city.toLowerCase().includes(searchLocation.toLowerCase())) {
               searchResultsArray.push(spot);
             }
-            if (spot.state.toLowerCase().includes(searchLocation.toLowerCase())) {
+            else if (spot.state.toLowerCase().includes(searchLocation.toLowerCase())) {
               searchResultsArray.push(spot);
             }
-            if (spot.country.toLowerCase().includes(searchLocation.toLowerCase())) {
+            else if (spot.country.toLowerCase().includes(searchLocation.toLowerCase())) {
               searchResultsArray.push(spot);
             }
         }
