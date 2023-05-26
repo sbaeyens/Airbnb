@@ -126,7 +126,7 @@ module.exports = {
           lng: -99.259459,
           name: "Entire Bungalow",
           description:
-            "A scenic tea estate on ninety-eight acres of land in fascinating Ella, Bandarawela, Sri Lanka. The colonial era in Ceylon saw this tea estate being larger in extent, owned and managed by a Britisher and famously known as the ‘Southerland tea estate’. Estate ownership eventually moved to the UHE Group and was renamed ‘Uva Greenlands’.The plantation, while continuing to produce fine quality Uva, medium elevation Pure Ceylon Tea showed promise as an ideal location for an eco-friendly boutique hotel..",
+            "A scenic tea estate on ninety-eight acres of land in fascinating Ella, Bandarawela, Sri Lanka. The colonial era in Ceylon saw this tea estate being larger in extent, owned and managed by a Britisher and famously known as the Southerland tea estate. Estate ownership eventually moved to the UHE Group and was renamed Uva Greenlands.The plantation, while continuing to produce fine quality Uva, medium elevation Pure Ceylon Tea showed promise as an ideal location for an eco-friendly boutique hotel..",
           price: 324.0,
         },
         {
