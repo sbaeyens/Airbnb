@@ -165,7 +165,7 @@ module.exports = {
           lng: -99.159459,
           name: "Downtown Apartment",
           description:
-            "Este 3BR se encuentra en el hermoso distrito de Condesa, hogar de clases de yoga, parejas jóvenes y adolescentes de skate, es el corazón del elegante pero relajante Hipódromo. Este 3BR se encuentra en el hermoso distrito de Condesa, hogar de clases de yoga, parejas jóvenes y adolescentes de skate, es el corazón del elegante pero relajante Hipódromo. Este 3BR se encuentra en el hermoso distrito de Condesa, hogar de clases de yoga, parejas jóvenes y adolescentes de skate, es el corazón del elegante pero relajante Hipódromo.",
+            "Este 3BR se encuentra en el hermoso distrito de Condesa, hogar de clases de yoga, parejas jóvenes y adolescentes de skate, es el corazón del elegante pero relajante Hipódromo.",
           price: 345.0,
         },
       ],
