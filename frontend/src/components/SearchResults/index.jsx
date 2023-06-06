@@ -29,11 +29,6 @@ function SearchResults() {
 
   // Put all spots in array
   let spotsArr = Object.values(spots);
-  // console.log("spotsArr", spotsArr)
-  console.log("spotsArr from allspots", spotsArr);
-
-   console.log("process.env", process.env);
-
 
 
    const containerStyle = {
@@ -71,7 +66,11 @@ function SearchResults() {
     // console.log("testCenter", testCenter)
 
    const center = { lat: Number(firstSpotLat), lng: Number(searchResultsArray[0]?.lng + 0.270) };
-
+  console.log(center)
+  const newCenter = {
+    lat: Number(48.8566),
+    lng: Number(2.3522),
+  };
    if (!isLoaded) {
      <div>LOADING...</div>;
    }
@@ -102,7 +101,7 @@ function SearchResults() {
           {isLoaded ? (
             <div className="google-maps-box-search">
               <GoogleMap
-                center={center}
+                center={newCenter}
                 zoom={10}
                 mapContainerStyle={{ width: "100%", height: "100%" }}
               >
