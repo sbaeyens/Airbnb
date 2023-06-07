@@ -17,7 +17,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
   yourSpots.forEach(spot => {
     let spotObj = spot.toJSON()
-    // console.log(spotObj)
 
     spotsList.push(spotObj)
 
@@ -26,7 +25,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
   //for loop to add avg rating to each spot
   for (let i = 0; i < spotsList.length; i++) {
     let spotId = spotsList[i]['id']
-    // console.log(spotId)
     const starRating = await Review.findOne({
       where: { spotId: spotId },
       attributes: [
@@ -35,7 +33,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
     });
 
      let reviewJson = starRating.toJSON();
-    //  console.log(reviewJson);
 
      spotsList[i].avgRating = reviewJson.avgStarRating;
   }
@@ -43,7 +40,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
   //for loop to add preview Image to each spot
   for (let i = 0; i < spotsList.length; i++) {
     let spotId = spotsList[i]["id"];
-    // console.log(spotId);
     const spotImg = await SpotImage.findOne({
       where: {
         spotId: spotId,
@@ -69,7 +65,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
   let spots = {}
   spots.Spots = spotsList
-  // console.log(spotsList)
 
   res.json(spots)
 })
@@ -150,13 +145,9 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
   //EndDate cannot be on or before start date
   const { startDate, endDate } = req.body
-  // console.log('startDate', startDate)
   let startDateData = new Date(startDate)
   let endDateData = new Date(endDate)
   // let endDateMS = endDate.toDateString();
-  // console.log('startDateData', startDateData)
-
-  // console.log(startDateMS)
 
   if (endDateData.getTime() - startDateData.getTime() < 0) {
      const err = new Error("endDate cannot be on or before startDate");
@@ -171,16 +162,12 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     })
 
     let spotBookingsObj = spotBookings.toJSON()
-  // console.log(spotBookingsObj)
   let bookingsArr = spotBookingsObj.Bookings
-  // console.log(bookingsArr)
 
       //loop through all bookings
   for (i = 0; i < bookingsArr.length; i++) {
     let existingBookingStartDate = bookingsArr[i].startDate
     let existingBookingEndDate = bookingsArr[i].endDate
-    // console.log('existingBookingStarDate', existingBookingStartDate)
-    // console.log("existingBookingEndDate", existingBookingEndDate);
 
     //check if NEW start date falls between start and end date. Throw error if so.
     // if (startDateData > )
@@ -279,8 +266,6 @@ router.get('/:spotId/reviews', async (req, res, next) => {
     let review = rev.toJSON()
     finalArr.push(review)
   })
-  // let reviews = reviewsPromise.toJSON()
-  // console.log(reviews)
 
   finalReviews = {}
   finalReviews.Reviews = finalArr
@@ -358,15 +343,12 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
   let ownerIdNum = ownerIdObj.toJSON().ownerId;
 
-  console.log(ownerIdNum)
   if (ownerIdNum !== req.user.id) {
       res.status(400);
       return res.json({ message: "Must be owner of Spot to post image" });
   }
 
   let spotImg = newSpotImg.toJSON()
-  console.log(spotImg)
-
 
   delete spotImg.updatedAt
   delete spotImg.createdAt;
@@ -395,7 +377,6 @@ router.put('/:spotId', async (req, res, next) => {
 
   let ownerIdNum = ownerIdObj.toJSON().ownerId;
 
-  console.log(ownerIdNum);
   if (ownerIdNum !== req.user.id) {
     res.status(400);
     return res.json({ message: "Must be owner of Spot to update spot" });
@@ -411,7 +392,6 @@ router.put('/:spotId', async (req, res, next) => {
   delete finalSpot.id;
   delete finalSpot.ownerId;
 
-  console.log(finalSpot)
 
 
   return res.json(finalSpot)
@@ -435,7 +415,6 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
   let ownerIdNum = ownerIdObj.toJSON().ownerId;
 
-  console.log(ownerIdNum);
   if (ownerIdNum !== req.user.id) {
     res.status(400);
     return res.json({ message: "Must be owner of Spot to delete spot" });
@@ -473,27 +452,20 @@ router.get('/:spotId', async (req, res, next) => {
    where: { spotId: spot.id }
   })
 
-  console.log(numReviews)
 
   const starRating = await Review.findOne({
     where: { spotId: spot.id },
     attributes: [[sequelize.fn("AVG", sequelize.col("stars")), "avgStarRating",]]
   })
 
-  // console.log(starRating)
 
   let reviewJson = starRating.toJSON()
-  console.log(reviewJson)
 
   let newSpot = spot.toJSON()
 
   newSpot.numReviews = numReviews
   newSpot.avgStarRating = reviewJson.avgStarRating
 
-
-  console.log(newSpot.numReviews, newSpot.avgStarRating)
-
-  console.log(newSpot)
   res.json(newSpot)
 
 })
@@ -505,8 +477,6 @@ router.post('/', requireAuth, async (req, res) => {
     ownerId: req.user.id,
     ...req.body
   })
-
-  console.log(newSpot)
 
   res.json(newSpot)
 
@@ -551,7 +521,6 @@ let previewImgArr = [];
 
 yourSpots.forEach((spot) => {
   let spotObj = spot.toJSON();
-  // console.log(spotObj)
 
   spotsList.push(spotObj);
 });
@@ -559,7 +528,6 @@ yourSpots.forEach((spot) => {
 //for loop to add avg rating to each spot
 for (let i = 0; i < spotsList.length; i++) {
   let spotId = spotsList[i]["id"];
-  // console.log(spotId)
   const starRating = await Review.findOne({
     where: { spotId: spotId },
     attributes: [
@@ -568,7 +536,6 @@ for (let i = 0; i < spotsList.length; i++) {
   });
 
   let reviewJson = starRating.toJSON();
-  //  console.log(reviewJson);
 
   spotsList[i].avgRating = reviewJson.avgStarRating;
 }
@@ -576,7 +543,6 @@ for (let i = 0; i < spotsList.length; i++) {
 //for loop to add preview Image to each spot
 for (let i = 0; i < spotsList.length; i++) {
   let spotId = spotsList[i]["id"];
-  // console.log(spotId);
   const spotImg = await SpotImage.findOne({
     where: {
       spotId: spotId,
@@ -602,7 +568,6 @@ let spots = {};
 
   spots.page = pageNum
   spots.size = sizeNum
-// console.log(spotsList)
 
 res.json(spots);
 
@@ -612,7 +577,6 @@ res.json(spots);
 
 //error handler - maybe delete and include in each endpoint
 router.use((err, req, res, next) => {
-  console.log(err);
   res.status(err.status || 500)
   res.send({
     error: err.message,

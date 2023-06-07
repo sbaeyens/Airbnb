@@ -21,7 +21,6 @@ function SpotPage() {
   let spotId = useParams().spotId;
   const [checkin, setCheckin] = useState("")
   const [checkout, setCheckout] = useState("");
-  // console.log(spotId)
   let reviewsArr = []
   //---GRAB SPOT DATA---//
   const dispatch = useDispatch();
@@ -36,7 +35,6 @@ function SpotPage() {
       dispatch(clearSpotState());
     };
   }, []);
-  console.log("bookings", bookings)
 
   //---GRAB REVIEWS DATA---//
   const spotReviews = useSelector((state) => {
@@ -46,9 +44,6 @@ function SpotPage() {
   useEffect(() => {
     dispatch(getSpotReviews(spotId));
   }, [dispatch]);
-  // console.log("reached first console.log")
-  // let singleSpotArr = Object.values(singleSpot);
-  // console.log("singleSpotArr", singleSpotArr)
 
   //--- RENDER AS NULL IF OBJ EMPTY ON MOUNT ---//
   if (Object.values(singleSpot).length === 0) {
@@ -57,23 +52,15 @@ function SpotPage() {
   if (spotReviews.id === null) {
     return null;
   }
-  // console.log("reached second console.log");
+
   // Put all reviews in array
   reviewsArr = Object.values(spotReviews);
-  // console.log("reviewsArr", reviewsArr)
 
-  //   console.log("single spot from spotPage", singleSpot);
-  //   console.log("image from single spot array", singleSpot.SpotImages[0].url);
-  // console.log("spotReviews from component", spotReviews);
-  // console.log("reviewsArr from component", reviewsArr);
 
   /// check if user has reviews on page:
   if (!sessionUser) {
     sessionUser = { id : 0 }
-    // console.log("reached console log for check on sessionUser")
   }
-  // if (sessionUser === undefined) sessionUser = 0;
-  // console.log("sessionUser should be 0 now", sessionUser)
 
   let sessionHasNoReview = true;
 
@@ -89,8 +76,7 @@ function SpotPage() {
 
   const handleReserve = async (e) => {
     e.preventDefault()
-    console.log("checkin from handler", new Date(checkin))
-    console.log("checkout from handler", new Date(checkout));
+
     let startDate = new Date(checkin);
     let endDate = new Date(checkout);
     let newBooking = {
@@ -99,7 +85,6 @@ function SpotPage() {
       startDate,
       endDate
     }
-    console.log(newBooking)
     dispatch(addNewBooking(newBooking))
 
   }

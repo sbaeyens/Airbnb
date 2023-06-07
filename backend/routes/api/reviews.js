@@ -48,12 +48,10 @@ router.get('/current', requireAuth, async (req, res, next) => {
     reviewsArr.push(revObj);
   });
 
-  // console.log(reviewsArr)
 
   //for loop to add preview Image to each spot
   for (let i = 0; i < reviewsArr.length; i++) {
     let spotId = reviewsArr[i]["Spot"]["id"];
-    // console.log("spotId", spotId);
     const spotImg = await SpotImage.findOne({
       where: {
         spotId: spotId,
@@ -61,17 +59,15 @@ router.get('/current', requireAuth, async (req, res, next) => {
       },
       attributes: ["url", "preview"],
     });
-    // console.log("spotImg",spotImg)
 
     if (!spotImg) reviewsArr[i]["Spot"].previewImage = "no preview image set";
 
     if (spotImg) {
       let previewImg = spotImg.toJSON();
-      console.log('previewImg', previewImg)
-      console.log(reviewsArr[i]["Spot"]);
+
       let spot = reviewsArr[i]["Spot"];
       spot.previewImage = previewImg.url;
-      console.log(spot)
+
       reviewsArr[i].Spot = spot
     }
   }
@@ -173,7 +169,6 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
 
     let finalReview = reviewExist.toJSON();
 
-    console.log(finalReview);
 
     return res.json(finalReview);
 
@@ -216,7 +211,6 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
 
 //error handler - maybe delete and include in each endpoint
 router.use((err, req, res, next) => {
-  console.log(err);
   res.status(err.statusCode || 500)
   res.send({
     error: err.message,

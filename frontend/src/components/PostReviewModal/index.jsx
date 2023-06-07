@@ -33,8 +33,6 @@ function PostReviewModal({spotId}) {
              stars
          };
 
-        console.log("newReview from inside handle submit", newReview)
-
         let createdReview = await dispatch(addNewReview(newReview, spotId))
         await dispatch(getSpotReviews(spotId));
         // await dispatch(getSingleSpot(spotId))

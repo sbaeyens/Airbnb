@@ -35,7 +35,6 @@ export const getSpotReviews = (spotId) => async (dispatch) => {
 
 //add new review thunk
 export const addNewReview = (newReview, spotId) => async dispatch => {
-  console.log("reached addNewReview Thunk")
   const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
     method: "POST",
     headers: {
@@ -54,16 +53,12 @@ export const addNewReview = (newReview, spotId) => async dispatch => {
 
 //delete review thunk
 export const removeReview = (reviewId) => async (dispatch) => {
-  // console.log("reached removeSpot Thunk")
-  // console.log("Spot ID from inside thunk", spotId);
   const response = await csrfFetch(`/api/reviews/${reviewId}`, {
     method: "DELETE",
   });
 
   if (response.ok) {
-    // console.log("reached response.ok")
     const details = await response.json();
-    // console.log("details from inside thunk", details)
     dispatch(deleteReview(reviewId));
   }
 };

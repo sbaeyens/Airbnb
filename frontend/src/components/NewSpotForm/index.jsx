@@ -75,7 +75,6 @@ function NewSpotForm() {
         setErrors(newErrors);
       }, [country, streetAddress, city, state, latitude, longitude, description,title, price, previewPhoto]);
 
-      // console.log(errors)
 
       const handleSubmit = async (e) => {
         e.preventDefault();
@@ -99,7 +98,6 @@ function NewSpotForm() {
         };
 
         photosArr = []
-        console.log("photosArr 1 - should be empty", photosArr);
 
         let previewImgObj = {
           url: previewPhoto,
@@ -107,7 +105,6 @@ function NewSpotForm() {
         }
 
         photosArr.push(previewImgObj)
-        console.log("photosArr2 - should only have preview", photosArr)
 
         if (photo1) {
           photosArr.push({
@@ -133,7 +130,6 @@ function NewSpotForm() {
             preview: "false",
           });
         }
-            console.log("photosArr3 - after optional photos - should only have 1 value still", photosArr);
 
 
         // for (let i = 0; i < 4; i++) {
@@ -145,15 +141,12 @@ function NewSpotForm() {
 
 
         let createdSpot = await dispatch(addNewSpot(newSpot))
-        console.log("newSpot from inside form clickhandler", newSpot)
 
         let spotId = createdSpot.id
-        console.log("spotId from inside NewSpotForm clickhandler", spotId)
 
         if (createdSpot) {
           dispatch(addPhotosToSpot(photosArr, spotId));
         }
-        // console.log("images from inside clickhandler", images)
 
     if (createdSpot) {
       history.push(`/spots/${createdSpot.id}`);

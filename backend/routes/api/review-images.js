@@ -17,7 +17,6 @@ router.delete("/:imageId", requireAuth, async (req, res, next) => {
   let image = await ReviewImage.findByPk(req.params.imageId, {
     include: { model: Review },
   });
-  //   console.log(image)
   //if spot id doesn't exist throw error
   if (!image) {
     const err = new Error("Spot Image couldn't be found");
@@ -26,9 +25,7 @@ router.delete("/:imageId", requireAuth, async (req, res, next) => {
   }
 
   //check current user is owner of spot associated with image
-  console.log(image)
   let userIdNum = image.toJSON().Review.userId;
-  console.log(userIdNum);
 
   if (userIdNum !== req.user.id) {
     res.status(400);

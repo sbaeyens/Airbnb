@@ -10,7 +10,6 @@ function SingleReview({ review, sessionUser }) {
   let newdate = dateobj.toString()
   let dateArr = newdate.split(' ')
   // let newDate = dateobj.getFullYear() + "/" + (dateobj.getMonth() + 1);
-  // console.log("newDate", newDate)
   let dateMonth = dateArr[1]
   let dateDay = dateArr [2]
   let dateYear = dateArr[3]
