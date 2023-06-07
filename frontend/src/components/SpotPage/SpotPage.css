@@ -307,6 +307,24 @@
   color: #dddddd;
   cursor: not-allowed;
   opacity: 1;
+  background-color: grey;
+  background-image: none;
+}
+
+.owner-message {
+  font-size: 13px;
+  /* align-content: center; */
+  padding-top: 17px;
+  margin-top: 10px;
+}
+
+.owner-link-color {
+  color: #ff385c;
+  font-weight: 700;
+}
+
+.owner-button {
+  margin-bottom: 15px;
 }
 
 .price-summary {

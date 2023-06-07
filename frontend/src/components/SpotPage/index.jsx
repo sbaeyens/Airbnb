@@ -12,6 +12,8 @@ import { compareAsc, differenceInCalendarDays, format } from "date-fns";
 import MapView from "../MapView";
 import MapSearch from "../MapSearch";
 import { clearSpotState } from "../../store/spots";
+import { Link } from "react-router-dom";
+
 
 
 function SpotPage() {
@@ -264,11 +266,34 @@ function SpotPage() {
                 </div>
               </div>
             </div>
-            <div className="reserve-modal-button">
-              <button className="submit-button-reserve" onClick={handleReserve}>
-                Reserve
-              </button>
-            </div>
+            {!isOwner ? (
+              <div className="reserve-modal-button">
+                <button
+                  className="submit-button-reserve"
+                  onClick={handleReserve}
+                >
+                  Reserve
+                </button>
+              </div>
+            ) : (
+              <div className="owner-reserve-modal-button">
+                <button
+                  className="submit-button-reserve owner-button"
+                  onClick={handleReserve}
+                  disabled="true"
+                >
+                  Cannot Reserve Own Property
+                </button>
+                <span className="owner-message">
+                  You are the owner of this property. Manage your listings from
+                  your{" "}
+                  <Link to={`/spots/current`}>
+                    <span className="owner-link-color">Manage Spots</span>
+                  </Link>{" "}
+                  page.{" "}
+                </span>
+              </div>
+            )}
             {costSummaryNights > 1 ? (
               <div className="price-summary">
                 <div className="cost-summary-line nightly-charge-summary">
