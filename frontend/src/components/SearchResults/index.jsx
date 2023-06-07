@@ -7,15 +7,28 @@ import { NavLink, useHistory } from "react-router-dom/cjs/react-router-dom";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 
 function SearchResults() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
     const history = useHistory
   const spots = useSelector((state) => {
-    return state.spots.allSpots;
+    return state.spots?.allSpots;
   });
+
+  // const [mapCenter, setMapCenter] = useState({
+  //   lat: Number(48.8566),
+  //   lng: Number(2.3522),
+  // });
 
   useEffect(() => {
     dispatch(getAllSpots());
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   setMapCenter({
+  //     lat: Number(firstSpotLat),
+  //     lng: Number(searchResultsArray[0]?.lng + 0.27),
+  //   });
+  //   console.log("fired setMapCenter()")
+  // }, [spots]);
 
     console.log("state from Allspots component", spots);
 
@@ -67,10 +80,11 @@ function SearchResults() {
 
    const center = { lat: Number(firstSpotLat), lng: Number(searchResultsArray[0]?.lng + 0.270) };
   console.log(center)
-  const newCenter = {
-    lat: Number(48.8566),
-    lng: Number(2.3522),
-  };
+  // const newCenter = {
+  //   lat: Number(48.8566),
+  //   lng: Number(2.3522),
+  // };
+
    if (!isLoaded) {
      <div>LOADING...</div>;
    }
@@ -98,10 +112,10 @@ function SearchResults() {
           </div>
         </div>
         <div className="map-search-wrapper-search">
-          {isLoaded ? (
+          { (isLoaded && (searchResultsArray.length > 0)) ? (
             <div className="google-maps-box-search">
               <GoogleMap
-                center={newCenter}
+                center={center}
                 zoom={10}
                 mapContainerStyle={{ width: "100%", height: "100%" }}
               >
