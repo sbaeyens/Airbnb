@@ -71,7 +71,7 @@ export default function reviewsReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_SPOT_BOOKINGS:
       const bookings = { ...action.payload.Bookings };
-      console.log("bookings from inside reducer", bookings);
+
       let bookingsArr = Object.values(bookings);
       let normalizedBookings = {};
       bookingsArr.forEach(
@@ -84,12 +84,10 @@ export default function reviewsReducer(state = initialState, action) {
       return result;
     case ADD_SPOT_BOOKING:
       const newBooking = { ...action.payload };
-      console.log("newBooking from reducer", newBooking);
 
       return { ...state };
     case LOAD_USER_BOOKINGS:
       let userBookings = { ...action.payload.Bookings };
-      console.log("bookings from inside reducer", userBookings);
       // let bookingsArr = Object.values(bookings);
       // let normalizedBookings = {};
       // bookingsArr.forEach(

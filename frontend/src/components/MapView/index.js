@@ -13,14 +13,11 @@ function MapView({singleSpot}) {
     return state.spots.allSpots;
   });
 
-  console.log("singleSpot from mapcview", singleSpot)
   useEffect(() => {
     dispatch(getAllSpots());
   }, [dispatch]);
 
-  console.log("state from Allspots component", spots);
 
-  console.log("process.env", process.env);
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
@@ -31,8 +28,7 @@ function MapView({singleSpot}) {
 
   // Put all spots in array
   let spotsArr = Object.values(spots);
-  // console.log("spotsArr", spotsArr)
-  console.log("spotsArr from mapView", spotsArr);
+
 
   const containerStyle = {
     width: "400px",

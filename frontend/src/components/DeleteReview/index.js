@@ -14,7 +14,6 @@ function DeleteReview({ review }) {
   const { closeModal } = useModal();
 
     let reviewId = review.id;
-    console.log("reviewId from inside component", reviewId)
 
   const handleDelete = (e) => {
     e.preventDefault();

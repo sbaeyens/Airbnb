@@ -6,12 +6,10 @@ import DeleteSpotModal from "../DeleteSpotModal"
 function SpotCard({ spot, sessionUser }) {
 
   if (sessionUser === undefined) sessionUser = 0
-  // console.log("sessionUser should be 0 now", sessionUser)
 
   let isOwner = false
     if (spot.ownerId === sessionUser.id) isOwner = true
 
-  // console.log("isOwner value", isOwner)
 
 
     return (

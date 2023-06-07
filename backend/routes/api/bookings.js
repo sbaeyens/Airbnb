@@ -24,7 +24,6 @@ router.get('/current', requireAuth, async (req, res) => {
         let bookingObj = booking.toJSON()
         bookingsArr.push(bookingObj)
     })
-    console.log("bookingsArr from backend route", bookingsArr);
 
 
     let finalBookingsObj = {}
@@ -33,7 +32,6 @@ router.get('/current', requireAuth, async (req, res) => {
 
     for (i = 0; i < bookingsArr.length; i++) {
         let bookingObj = bookingsArr[i]
-        // console.log(bookingObj);
 
         let spotIdNum = bookingObj.spotId
 
@@ -41,18 +39,14 @@ router.get('/current', requireAuth, async (req, res) => {
             where: {spotId: spotIdNum}
         })
         let previewImgUrl = previewImg.toJSON()['url']
-        // console.log(previewImgUrl)
 
 
-        // console.log(bookingObj)
         bookingObj.Spot.previewImage = previewImgUrl
-        // console.log(bookingObj);
+
         finalBookingsArr.push(bookingObj)
-        // console.log(bookingsArr)
+
 
     }
-
-    console.log(finalBookingsArr)
 
     finalBookingsObj.Bookings = finalBookingsArr
     res.json(finalBookingsObj)
@@ -98,9 +92,6 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
   let endTime = bookingObj.endDate;
   let endTimeMS = endTime.getTime();
 
-  // console.log('currentTimeMS', currentTimeMS)
-  // console.log('startTime', startTime)
-  // console.log("startTimeMS", startTimeMS);
   let dateCalc = endTimeMS - currentTimeMS;
 
   if (dateCalc < 0) {
@@ -109,7 +100,6 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     next(err);
     return;
   }
-  console.log(bookingObj)
   //Error for if new dates have a booking conflict
   //Time range must be open (aka no overlapping booking date)
   let spotBookings = await Spot.findByPk(bookingObj.spotId, {
@@ -117,16 +107,12 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
   });
 
   let spotBookingsObj = spotBookings.toJSON();
-  // console.log(spotBookingsObj)
   let bookingsArr = spotBookingsObj.Bookings;
-  // console.log(bookingsArr)
 
   //loop through all bookings
   for (i = 0; i < bookingsArr.length; i++) {
     let existingBookingStartDate = bookingsArr[i].startDate;
     let existingBookingEndDate = bookingsArr[i].endDate;
-    // console.log("existingBookingStarDate", existingBookingStartDate);
-    // console.log("existingBookingEndDate", existingBookingEndDate);
 
     //check if NEW start date falls between start and end date. Throw error if so.
     // if (startDateData > )
@@ -199,9 +185,7 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     let startTime = bookingObj.startDate
     let startTimeMS = startTime.getTime()
 
-    // console.log('currentTimeMS', currentTimeMS)
-    // console.log('startTime', startTime)
-    // console.log("startTimeMS", startTimeMS);
+
     let dateCalc = startTimeMS - currentTimeMS
 
     if (dateCalc < 0) {

@@ -20,7 +20,6 @@ useEffect(() => {
   };
 }, [dispatch]);
 
-console.log("state from Allspots component", spots);
 
 if (!spots) {
   return null;
@@ -28,8 +27,7 @@ if (!spots) {
 
 // Put all spots in array
 let spotsArr = Object.values(spots);
-// console.log("spotsArr", spotsArr)
-    console.log("spotsArr from allspots", spotsArr);
+
 
   return (
     <div className="all-spots-page-wrapper">

@@ -23,7 +23,6 @@ function Navigation({ isLoaded }) {
       // dateRange: daterange will go here if/when added to query
     }
     const searchParams = new URLSearchParams(queryObj)
-    console.log("searchParams", searchParams.toString());
     let queryString = searchParams.toString();
     history.push(`/search?${queryString}`);
     window.location.reload(false);

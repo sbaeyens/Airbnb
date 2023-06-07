@@ -20,21 +20,20 @@ function Trips() {
      }, [dispatch]);
 
     let bookingsArr = Object.values(bookings)
-    console.log(bookingsArr)
+
 
 
     let futureBookings = []
     let pastBookings = []
 
-    console.log("todays date", new Date())
+
 
     bookingsArr.forEach((booking) => {
         if (differenceInCalendarDays(new Date(booking.endDate), new Date()) > 0) futureBookings.push(booking);
         else pastBookings.push(booking);
     })
 
-    console.log("futureBookings", futureBookings)
-    console.log("pastBookings", pastBookings);
+
 
     return (
       <div className="trips-wrapper">

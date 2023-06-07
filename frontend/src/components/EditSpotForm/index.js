@@ -20,8 +20,7 @@ function EditSpotForm() {
   singleSpotObj = useSelector((state) => {
     return state.spots.singleSpot;
   });
-  console.log("singleSpotObj", singleSpotObj)
-  console.log("sessionUser", sessionUser)
+
 
   useEffect(() => {
     const fillFeilds = async () => {
@@ -43,80 +42,13 @@ function EditSpotForm() {
 
 
   //if not owner of spot, redirect to home
-  console.log(singleSpotObj)
+
   let isOwner = true;
   if (Object.keys(singleSpotObj).length > 0 && singleSpotObj.ownerId !== sessionUser.id) isOwner = false;
   if (isOwner === false) history.push(`/`);
 
   let spotId = useParams().spotId;
-  // console.log("spotID from editSpotform", spotId)
 
-
-    // console.log("singleSpotObj", singleSpotObj)
-    // let singleSpotData = {
-    //   country: "",
-    //   streetAddress: "",
-    //   city: "",
-    //   state: "",
-    //   latitude: "",
-    //   longitude: "",
-    //   description: "",
-    //   title: "",
-    //   price: "",
-    //   SpotImages: [
-    //     { url: "" },
-    //     { url: "" },
-    //     { url: "" },
-    //     { url: "" },
-    //     { url: "" },
-    //   ],
-    // };
-    // if (Object.keys(singleSpotObj).length > 0) {
-    //   singleSpotData = { ...singleSpotObj };
-    // }
-    // console.log("singleSpotData", singleSpotData);
-
-    // const [allSpotData, setAllSpotData] = useState({
-    //   country: "",
-    //   streetAddress: "",
-    //   city: "",
-    //   state: "",
-    //   latitude: "",
-    //   longitude: "",
-    //   description: "",
-    //   title: "",
-    //   price: "",
-    //   SpotImages: [
-    //     { url: "" },
-    //     { url: "" },
-    //     { url: "" },
-    //     { url: "" },
-    //     { url: "" },
-    //   ],
-    // });
-
-    // useEffect(() => {
-
-    //     if (singleSpotObj) {
-    //       const inputFiller = {
-    //         ...allSpotData,
-    //         country: singleSpotObj.country,
-    //         city: singleSpotObj.city,
-    //         state: singleSpotObj.state,
-    //       };
-    //       setAllSpotData(inputFiller);
-    //         console.log("allspotData UseEffect@@@@@@@@@@@", allSpotData);
-    //     }
-    // },[singleSpotObj])
-
-    // useEffect(() => {
-    //     let newSpotData = {
-    //         ...allSpotData,
-    //         // streetAddress: allSpotData.streetAddress
-    //     }
-    //     setAllSpotData(newSpotData)
-    //   console.log("allspotData UseEffect@@@@@@@@@@@", allSpotData);
-    // }, []);
 
 
   const [country, setCountry] = useState("");
@@ -179,7 +111,6 @@ function EditSpotForm() {
     price,
   ]);
 
-  // console.log(errors)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -201,31 +132,13 @@ function EditSpotForm() {
     };
 
 
-
-    // for (let i = 0; i < 4; i++) {
-    //   if (photo + i) {
-
-    //   }
-    // }
-
-
-    console.log("spotId from inside NewSpotForm clickhandler", spotId);
-
     let editedSpot = await dispatch(editSpot(newSpot, spotId));
-    console.log("editedSpot from inside form clickhandler", newSpot);
-
 
 
     if (editedSpot) {
       history.push(`/spots/${spotId}`);
     }
   };
-
-    // let handleChange = e => {
-    //     const changeSpot = { ...allSpotData, [e.target.name]: e.target.value }
-    //     setAllSpotData(changeSpot)
-    // }
-
 
 
   return (
