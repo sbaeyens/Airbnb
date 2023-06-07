@@ -75,7 +75,7 @@ function SearchResults() {
     console.log("searchResultsArray.length", searchResultsArray.length);
     let firstSpotLat = searchResultsArray[0]?.lat;
   console.log("first spot lat", firstSpotLat)
-  let firstSpotLng = searchResultsArray[0]?.lng ? (searchResultsArray[0].lng + 0.270) : 0 ;
+  let firstSpotLng = searchResultsArray[0]?.lng ? (Number(searchResultsArray[0].lng) + 0.270) : 0 ;
   console.log("first spot lng", firstSpotLng)
   // let testCenter = { "lat": spotsArr[0].lat, "lng": spotsArr[0].lng }
     // console.log("testCenter", testCenter)
