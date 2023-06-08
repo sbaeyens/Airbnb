@@ -42,10 +42,12 @@ function Trips() {
           {/* <div className="grey-divider"></div> */}
           <div className="upcoming-trips">
             <span className="upcoming-trips-header">Upcoming Reservations</span>
-            {bookings &&
-              futureBookings.map((booking) => (
-                <FutureBookingCard booking={booking} />
-              ))}
+            <div className="upcoming-trips-rev">
+              {bookings &&
+                futureBookings.map((booking) => (
+                  <FutureBookingCard booking={booking} />
+                ))}
+            </div>
           </div>
           {/* <div className="grey-divider"></div> */}
           <div className="past-trips">

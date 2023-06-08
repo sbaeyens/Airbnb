@@ -33,6 +33,17 @@
   gap: 20px;
 }
 
+.upcoming-trips-rev {
+  /* border-bottom: 1px solid #ddd; */
+  /* border-top: 1px solid #ddd; */
+  display: flex;
+  flex-direction: column-reverse;
+  /* margin-top: 25px; */
+  /* padding-bottom: 30px;
+  padding-top: 30px; */
+  gap: 20px;
+}
+
 .future-booking-card {
   display: flex;
   width: 100%;
