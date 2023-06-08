@@ -73,6 +73,7 @@ export default function reviewsReducer(state = initialState, action) {
       const bookings = { ...action.payload.Bookings };
 
       let bookingsArr = Object.values(bookings);
+      console.log(bookingsArr)
       let normalizedBookings = {};
       bookingsArr.forEach(
         (booking) => (normalizedBookings[booking.id] = booking)

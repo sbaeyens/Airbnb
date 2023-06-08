@@ -16,7 +16,7 @@
   padding: 3px;
 } */
 
-input,
+.new-spot-form input,
 textarea {
   display: block;
   width: 100%;

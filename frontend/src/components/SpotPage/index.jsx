@@ -7,23 +7,37 @@ import SingleReview from "../SingleReview";
 import OpenModalButton from "../OpenModalButton";
 import "./SpotPage.css";
 import PostReviewModal from "../PostReviewModal";
-import { addNewBooking, getSpotBookings } from "../../store/bookings";
+import { addNewBooking, getSpotBookings, getUserBookings } from "../../store/bookings";
 import { compareAsc, differenceInCalendarDays, format } from "date-fns";
 import MapView from "../MapView";
 import MapSearch from "../MapSearch";
 import { clearSpotState } from "../../store/spots";
 import { Link } from "react-router-dom";
+import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
+import "./DatePicker.css";
+import { subDays } from "date-fns";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 
 
 
 function SpotPage() {
   let sessionUser
+  const history = useHistory()
   sessionUser = useSelector((state) => state.session.user);
   let bookings = useSelector((state) => state.bookings)
   let spotId = useParams().spotId;
-  const [checkin, setCheckin] = useState("")
-  const [checkout, setCheckout] = useState("");
+  const [checkin, setCheckin] = useState(new Date())
+  const [checkout, setCheckout] = useState(new Date());
+  const [isReviewPurchase, setIsReviewPurchase] = useState(false)
+  //values for calendar component test
+  const [startDate, setStartDate] = useState(new Date());
+
+
   let reviewsArr = []
+  let bookingsArr = []
+
   //---GRAB SPOT DATA---//
   const dispatch = useDispatch();
   const singleSpot = useSelector((state) => {
@@ -57,7 +71,22 @@ function SpotPage() {
 
   // Put all reviews in array
   reviewsArr = Object.values(spotReviews);
+  bookingsArr = Object.values(bookings?.spot)
+  let excludedDates = [
+    {
+      start: subDays(new Date(), 1000),
+      end: new Date(),
+    },
+  ];
+  if (bookingsArr.length >0) {
+    bookingsArr.forEach((booking) => {
+      excludedDates.push({
+        start: new Date(booking.startDate),
+        end: new Date(booking.endDate),
+      })
 
+    })
+  }
 
   /// check if user has reviews on page:
   if (!sessionUser) {
@@ -71,10 +100,11 @@ function SpotPage() {
       if (review.User.id === sessionUser.id) sessionHasNoReview = false;
     });
   }
-
+  console.log( "test date", new Date("2023-06-21T00:00:00.000Z"))
   // check if current session is owner
   let isOwner = false;
   if (singleSpot.ownerId === sessionUser.id) isOwner = true;
+
 
   const handleReserve = async (e) => {
     e.preventDefault()
@@ -88,7 +118,8 @@ function SpotPage() {
       endDate
     }
     dispatch(addNewBooking(newBooking))
-
+    dispatch(getUserBookings())
+    history.push(`/trips`);
   }
 
   let costSummaryNights = (singleSpot.price) * (differenceInCalendarDays(new Date(checkout), new Date(checkin)));
@@ -240,7 +271,7 @@ function SpotPage() {
               <div className="check-in">
                 <span className="date-input-label">CHECK-IN</span>
                 <div className="date-input-wrapper">
-                  <input
+                  {/* <input
                     className="date-input"
                     type="date"
                     id="start"
@@ -248,13 +279,18 @@ function SpotPage() {
                     value={checkin}
                     min={Date()}
                     onChange={(e) => setCheckin(e.target.value)}
+                  /> */}
+                  <DatePicker
+                    selected={checkin}
+                    onChange={(date) => setCheckin(date)}
+                    excludeDateIntervals={excludedDates}
                   />
                 </div>
               </div>
               <div className="check-out">
                 <span className="date-input-label">CHECKOUT</span>
                 <div className="date-input-wrapper">
-                  <input
+                  {/* <input
                     className="date-input"
                     type="date"
                     id="end"
@@ -262,6 +298,11 @@ function SpotPage() {
                     value={checkout}
                     min={Date()}
                     onChange={(e) => setCheckout(e.target.value)}
+                  /> */}
+                  <DatePicker
+                    selected={checkout}
+                    onChange={(date) => setCheckout(date)}
+                    excludeDateIntervals={excludedDates}
                   />
                 </div>
               </div>
@@ -313,13 +354,17 @@ function SpotPage() {
                 </div>
                 <div className="cost-summary-line service-fee">
                   <span>Service Fee</span>
-                  <span>${costServiceFee}</span>
+                  <span>${costServiceFee.toFixed(2)}</span>
                 </div>
                 <div className="summary-line"></div>
                 <div className="cost-summary-line service-fee">
                   <span className="summary-text">Total Before Taxes</span>
                   <span className="summary-text">
-                    ${totalCostBeforeTaxes.toLocaleString()}
+
+                    {totalCostBeforeTaxes.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
                   </span>
                 </div>
               </div>
