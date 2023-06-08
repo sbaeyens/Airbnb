@@ -29,9 +29,15 @@
   align-items: center;
 }
 
+.login-modal input {
+  /* display: block; */
+  width: 100% !important;
+}
+
 .login-modal form input[type="text"],
 .login-modal form input[type="email"],
 .login-modal form input[type="password"] {
+  /* display: block; */
   width: 100%;
   padding: 5px;
   margin-bottom: 10px;
@@ -150,9 +156,12 @@
 
 /* !!!!!   new css    !!!! */
 .login-logout-inputs {
-  width: 380px;
+  display: flex;
+  flex-direction: column;
+  width: 420px;
   position: relative;
-  right: 23px;
+  /* right: 40px; */
+  /* border: 1px solid red; */
 }
 
 #login-username {
@@ -162,6 +171,7 @@
   padding-bottom: 6px;
   border-bottom: none;
   padding: 20px;
+  width: 380px;
 }
 
 #login-password {
@@ -169,6 +179,7 @@
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   padding: 20px;
+  width: 380px;
 }
 
 .login-modal-container {
