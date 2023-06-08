@@ -58,9 +58,18 @@ let spotsArr = Object.values(spots);
       <div className="personal-links-footer">
         <div className="footer-left">Built by Sean Baeyens - 2023</div>
         <div className="footer-right">
-          <a className="portfolio-link">LinkedIn</a>
-          <span className="portfolio-link">Github</span>
-          <span className="portfolio-link">Portfolio</span>
+          <a
+            href="https://www.linkedin.com/in/sean-baeyens/"
+            className="portfolio-link"
+          >
+            <i class="fa-brands fa-linkedin"></i> LinkedIn
+          </a>
+          <span href="https://github.com/sbaeyens" className="portfolio-link">
+            <i class="fa-brands fa-github"></i> Github
+          </span>
+          <span href="https://sbaeyens.github.io/" className="portfolio-link">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Portfolio
+          </span>
         </div>
       </div>
     </div>
