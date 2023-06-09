@@ -21,6 +21,11 @@
   display: flex;
 }
 
+.portfolio-link:hover {
+  color: #d70466;
+  cursor: pointer;
+}
+
 .alert-login-button {
   background-image: linear-gradient(to right, #e61e4d, #d70466);
   border: 0px solid #222222;
