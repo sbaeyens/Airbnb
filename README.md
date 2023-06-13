@@ -10,11 +10,11 @@ Visit [CasaBnb](https://sean-rent-service.onrender.com/) to check it out!
 
 # Wiki Links
 
-[API DOCUMENTATION](https://github.com/sbaeyens/Airbnb/wiki/API-Documentation))
+[API DOCUMENTATION](https://github.com/sbaeyens/Airbnb/wiki/API-Documentation)
 
 [DATABASE SCHEMA](https://github.com/sbaeyens/Airbnb/wiki/API-Documentation)
 
-[FEATURE LIST](https://github.com/sbaeyens/Airbnb/wiki/API-Documentation))
+[FEATURE LIST](https://github.com/sbaeyens/Airbnb/wiki/API-Documentation)
 
 [REDUX STORE SHAPE](https://github.com/sbaeyens/Airbnb/wiki/API-Documentation)
 
