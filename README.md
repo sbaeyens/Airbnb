@@ -1,10 +1,10 @@
-# airbenbe
+# CasaBnb
 
 ***
 
-Airbenbe is a clone inspired by [AirBnB](https://www.airbnb.com/). It is a fullstack project utilizing an Express backend, and a React/Redux frontend.
+CasaBnb is a clone inspired by [AirBnB](https://www.airbnb.com/). It is a fullstack project utilizing an Express backend, and a React/Redux frontend.
 
-Visit [airbenbe](https://airbenbe.herokuapp.com/) to check it out!
+Visit [CasaBnb](https://sean-rent-service.onrender.com/) to check it out!
 
 ***
 
